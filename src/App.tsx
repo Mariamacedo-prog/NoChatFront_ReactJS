@@ -1,10 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { isLogged } from "./helpers/Auth";
+import Routes from "./routes";
+import Header from "./components/Header";
 
 const App = () => {
+  let logged = isLogged();
   return (
-    <div className="App">
-      <p>Hello world</p>
-    </div>
+    <Router>
+      {logged && <Header />}
+      <Routes />
+    </Router>
   );
 };
 
