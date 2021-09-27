@@ -8,6 +8,7 @@ import { isLogged } from "../helpers/Auth";
 
 interface RouteProps extends ReactDOMRouteProps {
   private?: boolean;
+  public?: boolean;
 }
 
 const RouteHandler: React.FC<RouteProps> = ({ children, ...rest }) => {
