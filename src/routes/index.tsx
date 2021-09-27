@@ -1,8 +1,10 @@
 import { Switch, Redirect } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Feed from "../pages/Feed";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
+import Chat from "../components/Chat";
 
 let logged = isLogged();
 
@@ -15,7 +17,10 @@ const Routes: React.FC = () => (
       {!logged ? <SignUp /> : <Redirect to="/" />}
     </Route>
     <Route exact path="/" private>
-      <div>Opaaa privado</div>
+      <div>
+        <Chat />
+        <Feed />
+      </div>
     </Route>
 
     <Route>
