@@ -61,7 +61,7 @@ const apiFetchPut = async (endpoint: string, body: BodyType) => {
   return json;
 };
 
-const apiFetchGet = async (endpoint: string, body: BodyType) => {
+const apiFetchGet = async (endpoint: string, body: any = []) => {
   if (!body.token) {
     let token = Cookie.get("token");
     if (token) {
@@ -69,7 +69,12 @@ const apiFetchGet = async (endpoint: string, body: BodyType) => {
     }
   }
 
-  const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`);
+  const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
 
   const json = await res.json();
 
@@ -112,6 +117,11 @@ const NoChatAPi = {
   },
   register: async (email: string, password: string, name: string) => {
     const json = await apiFetchPost("/singup", { email, password, name });
+
+    return json;
+  },
+  userInfo: async () => {
+    const json = await apiFetchGet("/user/me");
 
     return json;
   },

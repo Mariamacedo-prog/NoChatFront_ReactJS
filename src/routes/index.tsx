@@ -1,7 +1,7 @@
 import { Switch, Redirect } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
-import Feed from "../pages/Feed";
+import Profile from "../pages/Profile";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
 import Chat from "../components/Chat";
@@ -16,11 +16,8 @@ const Routes: React.FC = () => (
     <Route exact path="/signup" public>
       {!logged ? <SignUp /> : <Redirect to="/" />}
     </Route>
-    <Route exact path="/" private>
-      <div>
-        <Chat />
-        <Feed />
-      </div>
+    <Route exact path="/profile" private>
+      <Profile />
     </Route>
 
     <Route>

@@ -9,8 +9,16 @@ const App = () => {
   let logged = isLogged();
   return (
     <Router>
-      {logged && <Header />}
-      <Routes />
+      {logged && (
+        <div>
+          <Header />
+          <div>
+            <Chat />
+            <Routes />
+          </div>
+        </div>
+      )}
+      {!logged && <Routes />}
     </Router>
   );
 };

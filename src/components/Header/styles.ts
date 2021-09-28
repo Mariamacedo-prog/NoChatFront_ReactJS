@@ -23,7 +23,7 @@ export const Container = styled.div`
 export const Search = styled.div`
   border-radius: 10px;
   height: 33px;
-  background-color: #000;
+  background-color: #19181a;
   display: flex;
   align-items: center;
   margin: 0 10px;
@@ -35,7 +35,7 @@ export const Search = styled.div`
     height: 27px;
   }
   input {
-    background-color: #000;
+    background-color: transparent;
     border: none;
     outline: 0;
     color: #ff4d00;
@@ -52,12 +52,12 @@ export const Menu = styled.nav`
   }
 
   li {
-    width: 30%;
+    width: 20%;
     a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #000;
+      color: #19181a;
       justify-content: center;
       text-decoration: none;
       svg {
@@ -68,9 +68,14 @@ export const Menu = styled.nav`
       p {
         margin: 0;
         padding: 0;
-        color: #000;
+        color: #19181a;
         font-size: 16px;
         font-weight: bolder;
+      }
+      img {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
       }
     }
     a:hover {
@@ -89,7 +94,7 @@ export const Button = styled.button`
   font-weight: bolder;
   text-align: center;
   transition: 0.5s;
-  color: #000;
+  color: #19181a;
 
   :hover {
     color: #fff;

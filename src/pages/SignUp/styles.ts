@@ -15,7 +15,7 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
-  background-color: #000;
+  background-color: #19181a;
   margin: -8px;
 `;
 
@@ -47,15 +47,15 @@ export const FormSide = styled.div`
     animation: ${appear} 3s;
 
     input {
-      background-color: #000;
-      border: 1px solid #000;
+      background-color: #19181a;
+      border: 1px solid #19181a;
       height: 30px;
       margin-bottom: 10px;
       width: 290px;
       border-radius: 5px;
       transition: 0.5s;
       color: #fff;
-      border: 3px solid #000;
+      border: 3px solid #19181a;
     }
     svg {
       margin-right: 10px;
