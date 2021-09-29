@@ -4,7 +4,6 @@ import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
-import Chat from "../components/Chat";
 
 let logged = isLogged();
 

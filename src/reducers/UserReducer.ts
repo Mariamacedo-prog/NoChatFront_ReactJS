@@ -10,6 +10,17 @@ export interface ChatUser {
   id: string;
 }
 
+export interface PublicationsType {
+  category: string;
+  comment: [];
+  description?: string;
+  like: [];
+  title?: string;
+  userId: string;
+  _id: string;
+  image?: string;
+}
+
 export interface StateUser {
   name?: string;
   email?: string;
@@ -18,6 +29,7 @@ export interface StateUser {
   chats: ChatUser[];
   followers: string[];
   followings: string[];
+  publications: PublicationsType[];
   description?: string;
 }
 
@@ -26,21 +38,26 @@ interface ActionsString {
   payload: string | number;
 }
 
+interface ActionsArray {
+  type: "SET_FOLLOWERS" | "SET_FOLLOWINGS" | "SET_CHATS" | "SET_PUBLICATIONS";
+  payload: [];
+}
+
 const initialState = {
   name: "",
   email: "",
   _id: "",
   description: "",
   avatar: "",
+  publications: [],
   chats: [],
   followers: [],
   followings: [],
 };
 
-const UserReducer = (
-  state: StateUser = initialState,
-  action: ActionsString
-) => {
+type Actions = ActionsString | ActionsArray;
+
+const UserReducer = (state: StateUser = initialState, action: Actions) => {
   switch (action.type) {
     case "SET_NAME":
       return { ...state, name: action.payload };
@@ -63,6 +80,15 @@ const UserReducer = (
       break;
     case "SET_FOLLOWINGS":
       return { ...state, followings: action.payload };
+      break;
+    case "SET_CHATS":
+      return { ...state, chats: action.payload };
+      break;
+    case "SET_PUBLICATIONS":
+      return {
+        ...state,
+        publications: action.payload,
+      };
       break;
 
     default: {

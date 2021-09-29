@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from "react";
-import useApi from "../../helpers/Api";
-import { StateUser, ChatUser } from "../../reducers/UserReducer";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { GrConfigure } from "react-icons/gr";
+import { PublicationsType } from "../../reducers/UserReducer";
+import { Dispatch } from "redux";
+import Publication from "../../components/Publication";
 import {
   Container,
   HeaderProfile,
   ProfileImage,
   ProfileConfig,
   ProfileInfo,
+  PostButtons,
+  UserFeed,
+  PostInfo,
 } from "./styles";
 
 const Profile = (props: any) => {
+  const [category, setCategory] = useState("publication");
+
+  console.log(props.publications);
   return (
     <>
       <Container>
@@ -36,20 +43,58 @@ const Profile = (props: any) => {
             <div>{props.description !== "" && <p>{props.description}</p>}</div>
           </ProfileInfo>
           <ProfileConfig>
-            <div>
+            <ul>
               <div>
-                {props.followings}
-                <p>Seguindo</p>
+                <li>{props.followings.length}</li>
+                <li>Seguindo</li>
               </div>
-              <div>
-                {props.followings}
-                <p>Seguidores</p>
-              </div>
-            </div>
 
+              <div>
+                <li>{props.followers.length}</li>
+                <li>Seguidores</li>
+              </div>
+            </ul>
             <GrConfigure />
           </ProfileConfig>
         </HeaderProfile>
+        <PostButtons>
+          <div onClick={() => setCategory("publication")}>Publicações</div>
+          <div onClick={() => setCategory("picture")}>Fotos</div>
+          <div onClick={() => setCategory("article")}>Artigos</div>
+        </PostButtons>
+
+        <UserFeed>
+          {props.publications.map(
+            (item: PublicationsType) =>
+              item.category === category && (
+                <div key={item._id}>
+                  <PostInfo>
+                    {props.vatar !== "" ? (
+                      <img
+                        src={`https://nochat-api.herokuapp.com/media/${props.avatar}`}
+                        alt={`foto de perfil de ${props.name}`}
+                      />
+                    ) : (
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        alt="Avatar"
+                      />
+                    )}
+                    <Link to={`/user/${props.name}`}>{props.name}</Link>
+                  </PostInfo>
+                  {item.category === "publication" && (
+                    <Publication
+                      item={item}
+                      name={props.name}
+                      avatar={props.avatar}
+                    />
+                  )}
+                  {item.category === "article" && <p>{item.title}</p>}
+                  {item.category === "picture" && <p>{item.image}</p>}
+                </div>
+              )
+          )}
+        </UserFeed>
       </Container>
     </>
   );
@@ -62,7 +107,7 @@ const mapStateToProps = (state: any) => {
     _id: state.user._id,
     description: state.user.description,
     avatar: state.user.avatar,
-
+    publications: state.user.publications,
     chats: state.user.chats,
     followers: state.user.followers,
     followings: state.user.followings,
