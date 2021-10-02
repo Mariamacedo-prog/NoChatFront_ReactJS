@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GrConfigure } from "react-icons/gr";
 import { PublicationsType } from "../../reducers/UserReducer";
 import { Dispatch } from "redux";
 import Publication from "../../components/Publication";
+import { StateUser } from "../../reducers/UserReducer";
+import useApi from "../../helpers/Api";
 import {
   Container,
   HeaderProfile,
@@ -17,9 +19,47 @@ import {
 } from "./styles";
 
 const Profile = (props: any) => {
+  const api = useApi();
+  const [user, setUser] = useState({} as StateUser);
   const [category, setCategory] = useState("publication");
+  const [publications, setPublications] = useState([]);
 
-  console.log(props.publications);
+  useEffect(() => {
+    const getUserInformation = async () => {
+      const info = await api.userInfo();
+      props.setName(`${info.name}`);
+      props.setEmail(`${info.email}`);
+      props.setId(`${info._id}`);
+      props.setFollowers(info.followers);
+      props.setFollowings(info.followings);
+      props.setChats(info.chats);
+
+      if (info.description) {
+        props.setDescription(`${info.description}`);
+      }
+      if (info.avatar) {
+        props.setAvatar(`${info.avatar}`);
+      }
+      setUser(info);
+    };
+    getUserInformation();
+  }, [api]);
+
+  useEffect(() => {
+    const getUserPublications = async () => {
+      const json = await api.getPublications({
+        author: user._id,
+        cat: category,
+      });
+
+      setPublications(json.publications);
+    };
+    getUserPublications();
+  }, [api, user, category]);
+
+  console.log(user);
+  console.log(publications);
+
   return (
     <>
       <Container>
@@ -27,7 +67,7 @@ const Profile = (props: any) => {
           <ProfileImage>
             {props.avatar !== "" ? (
               <img
-                src={`https://nochat-api.herokuapp.com/media/${props.avatar}`}
+                src={`${props.avatar}`}
                 alt={`foto de perfil de ${props.name}`}
               />
             ) : (
@@ -64,14 +104,14 @@ const Profile = (props: any) => {
         </PostButtons>
 
         <UserFeed>
-          {props.publications.map(
+          {publications.map(
             (item: PublicationsType) =>
               item.category === category && (
                 <div key={item._id}>
                   <PostInfo>
-                    {props.vatar !== "" ? (
+                    {props.avatar !== "" ? (
                       <img
-                        src={`https://nochat-api.herokuapp.com/media/${props.avatar}`}
+                        src={`${props.avatar}`}
                         alt={`foto de perfil de ${props.name}`}
                       />
                     ) : (
@@ -82,15 +122,22 @@ const Profile = (props: any) => {
                     )}
                     <Link to={`/user/${props.name}`}>{props.name}</Link>
                   </PostInfo>
+
                   {item.category === "publication" && (
-                    <Publication
-                      item={item}
-                      name={props.name}
-                      avatar={props.avatar}
-                    />
+                    <Publication item={item} />
                   )}
-                  {item.category === "article" && <p>{item.title}</p>}
-                  {item.category === "picture" && <p>{item.image}</p>}
+                  {item.category === "article" && (
+                    <>
+                      <img src={item.image} alt="imagem" />
+                      <p>{item.title}</p>
+                    </>
+                  )}
+                  {item.category === "picture" && (
+                    <>
+                      <img src={item.image} alt="imagem" />
+                      <p>{item.title}</p>
+                    </>
+                  )}
                 </div>
               )
           )}
@@ -107,7 +154,6 @@ const mapStateToProps = (state: any) => {
     _id: state.user._id,
     description: state.user.description,
     avatar: state.user.avatar,
-    publications: state.user.publications,
     chats: state.user.chats,
     followers: state.user.followers,
     followings: state.user.followings,
@@ -115,7 +161,48 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispachToProps = (dispatch: Dispatch) => {
-  return {};
+  return {
+    setName: (name: string) =>
+      dispatch({
+        type: "SET_NAME",
+        payload: name,
+      }),
+    setEmail: (email: string) =>
+      dispatch({
+        type: "SET_EMAIL",
+        payload: email,
+      }),
+    setId: (id: string) =>
+      dispatch({
+        type: "SET_ID",
+        payload: id,
+      }),
+    setDescription: (description: string) =>
+      dispatch({
+        type: "SET_DESCRIPTION",
+        payload: description,
+      }),
+    setAvatar: (avatar: string) =>
+      dispatch({
+        type: "SET_AVATAR",
+        payload: avatar,
+      }),
+    setFollowers: (followers: []) =>
+      dispatch({
+        type: "SET_FOLLOWERS",
+        payload: followers,
+      }),
+    setFollowings: (followings: []) =>
+      dispatch({
+        type: "SET_FOLLOWINGS",
+        payload: followings,
+      }),
+    setChats: (chats: []) =>
+      dispatch({
+        type: "SET_CHATS",
+        payload: chats,
+      }),
+  };
 };
 
 export default connect(mapStateToProps, mapDispachToProps)(Profile);

@@ -5,24 +5,28 @@ import Profile from "../pages/Profile";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
 
-let logged = isLogged();
+const Routes: React.FC = () => {
+  let logged = isLogged();
+  return (
+    <Switch>
+      <Route exact path="/signin" public>
+        {!logged ? <SignIn /> : <Redirect to="/" />}
+      </Route>
+      <Route exact path="/signup" public>
+        {!logged ? <SignUp /> : <Redirect to="/" />}
+      </Route>
+      <Route exact path="/profile" private>
+        <Profile />
+      </Route>
 
-const Routes: React.FC = () => (
-  <Switch>
-    <Route exact path="/signin" public>
-      {!logged ? <SignIn /> : <Redirect to="/" />}
-    </Route>
-    <Route exact path="/signup" public>
-      {!logged ? <SignUp /> : <Redirect to="/" />}
-    </Route>
-    <Route exact path="/profile" private>
-      <Profile />
-    </Route>
-
-    <Route>
-      <div>PAGINA NAO ENCONTRADA</div>
-    </Route>
-  </Switch>
-);
+      <Route exact path="/" private>
+        <p>algumacoisa</p>
+      </Route>
+      <Route>
+        <div>PAGINA NAO ENCONTRADA</div>
+      </Route>
+    </Switch>
+  );
+};
 
 export default Routes;

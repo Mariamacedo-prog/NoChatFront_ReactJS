@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   background-color: #19181a;
   margin: 60px -8px -8px 525px;
-  height: 100vh;
+  height: 100%;
   color: #fff;
 `;
 
@@ -117,6 +117,11 @@ export const UserFeed = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 5px;
+  p {
+    margin-left: 20px;
+    width: 320px;
+    font-size: small;
+  }
 `;
 export const PostInfo = styled.div`
   display: flex;

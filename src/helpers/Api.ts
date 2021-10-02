@@ -1,11 +1,16 @@
 import Cookie from "js-cookie";
 import qs from "qs";
 
-const BASEAPI = "https://nochat-api.herokuapp.com";
+const BASEAPI = "http://localhost";
 
 interface BodyType {
   [key: string]: string;
 }
+
+type PublicationFilter = {
+  author?: string;
+  cat?: string;
+};
 
 const apiFetchPost = async (endpoint: string, body: BodyType) => {
   if (!body.token) {
@@ -111,17 +116,22 @@ const apiFetchFile = async (endpoint: string, body: any) => {
 
 const NoChatAPi = {
   login: async (email: string, password: string) => {
-    const json = await apiFetchPost("/singin", { email, password });
+    const json = await apiFetchPost("/signin", { email, password });
 
     return json;
   },
   register: async (email: string, password: string, name: string) => {
-    const json = await apiFetchPost("/singup", { email, password, name });
+    const json = await apiFetchPost("/signup", { email, password, name });
 
     return json;
   },
   userInfo: async () => {
     const json = await apiFetchGet("/user/me");
+
+    return json;
+  },
+  getPublications: async (options: PublicationFilter) => {
+    const json = await apiFetchGet("/publications", options);
 
     return json;
   },

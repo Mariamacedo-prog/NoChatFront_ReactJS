@@ -1,10 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import {
+  AiOutlineHeart,
+  AiOutlineComment,
+  AiOutlineShareAlt,
+} from "react-icons/ai";
 
 import { Container } from "./styles";
 import { PublicationsType } from "../../reducers/UserReducer";
+import { Link } from "react-router-dom";
 
-const Publication = (item: any) => {
-  return <Container></Container>;
+interface PublicationProps {
+  item: PublicationsType;
+}
+
+const Publication: React.FC<PublicationProps> = (props) => {
+  return (
+    <Container>
+      <Link to={`/post/${props.item._id}`}>
+        <img src={props.item.image} alt="imagem" />
+        {props.item.category}
+        {props.item.description}
+        {props.item.like.length}
+        {props.item.title && props.item.title}
+        {props.item.userId}
+      </Link>
+      <div>
+        <AiOutlineHeart />
+        <AiOutlineComment />
+        <AiOutlineShareAlt />
+      </div>
+    </Container>
+  );
 };
 export default Publication;
 
