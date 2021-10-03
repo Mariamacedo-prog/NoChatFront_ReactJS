@@ -80,6 +80,10 @@ export const FormSide = styled.div`
       border-radius: 5px;
       transition: 0.5s;
     }
+    button:disabled {
+      background-color: #a62a00;
+      cursor: wait;
+    }
 
     button:hover {
       background-color: #a62a00;

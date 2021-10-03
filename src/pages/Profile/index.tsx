@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GrConfigure } from "react-icons/gr";
 import { PublicationsType } from "../../reducers/UserReducer";
 import { Dispatch } from "redux";
 import Publication from "../../components/Publication";
+import Button from "../../components/Button";
 import { StateUser } from "../../reducers/UserReducer";
 import useApi from "../../helpers/Api";
+import {
+  AiOutlineHeart,
+  AiOutlineComment,
+  AiOutlineShareAlt,
+} from "react-icons/ai";
 import {
   Container,
   HeaderProfile,
@@ -16,6 +22,8 @@ import {
   PostButtons,
   UserFeed,
   PostInfo,
+  PostItem,
+  ButtonsArea,
 } from "./styles";
 
 const Profile = (props: any) => {
@@ -23,24 +31,31 @@ const Profile = (props: any) => {
   const [user, setUser] = useState({} as StateUser);
   const [category, setCategory] = useState("publication");
   const [publications, setPublications] = useState([]);
+  const [like, setLike] = useState(false);
+  const [idPubli, setIdPubli] = useState("");
+
+  function reduxUpdate(info: StateUser) {
+    props.setName(info.name);
+    props.setEmail(info.email);
+    props.setId(info._id);
+    props.setFollowers(info.followers);
+    props.setFollowings(info.followings);
+    props.setChats(info.chats);
+
+    if (info.description) {
+      props.setDescription(info.description);
+    }
+    if (info.avatar) {
+      props.setAvatar(info.avatar);
+    }
+  }
 
   useEffect(() => {
     const getUserInformation = async () => {
       const info = await api.userInfo();
-      props.setName(`${info.name}`);
-      props.setEmail(`${info.email}`);
-      props.setId(`${info._id}`);
-      props.setFollowers(info.followers);
-      props.setFollowings(info.followings);
-      props.setChats(info.chats);
-
-      if (info.description) {
-        props.setDescription(`${info.description}`);
-      }
-      if (info.avatar) {
-        props.setAvatar(`${info.avatar}`);
-      }
       setUser(info);
+      reduxUpdate(info);
+      console.log("chamou 1");
     };
     getUserInformation();
   }, [api]);
@@ -51,14 +66,27 @@ const Profile = (props: any) => {
         author: user._id,
         cat: category,
       });
-
+      console.log("chamou 2");
       setPublications(json.publications);
     };
     getUserPublications();
-  }, [api, user, category]);
+  }, [api, user, category, like]);
 
-  console.log(user);
-  console.log(publications);
+  useEffect(() => {
+    const getLike = async (idPubli: string) => {
+      let id = idPubli;
+      const json = await api.updateLike({ id });
+
+      if (like !== json.liked) {
+        setLike(json.liked);
+      } else {
+        setLike(!json.liked);
+        setLike(json.liked);
+      }
+    };
+
+    getLike(idPubli);
+  }, [api, idPubli]);
 
   return (
     <>
@@ -104,43 +132,57 @@ const Profile = (props: any) => {
         </PostButtons>
 
         <UserFeed>
-          {publications.map(
-            (item: PublicationsType) =>
-              item.category === category && (
-                <div key={item._id}>
-                  <PostInfo>
-                    {props.avatar !== "" ? (
-                      <img
-                        src={`${props.avatar}`}
-                        alt={`foto de perfil de ${props.name}`}
-                      />
-                    ) : (
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                        alt="Avatar"
-                      />
-                    )}
-                    <Link to={`/user/${props.name}`}>{props.name}</Link>
-                  </PostInfo>
+          {publications &&
+            publications.map(
+              (item: PublicationsType) =>
+                item.category === category && (
+                  <PostItem key={item._id}>
+                    <PostInfo>
+                      {props.avatar !== "" ? (
+                        <img
+                          src={`${props.avatar}`}
+                          alt={`foto de perfil de ${props.name}`}
+                        />
+                      ) : (
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                          alt="Avatar"
+                        />
+                      )}
+                      <Link to={`/user/${props.name}`}>{props.name}</Link>
+                    </PostInfo>
 
-                  {item.category === "publication" && (
-                    <Publication item={item} />
-                  )}
-                  {item.category === "article" && (
-                    <>
+                    {item.category === "publication" && (
+                      <>
+                        <Publication item={item} />
+                        <ButtonsArea>
+                          <Button
+                            classes={
+                              item.like.some((item) => item == user._id) &&
+                              "liked"
+                            }
+                            length={item.like.length}
+                            handleButton={() => setIdPubli(item._id)}
+                          >
+                            <AiOutlineHeart />
+                          </Button>
+                          <Button length={item.comment.length}>
+                            <AiOutlineComment />
+                          </Button>
+                          <Button>
+                            <AiOutlineShareAlt />
+                          </Button>
+                        </ButtonsArea>
+                      </>
+                    )}
+                    {item.category === "article" && <p>{item.title}</p>}
+
+                    {item.category === "picture" && (
                       <img src={item.image} alt="imagem" />
-                      <p>{item.title}</p>
-                    </>
-                  )}
-                  {item.category === "picture" && (
-                    <>
-                      <img src={item.image} alt="imagem" />
-                      <p>{item.title}</p>
-                    </>
-                  )}
-                </div>
-              )
-          )}
+                    )}
+                  </PostItem>
+                )
+            )}
         </UserFeed>
       </Container>
     </>

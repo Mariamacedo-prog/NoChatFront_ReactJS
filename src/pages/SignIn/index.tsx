@@ -66,9 +66,7 @@ const SignIn: React.FC = () => {
           </label>
           <label>
             <AiOutlineCaretRight />
-            <button type="submit" disabled={disabled}>
-              Entrar
-            </button>
+            <button disabled={disabled}>Entrar</button>
           </label>
         </form>
         <div>

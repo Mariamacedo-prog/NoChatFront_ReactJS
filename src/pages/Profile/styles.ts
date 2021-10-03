@@ -8,7 +8,6 @@ export const Container = styled.div`
   height: 100%;
   color: #fff;
 `;
-
 export const HeaderProfile = styled.div`
   background-color: #000;
   display: flex;
@@ -111,7 +110,6 @@ export const PostButtons = styled.div`
     color: #ff4d00;
   }
 `;
-
 export const UserFeed = styled.div`
   display: flex;
   align-items: center;
@@ -137,4 +135,20 @@ export const PostInfo = styled.div`
     text-decoration: none;
     color: #fff;
   }
+`;
+export const PostItem = styled.div`
+  border: 5px double #000;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+`;
+export const ButtonsArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  margin: 10px;
+  background-color: #000;
+  border-radius: 10px;
+  border: 1px solid #ff4d00;
 `;

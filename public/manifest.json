@@ -18,3 +18,5 @@
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
+
+// index.js encima do <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />

@@ -10,17 +10,13 @@ export const Container = styled.div`
   color: #fff;
   border-radius: 15px;
   img {
-    height: 300px;
+    margin: 0 25px;
     width: 300px;
   }
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: -10px;
-  }
-  svg {
-    margin: 0 5px;
-    height: 30px;
-    width: 30px;
-  }
+`;
+
+export const DescriptionArea = styled.div`
+  width: 350px;
+  font-size: small;
+  margin: 10px;
 `;

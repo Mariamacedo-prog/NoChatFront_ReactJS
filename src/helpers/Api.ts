@@ -12,6 +12,11 @@ type PublicationFilter = {
   cat?: string;
 };
 
+type BodyGet = {
+  id: string;
+  token?: string;
+};
+
 const apiFetchPost = async (endpoint: string, body: BodyType) => {
   if (!body.token) {
     let token = Cookie.get("token");
@@ -132,6 +137,16 @@ const NoChatAPi = {
   },
   getPublications: async (options: PublicationFilter) => {
     const json = await apiFetchGet("/publications", options);
+
+    return json;
+  },
+  getPublicationInfo: async (body: BodyGet) => {
+    const json = await apiFetchPost("/publication/one", body);
+
+    return json;
+  },
+  updateLike: async (body: BodyType) => {
+    const json = await apiFetchPut(`/like/${body.id}`, body);
 
     return json;
   },
