@@ -105,7 +105,7 @@ export const PostButtons = styled.div`
     width: 34%;
     transition: all ease 0.5s;
   }
-  div:hover {
+  .selected {
     background-color: #19181a;
     color: #ff4d00;
   }
@@ -121,26 +121,16 @@ export const UserFeed = styled.div`
     font-size: small;
   }
 `;
-export const PostInfo = styled.div`
-  display: flex;
-  align-items: center;
-  img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin: 0 10px;
-  }
-  a {
-    font-size: 14px;
-    text-decoration: none;
-    color: #fff;
-  }
-`;
+
 export const PostItem = styled.div`
   border: 5px double #000;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 20px;
+
+  .picture {
+    justify-content: space-around;
+  }
 `;
 export const ButtonsArea = styled.div`
   display: flex;

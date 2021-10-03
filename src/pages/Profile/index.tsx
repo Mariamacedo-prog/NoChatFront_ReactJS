@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GrConfigure } from "react-icons/gr";
 import { PublicationsType } from "../../reducers/UserReducer";
 import { Dispatch } from "redux";
 import Publication from "../../components/Publication";
+import Article from "../../components/Article";
 import Button from "../../components/Button";
 import { StateUser } from "../../reducers/UserReducer";
 import useApi from "../../helpers/Api";
@@ -21,7 +22,6 @@ import {
   ProfileInfo,
   PostButtons,
   UserFeed,
-  PostInfo,
   PostItem,
   ButtonsArea,
 } from "./styles";
@@ -126,9 +126,24 @@ const Profile = (props: any) => {
           </ProfileConfig>
         </HeaderProfile>
         <PostButtons>
-          <div onClick={() => setCategory("publication")}>Publicações</div>
-          <div onClick={() => setCategory("picture")}>Fotos</div>
-          <div onClick={() => setCategory("article")}>Artigos</div>
+          <div
+            onClick={() => setCategory("publication")}
+            className={category === "publication" ? "selected" : undefined}
+          >
+            Publicações
+          </div>
+          <div
+            onClick={() => setCategory("picture")}
+            className={category === "picture" ? "selected" : undefined}
+          >
+            Fotos
+          </div>
+          <div
+            onClick={() => setCategory("article")}
+            className={category === "article" ? "selected" : undefined}
+          >
+            Artigos
+          </div>
         </PostButtons>
 
         <UserFeed>
@@ -137,29 +152,19 @@ const Profile = (props: any) => {
               (item: PublicationsType) =>
                 item.category === category && (
                   <PostItem key={item._id}>
-                    <PostInfo>
-                      {props.avatar !== "" ? (
-                        <img
-                          src={`${props.avatar}`}
-                          alt={`foto de perfil de ${props.name}`}
-                        />
-                      ) : (
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                          alt="Avatar"
-                        />
-                      )}
-                      <Link to={`/user/${props.name}`}>{props.name}</Link>
-                    </PostInfo>
-
                     {item.category === "publication" && (
                       <>
-                        <Publication item={item} />
+                        <Publication
+                          item={item}
+                          userTitle={props.name}
+                          avatar={props.avatar}
+                        />
                         <ButtonsArea>
                           <Button
                             classes={
-                              item.like.some((item) => item == user._id) &&
-                              "liked"
+                              item.like.some((item) => item === user._id)
+                                ? "liked"
+                                : undefined
                             }
                             length={item.like.length}
                             handleButton={() => setIdPubli(item._id)}
@@ -167,7 +172,9 @@ const Profile = (props: any) => {
                             <AiOutlineHeart />
                           </Button>
                           <Button length={item.comment.length}>
-                            <AiOutlineComment />
+                            <Link to={`/post/${item._id}`}>
+                              <AiOutlineComment />
+                            </Link>
                           </Button>
                           <Button>
                             <AiOutlineShareAlt />
@@ -175,10 +182,63 @@ const Profile = (props: any) => {
                         </ButtonsArea>
                       </>
                     )}
-                    {item.category === "article" && <p>{item.title}</p>}
+                    {item.category === "article" && (
+                      <>
+                        <Article
+                          item={item}
+                          userTitle={props.name}
+                          avatar={props.avatar}
+                        />
+                        <ButtonsArea>
+                          <Button
+                            classes={
+                              item.like.some((item) => item === user._id)
+                                ? "liked"
+                                : undefined
+                            }
+                            length={item.like.length}
+                            handleButton={() => setIdPubli(item._id)}
+                          >
+                            <AiOutlineHeart />
+                          </Button>
+                          <Button length={item.comment.length}>
+                            <Link to={`/post/${item._id}`}>
+                              <AiOutlineComment />
+                            </Link>
+                          </Button>
+                          <Button>
+                            <AiOutlineShareAlt />
+                          </Button>
+                        </ButtonsArea>
+                      </>
+                    )}
 
                     {item.category === "picture" && (
-                      <img src={item.image} alt="imagem" />
+                      <>
+                        <Publication
+                          item={item}
+                          userTitle={props.name}
+                          avatar={props.avatar}
+                        />
+                        <ButtonsArea className="picture">
+                          <Button
+                            classes={
+                              item.like.some((item) => item === user._id)
+                                ? "liked"
+                                : undefined
+                            }
+                            length={item.like.length}
+                            handleButton={() => setIdPubli(item._id)}
+                          >
+                            <AiOutlineHeart />
+                          </Button>
+                          <Button length={item.comment.length}>
+                            <Link to={`/post/${item._id}`}>
+                              <AiOutlineComment />
+                            </Link>
+                          </Button>
+                        </ButtonsArea>
+                      </>
                     )}
                   </PostItem>
                 )

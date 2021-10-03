@@ -5,10 +5,14 @@ export const ButtonArea = styled.div`
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
+
   svg {
     margin: 0 5px;
     height: 26px;
     width: 26px;
+  }
+  a {
+    color: #fff;
   }
 `;
 export const Container = styled.div`

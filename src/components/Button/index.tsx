@@ -1,7 +1,14 @@
 import React from "react";
 import { ButtonArea, Container } from "./styles";
 
-const Button = (props: any) => {
+interface ButtonData {
+  handleButton?: () => void;
+  classes?: string | undefined;
+  length?: number;
+  children?: any;
+}
+
+const Button = (props: ButtonData) => {
   return (
     <Container>
       <ButtonArea onClick={props.handleButton} className={props.classes}>
