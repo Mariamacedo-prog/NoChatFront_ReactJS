@@ -6,6 +6,7 @@ export const Container = styled.div`
   background-color: #19181a;
   margin: 60px -8px -8px 525px;
   height: 100%;
+  min-height: calc(100vh - 60px);
   color: #fff;
 `;
 export const HeaderProfile = styled.div`
@@ -121,7 +122,6 @@ export const UserFeed = styled.div`
     font-size: small;
   }
 `;
-
 export const PostItem = styled.div`
   border: 5px double #000;
   border-radius: 10px;
@@ -141,4 +141,80 @@ export const ButtonsArea = styled.div`
   background-color: #000;
   border-radius: 10px;
   border: 1px solid #ff4d00;
+`;
+
+export const ErrorEdit = styled.div`
+  height: 18px;
+  width: 295px;
+  background-color: #fff;
+  color: #ff0000;
+  font-weight: bolder;
+  margin-left: 25px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+
+  svg {
+    margin-right: 5px;
+  }
+`;
+export const EditForm = styled.form`
+  width: 580px;
+  height: 460px;
+  background-color: #ff4d00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const InputEdiction = styled.input`
+  background-color: #19181a;
+  border: 1px solid #19181a;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 220px;
+  border-radius: 5px;
+  transition: 0.5s;
+  color: #fff;
+  border: 3px solid #19181a;
+
+  ::placeholder {
+    color: #fff;
+  }
+  :focus {
+    border: 3px solid #d83600;
+    outline: 0;
+  }
+`;
+
+export const DescriptionEdit = styled.textarea`
+  background-color: #19181a;
+  border: 1px solid #19181a;
+  height: 100px;
+  margin-bottom: 10px;
+  width: 450px;
+  border-radius: 5px;
+  transition: 0.5s;
+  color: #fff;
+  border: 3px solid #19181a;
+
+  ::placeholder {
+    color: #fff;
+  }
+  :focus {
+    border: 3px solid #d83600;
+    outline: 0;
+  }
+`;
+export const EditTitle = styled.h1`
+  color: #19181a;
+  font-size: larger;
+  font-weight: bolder;
+`;
+
+export const ButtonEdit = styled.button`
+  color: #ff4d00;
+  font-size: larger;
+  font-weight: bolder;
+  background-color: #fff;
 `;

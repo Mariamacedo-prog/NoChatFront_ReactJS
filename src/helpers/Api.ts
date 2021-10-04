@@ -105,7 +105,7 @@ const apiFetchFile = async (endpoint: string, body: any) => {
   }
 
   const res = await fetch(BASEAPI + endpoint, {
-    method: "POST",
+    method: "PUT",
     body,
   });
 
@@ -132,6 +132,11 @@ const NoChatAPi = {
   },
   userInfo: async () => {
     const json = await apiFetchGet("/user/me");
+
+    return json;
+  },
+  editUserInfo: async (body: any) => {
+    const json = await apiFetchFile("/user/me", body);
 
     return json;
   },

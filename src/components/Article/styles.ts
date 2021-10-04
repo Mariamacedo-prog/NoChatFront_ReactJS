@@ -21,6 +21,7 @@ export const DescriptionArea = styled.div`
   width: 350px;
   font-size: small;
   margin: 10px;
+  font-family: "Courier New", Courier, monospace;
 `;
 export const PostInfo = styled.div`
   div {
@@ -53,4 +54,6 @@ export const Title = styled.h2`
   padding: 0;
   margin: 0 10px;
   color: #ff8855;
+  font-weight: bolder;
+  font-family: "Courier New", Courier, monospace;
 `;

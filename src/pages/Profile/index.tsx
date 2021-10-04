@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { GrConfigure } from "react-icons/gr";
 import { PublicationsType } from "../../reducers/UserReducer";
@@ -7,6 +7,7 @@ import { Dispatch } from "redux";
 import Publication from "../../components/Publication";
 import Article from "../../components/Article";
 import Button from "../../components/Button";
+import Modal from "../../components/Modal";
 import { StateUser } from "../../reducers/UserReducer";
 import useApi from "../../helpers/Api";
 import {
@@ -14,6 +15,7 @@ import {
   AiOutlineComment,
   AiOutlineShareAlt,
 } from "react-icons/ai";
+import { RiErrorWarningLine } from "react-icons/ri";
 import {
   Container,
   HeaderProfile,
@@ -24,15 +26,40 @@ import {
   UserFeed,
   PostItem,
   ButtonsArea,
+  EditForm,
+  ErrorEdit,
+  InputEdiction,
+  EditTitle,
+  DescriptionEdit,
+  ButtonEdit,
 } from "./styles";
+
+interface EditData {
+  name?: string;
+  password?: string;
+  email?: string;
+  description?: string;
+  avatar?: any;
+}
 
 const Profile = (props: any) => {
   const api = useApi();
+  const history = useHistory();
   const [user, setUser] = useState({} as StateUser);
   const [category, setCategory] = useState("publication");
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
   const [idPubli, setIdPubli] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const [errors, setErrors] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [description, setDescription] = useState("");
+  const refFile = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   function reduxUpdate(info: StateUser) {
     props.setName(info.name);
@@ -88,6 +115,57 @@ const Profile = (props: any) => {
     getLike(idPubli);
   }, [api, idPubli]);
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setDisabled(true);
+    setErrors("");
+    let errors: string[] = [];
+
+    if (errors.length === 0) {
+      const fData = new FormData();
+
+      if (password !== "") {
+        if (password === confirmPassword) {
+          fData.append("password", password);
+        } else {
+          setErrors("Senhas não batem!");
+          setDisabled(false);
+          return;
+        }
+      }
+
+      if (name !== "") {
+        fData.append("name", name);
+      }
+
+      if (description !== "") {
+        fData.append("description", description);
+      }
+
+      if (email !== "") {
+        fData.append("email", email);
+      }
+
+      if (refFile.current.files) {
+        fData.append("avatar", refFile.current.files[0]);
+      }
+
+      const json = await api.editUserInfo(fData);
+
+      if (!json.error) {
+        history.push(`/`);
+        return;
+      } else {
+        setErrors(json.error);
+      }
+    } else {
+      setErrors(errors.join("\n"));
+      setName("");
+      setEmail("");
+    }
+    setDisabled(false);
+  };
+
   return (
     <>
       <Container>
@@ -122,7 +200,69 @@ const Profile = (props: any) => {
                 <li>Seguidores</li>
               </div>
             </ul>
-            <GrConfigure />
+            <GrConfigure onClick={() => setOpen(true)} />
+            <Modal open={open} onClose={() => setOpen(false)}>
+              <EditForm onSubmit={handleSubmit}>
+                {errors && <ErrorEdit>{errors}</ErrorEdit>}
+                <EditTitle>Opções de edição:</EditTitle>
+                <label>
+                  <InputEdiction
+                    type="text"
+                    placeholder="E-mail:"
+                    maxLength={70}
+                    disabled={disabled}
+                    value={email === "" ? props.email : email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <InputEdiction
+                    type="text"
+                    placeholder="UserName:"
+                    maxLength={30}
+                    disabled={disabled}
+                    value={name === "" ? props.name : name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <InputEdiction
+                    type="password"
+                    placeholder="Senha:"
+                    disabled={disabled}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputEdiction
+                    type="password"
+                    placeholder="Confirme a senha:"
+                    disabled={disabled}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <DescriptionEdit
+                    placeholder={`Escreva aqui sua descrição...`}
+                    disabled={disabled}
+                    maxLength={365}
+                    value={description === "" ? props.description : description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <InputEdiction
+                    type="file"
+                    disabled={disabled}
+                    ref={refFile}
+                  />
+                </label>
+
+                <ButtonEdit type="submit" disabled={disabled}>
+                  Atualizar perfil
+                </ButtonEdit>
+              </EditForm>
+            </Modal>
           </ProfileConfig>
         </HeaderProfile>
         <PostButtons>
