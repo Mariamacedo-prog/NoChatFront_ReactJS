@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GrConfigure } from "react-icons/gr";
 import { PublicationsType } from "../../reducers/UserReducer";
@@ -8,14 +8,12 @@ import Publication from "../../components/Publication";
 import Article from "../../components/Article";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
-import { StateUser } from "../../reducers/UserReducer";
 import useApi from "../../helpers/Api";
 import {
   AiOutlineHeart,
   AiOutlineComment,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import { RiErrorWarningLine } from "react-icons/ri";
 import {
   Container,
   HeaderProfile,
@@ -44,8 +42,6 @@ interface EditData {
 
 const Profile = (props: any) => {
   const api = useApi();
-  const history = useHistory();
-  const [user, setUser] = useState({} as StateUser);
   const [category, setCategory] = useState("publication");
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
@@ -60,59 +56,39 @@ const Profile = (props: any) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [description, setDescription] = useState("");
   const refFile = useRef() as React.MutableRefObject<HTMLInputElement>;
-
-  function reduxUpdate(info: StateUser) {
-    props.setName(info.name);
-    props.setEmail(info.email);
-    props.setId(info._id);
-    props.setFollowers(info.followers);
-    props.setFollowings(info.followings);
-    props.setChats(info.chats);
-
-    if (info.description) {
-      props.setDescription(info.description);
-    }
-    if (info.avatar) {
-      props.setAvatar(info.avatar);
-    }
-  }
-
-  useEffect(() => {
-    const getUserInformation = async () => {
-      const info = await api.userInfo();
-      setUser(info);
-      reduxUpdate(info);
-      console.log("chamou 1");
-    };
-    getUserInformation();
-  }, [api]);
+  const [loadding, setLoadding] = useState(true);
 
   useEffect(() => {
     const getUserPublications = async () => {
       const json = await api.getPublications({
-        author: user._id,
+        author: props._id,
         cat: category,
+        limit: 88,
       });
-      console.log("chamou 2");
       setPublications(json.publications);
+      setLoadding(false);
     };
     getUserPublications();
-  }, [api, user, category, like]);
+  }, [api, category, like]);
 
   useEffect(() => {
-    const getLike = async (idPubli: string) => {
-      let id = idPubli;
-      const json = await api.updateLike({ id });
+    if (idPubli !== "") {
+      const getLike = async (idPubli: string) => {
+        let id = idPubli;
+        const json = await api.updateLike({ id });
 
-      if (like !== json.liked) {
-        setLike(json.liked);
-      } else {
-        setLike(!json.liked);
-        setLike(json.liked);
-      }
-    };
+        if (like !== json.liked) {
+          setLike(json.liked);
+          setIdPubli("");
+        } else {
+          setLike(!json.liked);
+          setLike(json.liked);
+          setIdPubli("");
+        }
+      };
 
-    getLike(idPubli);
+      getLike(idPubli);
+    }
   }, [api, idPubli]);
 
   const handleSubmit = async (e: any) => {
@@ -153,7 +129,7 @@ const Profile = (props: any) => {
       const json = await api.editUserInfo(fData);
 
       if (!json.error) {
-        history.push(`/`);
+        window.location.href = "/";
         return;
       } else {
         setErrors(json.error);
@@ -245,7 +221,7 @@ const Profile = (props: any) => {
                   <DescriptionEdit
                     placeholder={`Escreva aqui sua descrição...`}
                     disabled={disabled}
-                    maxLength={365}
+                    maxLength={100}
                     value={description === "" ? props.description : description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -287,6 +263,7 @@ const Profile = (props: any) => {
         </PostButtons>
 
         <UserFeed>
+          {loadding && <p>Loadding...</p>}
           {publications &&
             publications.map(
               (item: PublicationsType) =>
@@ -294,15 +271,11 @@ const Profile = (props: any) => {
                   <PostItem key={item._id}>
                     {item.category === "publication" && (
                       <>
-                        <Publication
-                          item={item}
-                          userTitle={props.name}
-                          avatar={props.avatar}
-                        />
+                        <Publication item={item} />
                         <ButtonsArea>
                           <Button
                             classes={
-                              item.like.some((item) => item === user._id)
+                              item.like.some((item) => item === props._id)
                                 ? "liked"
                                 : undefined
                             }
@@ -324,15 +297,11 @@ const Profile = (props: any) => {
                     )}
                     {item.category === "article" && (
                       <>
-                        <Article
-                          item={item}
-                          userTitle={props.name}
-                          avatar={props.avatar}
-                        />
+                        <Article item={item} />
                         <ButtonsArea>
                           <Button
                             classes={
-                              item.like.some((item) => item === user._id)
+                              item.like.some((item) => item === props._id)
                                 ? "liked"
                                 : undefined
                             }
@@ -355,15 +324,11 @@ const Profile = (props: any) => {
 
                     {item.category === "picture" && (
                       <>
-                        <Publication
-                          item={item}
-                          userTitle={props.name}
-                          avatar={props.avatar}
-                        />
+                        <Publication item={item} />
                         <ButtonsArea className="picture">
                           <Button
                             classes={
-                              item.like.some((item) => item === user._id)
+                              item.like.some((item) => item === props._id)
                                 ? "liked"
                                 : undefined
                             }
@@ -404,45 +369,25 @@ const mapStateToProps = (state: any) => {
 
 const mapDispachToProps = (dispatch: Dispatch) => {
   return {
-    setName: (name: string) =>
+    setNameRedux: (name: string) =>
       dispatch({
         type: "SET_NAME",
         payload: name,
       }),
-    setEmail: (email: string) =>
+    setEmailRedux: (email: string) =>
       dispatch({
         type: "SET_EMAIL",
         payload: email,
       }),
-    setId: (id: string) =>
-      dispatch({
-        type: "SET_ID",
-        payload: id,
-      }),
-    setDescription: (description: string) =>
+    setDescriptionRedux: (description: string) =>
       dispatch({
         type: "SET_DESCRIPTION",
         payload: description,
       }),
-    setAvatar: (avatar: string) =>
+    setAvatarRedux: (avatar: string) =>
       dispatch({
         type: "SET_AVATAR",
         payload: avatar,
-      }),
-    setFollowers: (followers: []) =>
-      dispatch({
-        type: "SET_FOLLOWERS",
-        payload: followers,
-      }),
-    setFollowings: (followings: []) =>
-      dispatch({
-        type: "SET_FOLLOWINGS",
-        payload: followings,
-      }),
-    setChats: (chats: []) =>
-      dispatch({
-        type: "SET_CHATS",
-        payload: chats,
       }),
   };
 };

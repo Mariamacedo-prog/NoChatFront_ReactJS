@@ -7,13 +7,12 @@ import {
   ArticleArea,
   Title,
   ContainerImage,
+  ImagePlace,
 } from "./styles";
 import { Link } from "react-router-dom";
 
 interface ArticleProps {
   item: PublicationsType;
-  userTitle: string;
-  avatar: string;
 }
 
 const Article: React.FC<ArticleProps> = (props) => {
@@ -21,11 +20,11 @@ const Article: React.FC<ArticleProps> = (props) => {
     <Container>
       <PostInfo>
         <div>
-          {props.avatar !== "" ? (
+          {props.item.avatar ? (
             <img
               className="userImage"
-              src={`${props.avatar}`}
-              alt={`foto de perfil de ${props.userTitle}`}
+              src={props.item.avatar}
+              alt={`foto de perfil de ${props.item.username}`}
             />
           ) : (
             <img
@@ -34,25 +33,30 @@ const Article: React.FC<ArticleProps> = (props) => {
               alt="Avatar"
             />
           )}
-          <Link to={`/user/${props.userTitle}`}>{props.userTitle}</Link>
+          <Link to={`/user/${props.item.username}`}>{props.item.username}</Link>
         </div>
-        {props.item.image && (
-          <ContainerImage>
-            <Link to={`/post/${props.item._id}`}>
-              <img
-                className="articleImage"
-                src={props.item.image}
-                alt="imagem"
-              />
-            </Link>
-          </ContainerImage>
-        )}
       </PostInfo>
+
       <ArticleArea>
-        <Title>{props.item.title}</Title>
-        <Link to={`/post/${props.item._id}`}>
-          <DescriptionArea>{props.item.description}</DescriptionArea>
-        </Link>
+        <ImagePlace>
+          {props.item.image && (
+            <ContainerImage>
+              <Link to={`/post/${props.item._id}`}>
+                <img
+                  className="articleImage"
+                  src={props.item.image}
+                  alt="imagem"
+                />
+              </Link>
+            </ContainerImage>
+          )}
+        </ImagePlace>
+        <div>
+          <Title>{props.item.title}</Title>
+          <Link to={`/post/${props.item._id}`}>
+            <DescriptionArea>{props.item.description}</DescriptionArea>
+          </Link>
+        </div>
       </ArticleArea>
     </Container>
   );

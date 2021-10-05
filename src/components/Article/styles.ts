@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+`;
+
+export const ImagePlace = styled.div`
+  height: 140px;
+  width: 150px;
 `;
 export const ContainerImage = styled.div`
   display: flex;
@@ -20,8 +25,20 @@ export const ContainerImage = styled.div`
 export const DescriptionArea = styled.div`
   width: 350px;
   font-size: small;
-  margin: 10px;
+  padding: 20px 10px;
   font-family: "Courier New", Courier, monospace;
+  overflow: hidden;
+  position: relative;
+  max-height: 40px;
+  text-align: justify;
+  :before {
+    color: #ff4d00;
+    background-color: #19181a;
+    content: "...Ver artigo";
+    position: absolute;
+    bottom: -0px;
+    right: 0;
+  }
 `;
 export const PostInfo = styled.div`
   div {
@@ -42,7 +59,6 @@ export const PostInfo = styled.div`
 `;
 export const ArticleArea = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
 
   a {

@@ -9,7 +9,8 @@ export const Position = styled.div`
 `;
 export const Container = styled.div`
   position: fixed;
-  left: 100px;
+  left: 30%;
+
   top: 70px;
 
   z-index: 50;

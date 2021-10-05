@@ -5,18 +5,16 @@ import { Link } from "react-router-dom";
 
 interface PublicationProps {
   item: PublicationsType;
-  userTitle: string;
-  avatar: string;
 }
 
 const Publication: React.FC<PublicationProps> = (props) => {
   return (
     <>
       <PostInfo>
-        {props.avatar !== "" ? (
+        {props.item.avatar ? (
           <img
-            src={`${props.avatar}`}
-            alt={`foto de perfil de ${props.userTitle}`}
+            src={props.item.avatar}
+            alt={`foto de perfil de ${props.item.username}`}
           />
         ) : (
           <img
@@ -24,7 +22,7 @@ const Publication: React.FC<PublicationProps> = (props) => {
             alt="Avatar"
           />
         )}
-        <Link to={`/user/${props.userTitle}`}>{props.userTitle}</Link>
+        <Link to={`/user/${props.item.username}`}>{props.item.username}</Link>
       </PostInfo>
       <DescriptionArea>{props.item.description}</DescriptionArea>
       {props.item.image && (

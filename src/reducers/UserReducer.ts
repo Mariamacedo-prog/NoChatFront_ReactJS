@@ -17,6 +17,8 @@ export interface PublicationsType {
   userId: string;
   _id: string;
   image?: string;
+  username: string;
+  avatar?: string;
 }
 
 export interface StateUser {

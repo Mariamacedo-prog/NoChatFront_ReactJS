@@ -9,6 +9,7 @@ export const Container = styled.div`
   position: fixed;
   top: 8px;
   width: 100%;
+  z-index: 99;
 
   img {
     height: 50px;

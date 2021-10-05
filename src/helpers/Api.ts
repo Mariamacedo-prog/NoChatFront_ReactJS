@@ -10,6 +10,8 @@ interface BodyType {
 type PublicationFilter = {
   author?: string;
   cat?: string;
+  limit?: number;
+  offset?: number;
 };
 
 type BodyGet = {
@@ -140,7 +142,7 @@ const NoChatAPi = {
 
     return json;
   },
-  getPublications: async (options: PublicationFilter) => {
+  getPublications: async (options?: PublicationFilter) => {
     const json = await apiFetchGet("/publications", options);
 
     return json;
