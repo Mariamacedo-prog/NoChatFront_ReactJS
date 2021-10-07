@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMail, AiOutlineCaretRight } from "react-icons/ai";
-import { RiLockPasswordLine, RiErrorWarningLine } from "react-icons/ri";
+import { RiLockPasswordLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
+import Error from "../../components/Error";
 import { doLogin } from "../../helpers/Auth";
-import { Container, Background, FormSide, ErrorSignin } from "./styles";
+import { Container, Background, FormSide } from "./styles";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -33,12 +34,7 @@ const SignIn: React.FC = () => {
     <Container>
       <FormSide>
         <h2>NoChat</h2>
-        {errors && (
-          <ErrorSignin>
-            <RiErrorWarningLine />
-            {errors}
-          </ErrorSignin>
-        )}
+        {errors !== "" && <Error error={errors} />}
         <form onSubmit={handleSubmit}>
           <label>
             <AiOutlineMail />

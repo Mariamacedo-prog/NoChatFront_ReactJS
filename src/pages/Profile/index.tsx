@@ -9,10 +9,12 @@ import Article from "../../components/Article";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import useApi from "../../helpers/Api";
+import Error from "../../components/Error";
 import {
   AiOutlineHeart,
   AiOutlineComment,
   AiOutlineShareAlt,
+  AiFillDelete,
 } from "react-icons/ai";
 import {
   Container,
@@ -25,23 +27,15 @@ import {
   PostItem,
   ButtonsArea,
   EditForm,
-  ErrorEdit,
   InputEdiction,
   EditTitle,
   DescriptionEdit,
   ButtonEdit,
 } from "./styles";
 
-interface EditData {
-  name?: string;
-  password?: string;
-  email?: string;
-  description?: string;
-  avatar?: any;
-}
-
 const Profile = (props: any) => {
   const api = useApi();
+  const refFile = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [category, setCategory] = useState("publication");
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
@@ -55,38 +49,48 @@ const Profile = (props: any) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [description, setDescription] = useState("");
-  const refFile = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const [loadding, setLoadding] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setErrors("");
     const getUserPublications = async () => {
       const json = await api.getPublications({
         author: props._id,
         cat: category,
         limit: 88,
+        sort: "desc",
       });
-      setPublications(json.publications);
-      setLoadding(false);
+      if (json.error) {
+        setErrors(json.error);
+        setLoading(false);
+      } else {
+        setPublications(json.publications);
+        setLoading(false);
+      }
     };
     getUserPublications();
   }, [api, category, like]);
 
   useEffect(() => {
+    setErrors("");
     if (idPubli !== "") {
       const getLike = async (idPubli: string) => {
         let id = idPubli;
-        const json = await api.updateLike({ id });
-
-        if (like !== json.liked) {
-          setLike(json.liked);
+        const json = await api.updateLike(id);
+        if (json.error) {
+          setErrors(json.error);
           setIdPubli("");
         } else {
-          setLike(!json.liked);
-          setLike(json.liked);
-          setIdPubli("");
+          if (like !== json.liked) {
+            setLike(json.liked);
+            setIdPubli("");
+          } else {
+            setLike(!json.liked);
+            setLike(json.liked);
+            setIdPubli("");
+          }
         }
       };
-
       getLike(idPubli);
     }
   }, [api, idPubli]);
@@ -176,10 +180,15 @@ const Profile = (props: any) => {
                 <li>Seguidores</li>
               </div>
             </ul>
-            <GrConfigure onClick={() => setOpen(true)} />
+            <GrConfigure className="svgConfig" onClick={() => setOpen(true)} />
             <Modal open={open} onClose={() => setOpen(false)}>
               <EditForm onSubmit={handleSubmit}>
-                {errors && <ErrorEdit>{errors}</ErrorEdit>}
+                <img
+                  src="https://img.icons8.com/color/48/000000/close-window.png"
+                  alt="botão de fechar modal"
+                  onClick={() => setOpen(false)}
+                />
+                {errors !== "" && <Error error={errors} />}
                 <EditTitle>Opções de edição:</EditTitle>
                 <label>
                   <InputEdiction
@@ -263,12 +272,14 @@ const Profile = (props: any) => {
         </PostButtons>
 
         <UserFeed>
-          {loadding && <p>Loadding...</p>}
+          {errors !== "" && <Error error={errors} />}
+          {loading && <p>Loading...</p>}
           {publications &&
             publications.map(
               (item: PublicationsType) =>
                 item.category === category && (
                   <PostItem key={item._id}>
+                    {item.userId === props._id && <AiFillDelete />}
                     {item.category === "publication" && (
                       <>
                         <Publication item={item} />

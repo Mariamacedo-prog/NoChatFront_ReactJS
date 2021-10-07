@@ -6,6 +6,7 @@ import { PublicationsType } from "../../reducers/UserReducer";
 import Publication from "../../components/Publication";
 import Article from "../../components/Article";
 import Button from "../../components/Button";
+import Error from "../../components/Error";
 import useApi from "../../helpers/Api";
 import {
   AiOutlineHeart,
@@ -19,35 +20,51 @@ const Home = (props: any) => {
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
   const [idPubli, setIdPubli] = useState("");
-  const [loadding, setLoadding] = useState(true);
-  const [limit, setLimit] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState("");
+  const [limit, setLimit] = useState(5);
+
   useEffect(() => {
+    setErrors("");
     const getUserPublications = async () => {
       const json = await api.getPublications({
         limit: limit,
+        sort: "desc",
       });
-      setPublications(json.publications);
-      setLoadding(false);
+
+      if (json.error) {
+        setErrors(json.error);
+        setLoading(false);
+      } else {
+        setPublications(json.publications);
+        setLoading(false);
+      }
     };
     getUserPublications();
   }, [api, like, limit]);
 
   useEffect(() => {
+    setErrors("");
     if (idPubli !== "") {
+      setErrors("");
       const getLike = async (idPubli: string) => {
         let id = idPubli;
-        const json = await api.updateLike({ id });
+        const json = await api.updateLike(id);
 
-        if (like !== json.liked) {
-          setLike(json.liked);
+        if (json.error) {
+          setErrors(json.error);
           setIdPubli("");
         } else {
-          setLike(!json.liked);
-          setLike(json.liked);
-          setIdPubli("");
+          if (like !== json.liked) {
+            setLike(json.liked);
+            setIdPubli("");
+          } else {
+            setLike(!json.liked);
+            setLike(json.liked);
+            setIdPubli("");
+          }
         }
       };
-
       getLike(idPubli);
     }
   }, [api, idPubli]);
@@ -70,7 +87,8 @@ const Home = (props: any) => {
     <>
       <Container>
         <UserFeed>
-          {loadding && <p>Loadding...</p>}
+          {loading && <p>Loading...</p>}
+          {errors !== "" && <Error error={errors} />}
           {publications &&
             publications.map((item: PublicationsType) => (
               <PostItem key={item._id}>

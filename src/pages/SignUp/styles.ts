@@ -119,19 +119,3 @@ export const Background = styled.div`
   background: url(${NoChat}) no-repeat center;
   background-size: cover;
 `;
-
-export const ErrorSignin = styled.div`
-  height: 18px;
-  width: 295px;
-  background-color: #fff;
-  color: #ff0000;
-  font-weight: bolder;
-  margin-left: 25px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-
-  svg {
-    margin-right: 5px;
-  }
-`;

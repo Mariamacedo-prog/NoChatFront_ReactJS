@@ -77,7 +77,7 @@ export const ProfileConfig = styled.div`
     padding: 5px;
   }
 
-  svg {
+  .svgConfig {
     background-color: #ff4d00;
     border-radius: 50%;
     width: 20px;
@@ -131,6 +131,9 @@ export const PostItem = styled.div`
   .picture {
     justify-content: space-around;
   }
+  svg {
+    cursor: pointer;
+  }
 `;
 export const ButtonsArea = styled.div`
   display: flex;
@@ -143,21 +146,6 @@ export const ButtonsArea = styled.div`
   border: 1px solid #ff4d00;
 `;
 
-export const ErrorEdit = styled.div`
-  height: 18px;
-  width: 295px;
-  background-color: #fff;
-  color: #ff0000;
-  font-weight: bolder;
-  margin-left: 25px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-
-  svg {
-    margin-right: 5px;
-  }
-`;
 export const EditForm = styled.form`
   width: 580px;
   height: 460px;

@@ -7,10 +7,18 @@ export interface ChatUser {
   with: string;
   id: string;
 }
-
+interface CommentType {
+  id: string;
+  author: string;
+  username: string;
+  date: string;
+  avatar: string;
+  msg: string;
+  type?: string;
+}
 export interface PublicationsType {
   category: string;
-  comment: [];
+  comment: CommentType[];
   description?: string;
   like: [];
   title?: string;

@@ -3,11 +3,12 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
+import PagePublication from "../pages/PagePublication";
 import Home from "../pages/Home";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import useApi from "../helpers/Api";
@@ -53,6 +54,9 @@ const Routes: React.FC = (props: any) => {
       </Route>
       <Route exact path="/profile" private>
         <Profile />
+      </Route>
+      <Route exact path="/post/:id" private>
+        <PagePublication />
       </Route>
       <Route exact path="/" private>
         <Home />

@@ -3,23 +3,15 @@ import qs from "qs";
 
 const BASEAPI = "http://localhost";
 
-interface BodyType {
-  [key: string]: string;
-}
-
 type PublicationFilter = {
   author?: string;
   cat?: string;
   limit?: number;
   offset?: number;
+  sort?: "asc" | "desc";
 };
 
-type BodyGet = {
-  id: string;
-  token?: string;
-};
-
-const apiFetchPost = async (endpoint: string, body: BodyType) => {
+const apiFetchPost = async (endpoint: string, body: any) => {
   if (!body.token) {
     let token = Cookie.get("token");
     if (token) {
@@ -46,7 +38,7 @@ const apiFetchPost = async (endpoint: string, body: BodyType) => {
   return json;
 };
 
-const apiFetchPut = async (endpoint: string, body: BodyType) => {
+const apiFetchPut = async (endpoint: string, body: any) => {
   if (!body.token) {
     let token = Cookie.get("token");
     if (token) {
@@ -137,8 +129,8 @@ const NoChatAPi = {
 
     return json;
   },
-  editUserInfo: async (body: any) => {
-    const json = await apiFetchFile("/user/me", body);
+  editUserInfo: async (fData: FormData) => {
+    const json = await apiFetchFile("/user/me", fData);
 
     return json;
   },
@@ -147,13 +139,22 @@ const NoChatAPi = {
 
     return json;
   },
-  getPublicationInfo: async (body: BodyGet) => {
-    const json = await apiFetchPost("/publication/one", body);
+  getPublicationItem: async (id: string) => {
+    const json = await apiFetchPost("/publication/one", { id });
 
     return json;
   },
-  updateLike: async (body: BodyType) => {
-    const json = await apiFetchPut(`/like/${body.id}`, body);
+  updateLike: async (id: string) => {
+    const json = await apiFetchPut(`/like/${id}`, { id });
+
+    return json;
+  },
+  createComment: async (msg: string, id: string, type?: string) => {
+    const json = await apiFetchPut("/comment", {
+      msg,
+      postId: id,
+      type: "text",
+    });
 
     return json;
   },

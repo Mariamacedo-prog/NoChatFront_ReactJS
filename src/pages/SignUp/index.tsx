@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Error from "../../components/Error";
 import { AiOutlineMail, AiOutlineCaretRight } from "react-icons/ai";
-import {
-  RiLockPasswordLine,
-  RiErrorWarningLine,
-  RiAtLine,
-} from "react-icons/ri";
+import { RiLockPasswordLine, RiAtLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
 import { doLogin } from "../../helpers/Auth";
-import { Container, Background, FormSide, ErrorSignin } from "./styles";
+import { Container, Background, FormSide } from "./styles";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -39,12 +36,7 @@ const SignUp: React.FC = () => {
       <Background />
       <FormSide>
         <h2>Preencha os dados</h2>
-        {errors && (
-          <ErrorSignin>
-            <RiErrorWarningLine />
-            {errors}
-          </ErrorSignin>
-        )}
+        {errors !== "" && <Error error={errors} />}
         <form onSubmit={handleSubmit}>
           <label>
             <RiAtLine />
