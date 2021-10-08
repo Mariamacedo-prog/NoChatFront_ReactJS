@@ -163,6 +163,27 @@ const NoChatAPi = {
 
     return json;
   },
+  deletePublication: async (body: { token?: string; id: string }) => {
+    if (!body.token) {
+      let token = Cookie.get("token");
+      if (token) {
+        body.token = token;
+      }
+    }
+
+    const res = await fetch(BASEAPI + `/publication/delete/${body.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const json = await res.json();
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;

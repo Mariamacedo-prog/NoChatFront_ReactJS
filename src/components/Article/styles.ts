@@ -23,10 +23,9 @@ export const DescriptionArea = styled.div`
   }
 `;
 export const PostInfo = styled.div`
-  div {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
   .userImage {
     width: 30px;
     height: 30px;
