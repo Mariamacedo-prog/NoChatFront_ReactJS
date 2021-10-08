@@ -14,7 +14,6 @@ import {
   AiOutlineHeart,
   AiOutlineComment,
   AiOutlineShareAlt,
-  AiFillDelete,
 } from "react-icons/ai";
 import {
   Container,
@@ -39,7 +38,6 @@ const Profile = (props: any) => {
   const [category, setCategory] = useState("publication");
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
-  const [idPubli, setIdPubli] = useState("");
   const [open, setOpen] = useState(false);
 
   const [errors, setErrors] = useState("");
@@ -71,29 +69,21 @@ const Profile = (props: any) => {
     getUserPublications();
   }, [api, category, like]);
 
-  useEffect(() => {
+  const handleLike = async (id: string) => {
     setErrors("");
-    if (idPubli !== "") {
-      const getLike = async (idPubli: string) => {
-        let id = idPubli;
-        const json = await api.updateLike(id);
-        if (json.error) {
-          setErrors(json.error);
-          setIdPubli("");
-        } else {
-          if (like !== json.liked) {
-            setLike(json.liked);
-            setIdPubli("");
-          } else {
-            setLike(!json.liked);
-            setLike(json.liked);
-            setIdPubli("");
-          }
-        }
-      };
-      getLike(idPubli);
+    const json = await api.updateLike(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      if (like !== json.liked) {
+        setLike(json.liked);
+      } else {
+        setLike(!json.liked);
+        setLike(json.liked);
+      }
     }
-  }, [api, idPubli]);
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -279,7 +269,6 @@ const Profile = (props: any) => {
               (item: PublicationsType) =>
                 item.category === category && (
                   <PostItem key={item._id}>
-                    {item.userId === props._id && <AiFillDelete />}
                     {item.category === "publication" && (
                       <>
                         <Publication item={item} />
@@ -291,7 +280,7 @@ const Profile = (props: any) => {
                                 : undefined
                             }
                             length={item.like.length}
-                            handleButton={() => setIdPubli(item._id)}
+                            handleButton={() => handleLike(item._id)}
                           >
                             <AiOutlineHeart />
                           </Button>
@@ -317,7 +306,7 @@ const Profile = (props: any) => {
                                 : undefined
                             }
                             length={item.like.length}
-                            handleButton={() => setIdPubli(item._id)}
+                            handleButton={() => handleLike(item._id)}
                           >
                             <AiOutlineHeart />
                           </Button>
@@ -344,7 +333,7 @@ const Profile = (props: any) => {
                                 : undefined
                             }
                             length={item.like.length}
-                            handleButton={() => setIdPubli(item._id)}
+                            handleButton={() => handleLike(item._id)}
                           >
                             <AiOutlineHeart />
                           </Button>

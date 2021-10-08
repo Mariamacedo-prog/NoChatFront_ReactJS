@@ -15,6 +15,11 @@ export const ContentArea = styled.div`
   svg {
     cursor: pointer;
   }
+  .deleted {
+    p {
+      color: #ff4d00;
+    }
+  }
 `;
 
 export const Leftside = styled.div`

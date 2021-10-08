@@ -4,24 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-export const ImagePlace = styled.div`
-  height: 140px;
-  width: 150px;
-`;
-export const ContainerImage = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: #000;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 20px;
-
-  .articleImage {
-    height: 100px;
-    width: 100px;
-  }
-`;
 export const DescriptionArea = styled.div`
   width: 350px;
   font-size: small;

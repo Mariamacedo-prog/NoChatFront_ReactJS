@@ -19,7 +19,6 @@ const Home = (props: any) => {
   const api = useApi();
   const [publications, setPublications] = useState([]);
   const [like, setLike] = useState(false);
-  const [idPubli, setIdPubli] = useState("");
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState("");
   const [limit, setLimit] = useState(5);
@@ -43,31 +42,21 @@ const Home = (props: any) => {
     getUserPublications();
   }, [api, like, limit]);
 
-  useEffect(() => {
+  const handleLike = async (id: string) => {
     setErrors("");
-    if (idPubli !== "") {
-      setErrors("");
-      const getLike = async (idPubli: string) => {
-        let id = idPubli;
-        const json = await api.updateLike(id);
+    const json = await api.updateLike(id);
 
-        if (json.error) {
-          setErrors(json.error);
-          setIdPubli("");
-        } else {
-          if (like !== json.liked) {
-            setLike(json.liked);
-            setIdPubli("");
-          } else {
-            setLike(!json.liked);
-            setLike(json.liked);
-            setIdPubli("");
-          }
-        }
-      };
-      getLike(idPubli);
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      if (like !== json.liked) {
+        setLike(json.liked);
+      } else {
+        setLike(!json.liked);
+        setLike(json.liked);
+      }
     }
-  }, [api, idPubli]);
+  };
 
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver((entries) => {
@@ -103,7 +92,7 @@ const Home = (props: any) => {
                             : undefined
                         }
                         length={item.like.length}
-                        handleButton={() => setIdPubli(item._id)}
+                        handleButton={() => handleLike(item._id)}
                       >
                         <AiOutlineHeart />
                       </Button>
@@ -129,7 +118,7 @@ const Home = (props: any) => {
                             : undefined
                         }
                         length={item.like.length}
-                        handleButton={() => setIdPubli(item._id)}
+                        handleButton={() => handleLike(item._id)}
                       >
                         <AiOutlineHeart />
                       </Button>
@@ -156,7 +145,7 @@ const Home = (props: any) => {
                             : undefined
                         }
                         length={item.like.length}
-                        handleButton={() => setIdPubli(item._id)}
+                        handleButton={() => handleLike(item._id)}
                       >
                         <AiOutlineHeart />
                       </Button>

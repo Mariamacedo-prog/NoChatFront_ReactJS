@@ -46,22 +46,23 @@ const PagePublication = (props: PropsData) => {
       setLoading(false);
     };
     getItem();
-  }, [api, id, like, comment]);
+  }, [api, id, comment, like]);
 
-  useEffect(() => {
-    const getLike = async (id: string) => {
-      const json = await api.updateLike(id);
-      if (json.error) {
-        setErrors(json.error);
+  const handleLike = async (id: string) => {
+    setErrors("");
+    const json = await api.updateLike(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      if (like !== json.liked) {
+        setLike(json.liked);
       } else {
-        if (like !== json.liked) {
-          return json;
-        }
+        setLike(!json.liked);
+        setLike(json.liked);
       }
-    };
-
-    getLike(id);
-  }, [api, id, like]);
+    }
+  };
 
   const handleDate = (date: string) => {
     const newDate = new Date(date);
@@ -87,6 +88,18 @@ const PagePublication = (props: PropsData) => {
       return json;
     }
   };
+  const deleteComment = async (id: string) => {
+    setErrors("");
+    const json = await api.deleteComment(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      comment === true ? setComment(false) : setComment(true);
+      return json;
+    }
+  };
+
   return (
     <ContentArea>
       {publication.image && publication.category !== "article" && (
@@ -128,10 +141,10 @@ const PagePublication = (props: PropsData) => {
         <CommentList>
           {publication.comment &&
             publication.comment.map((comment) => (
-              <CommentItem key={comment.id}>
+              <CommentItem key={comment.id} className={comment.type}>
                 <div>
                   {comment.author === props._id && comment.type === "text" && (
-                    <AiFillDelete />
+                    <AiFillDelete onClick={() => deleteComment(comment.id)} />
                   )}
                   {comment.avatar ? (
                     <img
@@ -161,7 +174,7 @@ const PagePublication = (props: PropsData) => {
                   : undefined
               }
               length={publication.like.length}
-              handleButton={() => (like ? setLike(false) : setLike(true))}
+              handleButton={() => handleLike(publication._id)}
             >
               <AiOutlineHeart />
             </Button>

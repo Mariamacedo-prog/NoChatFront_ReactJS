@@ -1,23 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { PublicationsType } from "../../reducers/UserReducer";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { AiFillDelete } from "react-icons/ai";
 import {
   Container,
   DescriptionArea,
   PostInfo,
   ArticleArea,
   Title,
-  ContainerImage,
-  ImagePlace,
 } from "./styles";
-import { Link } from "react-router-dom";
 
 interface ArticleProps {
   item: PublicationsType;
+  _id: string;
 }
 
 const Article: React.FC<ArticleProps> = (props) => {
   return (
     <Container>
+      {props.item.userId === props._id && <AiFillDelete />}
       <PostInfo>
         <div>
           {props.item.avatar ? (
@@ -38,19 +41,6 @@ const Article: React.FC<ArticleProps> = (props) => {
       </PostInfo>
 
       <ArticleArea>
-        <ImagePlace>
-          {props.item.image && (
-            <ContainerImage>
-              <Link to={`/post/${props.item._id}`}>
-                <img
-                  className="articleImage"
-                  src={props.item.image}
-                  alt="imagem"
-                />
-              </Link>
-            </ContainerImage>
-          )}
-        </ImagePlace>
         <div>
           <Title>{props.item.title}</Title>
           <Link to={`/post/${props.item._id}`}>
@@ -62,4 +52,14 @@ const Article: React.FC<ArticleProps> = (props) => {
   );
 };
 
-export default Article;
+const mapStateToProps = (state: any) => {
+  return {
+    _id: state.user._id,
+  };
+};
+
+const mapDispachToProps = (dispatch: Dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispachToProps)(Article);

@@ -158,6 +158,11 @@ const NoChatAPi = {
 
     return json;
   },
+  deleteComment: async (id: string) => {
+    const json = await apiFetchPut(`/comment/${id}`, {});
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;

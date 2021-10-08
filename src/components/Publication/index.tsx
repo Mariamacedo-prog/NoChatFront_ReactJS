@@ -1,15 +1,21 @@
 import React from "react";
 import { PublicationsType } from "../../reducers/UserReducer";
-import { Container, DescriptionArea, PostInfo } from "./styles";
+
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
+import { AiFillDelete } from "react-icons/ai";
+import { Container, DescriptionArea, PostInfo } from "./styles";
 
 interface PublicationProps {
   item: PublicationsType;
+  _id: string;
 }
 
 const Publication: React.FC<PublicationProps> = (props) => {
   return (
     <>
+      {props.item.userId === props._id && <AiFillDelete />}
       <PostInfo>
         {props.item.avatar ? (
           <img
@@ -36,4 +42,14 @@ const Publication: React.FC<PublicationProps> = (props) => {
   );
 };
 
-export default Publication;
+const mapStateToProps = (state: any) => {
+  return {
+    _id: state.user._id,
+  };
+};
+
+const mapDispachToProps = (dispatch: Dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispachToProps)(Publication);
