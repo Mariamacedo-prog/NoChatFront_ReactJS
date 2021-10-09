@@ -3,6 +3,7 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
+import PageCreatePost from "../pages/PageCreatePost";
 import PagePublication from "../pages/PagePublication";
 import Home from "../pages/Home";
 import { isLogged } from "../helpers/Auth";
@@ -57,6 +58,9 @@ const Routes: React.FC = (props: any) => {
       </Route>
       <Route exact path="/post/:id" private>
         <PagePublication />
+      </Route>
+      <Route exact path="/addpost" private>
+        <PageCreatePost />
       </Route>
       <Route exact path="/" private>
         <Home />

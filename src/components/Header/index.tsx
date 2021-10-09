@@ -4,7 +4,8 @@ import { Container, Search, Menu, Button } from "./styles";
 import { doLogout } from "../../helpers/Auth";
 import NoChat from "../../assets/nochat-logo.png";
 import { Dispatch } from "redux";
-
+import Modal from "../Modal";
+import Error from "../Error";
 import {
   AiOutlineSearch,
   AiOutlineHome,
@@ -38,7 +39,7 @@ const Header = (props: any) => {
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/addpost">
               <AiFillFileAdd />
               <p>Publicar</p>
             </Link>

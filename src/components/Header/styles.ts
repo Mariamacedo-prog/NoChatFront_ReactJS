@@ -105,3 +105,64 @@ export const Button = styled.button`
     width: 20px;
   }
 `;
+
+export const Form = styled.form`
+  width: 580px;
+  height: 460px;
+  background-color: #ff4d00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Input = styled.input`
+  background-color: #19181a;
+  border: 1px solid #19181a;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 220px;
+  border-radius: 5px;
+  transition: 0.5s;
+  color: #fff;
+  border: 3px solid #19181a;
+
+  ::placeholder {
+    color: #fff;
+  }
+  :focus {
+    border: 3px solid #d83600;
+    outline: 0;
+  }
+`;
+
+export const Description = styled.textarea`
+  background-color: #19181a;
+  border: 1px solid #19181a;
+  height: 100px;
+  margin-bottom: 10px;
+  width: 450px;
+  border-radius: 5px;
+  transition: 0.5s;
+  color: #fff;
+  border: 3px solid #19181a;
+
+  ::placeholder {
+    color: #fff;
+  }
+  :focus {
+    border: 3px solid #d83600;
+    outline: 0;
+  }
+`;
+export const Title = styled.h1`
+  color: #19181a;
+  font-size: larger;
+  font-weight: bolder;
+`;
+
+export const ButtonEdit = styled.button`
+  color: #ff4d00;
+  font-size: larger;
+  font-weight: bolder;
+  background-color: #fff;
+`;

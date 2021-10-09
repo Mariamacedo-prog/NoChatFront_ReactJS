@@ -51,6 +51,9 @@ export const Title = styled.h2`
   padding: 0;
   margin: 0 10px;
   color: #ff8855;
+  max-width: 350px;
+  word-wrap: break-word;
+  font-size: larger;
   font-weight: bolder;
   font-family: "Courier New", Courier, monospace;
 `;

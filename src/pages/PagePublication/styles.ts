@@ -89,6 +89,13 @@ export const DescriptionArea = styled.div`
   padding: 10px 10px 0 10px;
   max-height: 60%;
   font-size: 12px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #ff4d00;
+  }
 `;
 export const ButtonsArea = styled.div`
   display: flex;
