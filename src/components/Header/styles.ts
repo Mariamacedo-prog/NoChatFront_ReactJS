@@ -211,7 +211,6 @@ export const SearchArea = styled.div`
 
     :hover {
       background-color: #ff4d00;
-
       p {
         color: #19181a;
         font-weight: bolder;

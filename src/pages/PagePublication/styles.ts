@@ -57,15 +57,19 @@ export const CommentItem = styled.li`
   flex-direction: column;
   padding: 10px;
   border-bottom: 0.5px solid #000;
+
   div {
     display: flex;
     align-items: center;
-    h2 {
+
+    a {
       font-size: medium;
       margin: 0;
       padding: 0;
       flex: 1;
       margin-left: 5px;
+      text-decoration: none;
+      color: #fff;
     }
     small {
       font-size: 10px;

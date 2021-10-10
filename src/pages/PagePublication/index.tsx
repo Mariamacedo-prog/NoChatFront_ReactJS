@@ -74,7 +74,6 @@ const PagePublication = (props: PropsData) => {
         ? `0${newDate.getMinutes()}`
         : newDate.getMinutes();
     const time = `${newDate.getHours()}:${minutes}`;
-    console.log(newDate.getDay(), day);
     return `${day}  ${time}`;
   };
 
@@ -159,7 +158,9 @@ const PagePublication = (props: PropsData) => {
                       alt=""
                     />
                   )}
-                  <h2>{comment.username}</h2>
+                  <Link to={`/user/${comment.username}`}>
+                    {comment.username}
+                  </Link>
                   <small>{handleDate(comment.date)}</small>
                 </div>
 

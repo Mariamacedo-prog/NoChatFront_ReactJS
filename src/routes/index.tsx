@@ -5,6 +5,7 @@ import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import PageCreatePost from "../pages/PageCreatePost";
 import PagePublication from "../pages/PagePublication";
+import PageUser from "../pages/PageUser";
 import Home from "../pages/Home";
 import { isLogged } from "../helpers/Auth";
 import Route from "./Routehandler";
@@ -64,6 +65,9 @@ const Routes: React.FC = (props: any) => {
       </Route>
       <Route exact path="/" private>
         <Home />
+      </Route>
+      <Route exact path="/user/:name" private>
+        <PageUser />
       </Route>
 
       <Route private>

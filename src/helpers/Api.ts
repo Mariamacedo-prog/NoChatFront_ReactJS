@@ -209,6 +209,11 @@ const NoChatAPi = {
 
     return json;
   },
+  getOneUser: async (name: string) => {
+    const json = await apiFetchPost("/user/one", { name });
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;

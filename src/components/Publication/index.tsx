@@ -39,7 +39,7 @@ const Publication: React.FC<PublicationProps> = (props) => {
         ? `0${newDate.getMinutes()}`
         : newDate.getMinutes();
     const time = `${newDate.getHours()}:${minutes}`;
-    console.log(newDate.getDay(), day);
+
     return `${day}  ${time}`;
   };
 
@@ -56,6 +56,7 @@ const Publication: React.FC<PublicationProps> = (props) => {
                   onClick={() => deletePublication(props.item._id)}
                 />
               )}
+
               {props.item.avatar ? (
                 <img
                   src={props.item.avatar}
@@ -67,9 +68,12 @@ const Publication: React.FC<PublicationProps> = (props) => {
                   alt="Avatar"
                 />
               )}
-              <Link to={`/user/${props.item.username}`}>
-                {props.item.username}
-              </Link>
+
+              {props.item.username && (
+                <Link to={`/user/${props.item.username}`}>
+                  {props.item.username}
+                </Link>
+              )}
             </div>
             {props.item.createdAt && (
               <small>{handleDate(props.item.createdAt)}</small>

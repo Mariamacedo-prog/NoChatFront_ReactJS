@@ -17,6 +17,8 @@ import {
 interface ArticleProps {
   item: PublicationsType;
   _id: string;
+  username?: string;
+  avatar?: string;
 }
 
 const Article: React.FC<ArticleProps> = (props) => {
@@ -45,7 +47,6 @@ const Article: React.FC<ArticleProps> = (props) => {
         ? `0${newDate.getMinutes()}`
         : newDate.getMinutes();
     const time = `${newDate.getHours()}:${minutes}`;
-    console.log(newDate.getDay(), day);
     return `${day}  ${time}`;
   };
   return (
@@ -61,22 +62,26 @@ const Article: React.FC<ArticleProps> = (props) => {
                   onClick={() => deletePublication(props.item._id)}
                 />
               )}
+
               {props.item.avatar ? (
                 <img
-                  className="userImage"
                   src={props.item.avatar}
+                  className="userImage"
                   alt={`foto de perfil de ${props.item.username}`}
                 />
               ) : (
                 <img
-                  className="userImage"
                   src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  className="userImage"
                   alt="Avatar"
                 />
               )}
-              <Link to={`/user/${props.item.username}`}>
-                {props.item.username}
-              </Link>
+
+              {props.item.username && (
+                <Link to={`/user/${props.item.username}`}>
+                  {props.item.username}
+                </Link>
+              )}
             </div>
             {props.item.createdAt && (
               <small>{handleDate(props.item.createdAt)}</small>

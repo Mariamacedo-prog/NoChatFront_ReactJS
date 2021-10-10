@@ -36,15 +36,12 @@ const Header = (props: any) => {
 
   const getUsers = async () => {
     const json = await api.getUsers(q);
-    console.log("chamou");
     if (json.error) {
       setErrors(json.error);
     } else {
       setUsers(json.users);
     }
   };
-
-  console.log(users);
 
   const userWrote = () => {
     clearTimeout(typingTimer);
