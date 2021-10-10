@@ -32,7 +32,7 @@ const PageUser = (props: any) => {
   const [publications, setPublications] = useState([]);
   const [user, setUser] = useState({} as any);
   const [like, setLike] = useState(false);
-
+  console.log(user);
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(true);
 
