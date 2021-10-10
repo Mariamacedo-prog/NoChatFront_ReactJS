@@ -66,7 +66,7 @@ const PageCreatePost = (props: any) => {
         }
       }
 
-      const json = await api.createPost(fData);
+      const json = await api.createPublication(fData);
 
       if (!json.error) {
         window.location.href = "/";

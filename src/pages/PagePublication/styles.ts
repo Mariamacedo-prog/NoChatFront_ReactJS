@@ -86,6 +86,11 @@ export const DescriptionArea = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
+  p {
+    font-size: larger;
+    font-weight: none;
+  }
+
   padding: 10px 10px 0 10px;
   max-height: 60%;
   font-size: 12px;

@@ -54,7 +54,7 @@ export const Description = styled.textarea`
   transition: 0.5s;
   color: #fff;
   border: 3px solid #d83600;
-
+  white-space: pre-wrap;
   ::placeholder {
     color: #fff;
   }

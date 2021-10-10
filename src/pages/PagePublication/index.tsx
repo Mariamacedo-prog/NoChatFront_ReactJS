@@ -134,7 +134,7 @@ const PagePublication = (props: PropsData) => {
               </Link>
             </PostInfo>
             {publication.title && <TitleArea>{publication.title}</TitleArea>}
-            {publication.description}
+            <p>{publication.description}</p>
           </DescriptionArea>
         )}
 

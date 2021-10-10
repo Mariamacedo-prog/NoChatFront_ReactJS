@@ -1,24 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Search, Menu, Button } from "./styles";
-import { doLogout } from "../../helpers/Auth";
-import NoChat from "../../assets/nochat-logo.png";
-import { Dispatch } from "redux";
-import Modal from "../Modal";
-import Error from "../Error";
 import {
   AiOutlineSearch,
   AiOutlineHome,
   AiOutlineLogout,
   AiFillFileAdd,
 } from "react-icons/ai";
-import { connect } from "react-redux";
 import { IoMdNotifications, IoMdChatboxes } from "react-icons/io";
+import { doLogout } from "../../helpers/Auth";
+import NoChat from "../../assets/nochat-logo.png";
+import Error from "../Error";
+import { Dispatch } from "redux";
+import useApi from "../../helpers/Api";
+import { connect } from "react-redux";
+import { Container, Search, Menu, Button, SearchArea } from "./styles";
 
 const Header = (props: any) => {
+  const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState("");
+  const [users, setUsers] = useState([] as any);
+  const [q, setQ] = useState("");
+  const api = useApi();
   const hadleLogout = () => {
     doLogout();
     window.location.href = "/signin";
+  };
+
+  // wait user write to search
+  let typingTimer: any;
+  let interval = 2000;
+
+  const userIsWriting = () => {
+    clearTimeout(typingTimer);
+  };
+
+  const getUsers = async () => {
+    const json = await api.getUsers(q);
+    console.log("chamou");
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      setUsers(json.users);
+    }
+  };
+
+  console.log(users);
+
+  const userWrote = () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(getUsers, interval);
   };
 
   return (
@@ -28,7 +58,43 @@ const Header = (props: any) => {
       </Link>
       <Search>
         <AiOutlineSearch />
-        <input type="text" placeholder="Pesquisar..." />
+        <input
+          type="text"
+          placeholder="Pesquisar..."
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+          onKeyUp={userWrote}
+          onKeyDown={userIsWriting}
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+        />
+        {open && (
+          <SearchArea>
+            {errors !== "" && <Error error={errors} />}
+            {users &&
+              users.map((item: any) => (
+                <div key={item._id}>
+                  <Link to={`/`} className="seachItem">
+                    {item.avatar ? (
+                      <img
+                        src={item.avatar}
+                        alt={`foto de perfil de ${item.name}`}
+                      />
+                    ) : (
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        alt="Avatar"
+                      />
+                    )}
+                    <p>
+                      {item.name} <br />
+                      <small>{item.email}</small>
+                    </p>
+                  </Link>
+                </div>
+              ))}
+          </SearchArea>
+        )}
       </Search>
       <Menu>
         <ul>

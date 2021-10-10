@@ -166,3 +166,54 @@ export const ButtonEdit = styled.button`
   font-weight: bolder;
   background-color: #fff;
 `;
+
+export const SearchArea = styled.div`
+  display: block;
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background-color: #fff;
+  top: 59px;
+  background-color: #19181a;
+  border: 1px dashed #ff4d00;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #ff4d00;
+  }
+
+  .seachItem {
+    display: flex;
+    height: 80px;
+    width: 345px;
+    align-items: center;
+    border-bottom: 1px solid #ff4d00;
+    transition: all ease 1s;
+    cursor: pointer;
+    text-decoration: none;
+
+    :hover {
+      background-color: #ff4d00;
+
+      p {
+        color: #19181a;
+        font-weight: bolder;
+      }
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+    p {
+      font-size: large;
+    }
+    small {
+      font-size: small;
+      color: #ccc;
+    }
+  }
+`;

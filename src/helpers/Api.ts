@@ -163,6 +163,26 @@ const NoChatAPi = {
 
     return json;
   },
+  createPublication: async (fData: FormData) => {
+    let token = Cookie.get("token");
+    if (token) {
+      fData.append("token", token);
+    }
+
+    const res = await fetch(BASEAPI + "/publication", {
+      method: "POST",
+      body: fData,
+    });
+
+    const json = await res.json();
+
+    if (json.notallowed) {
+      window.location.href = "/signin";
+      return;
+    }
+
+    return json;
+  },
   deletePublication: async (body: { token?: string; id: string }) => {
     if (!body.token) {
       let token = Cookie.get("token");
@@ -184,23 +204,8 @@ const NoChatAPi = {
 
     return json;
   },
-  createPost: async (fData: FormData) => {
-    let token = Cookie.get("token");
-    if (token) {
-      fData.append("token", token);
-    }
-
-    const res = await fetch(BASEAPI + "/publication", {
-      method: "POST",
-      body: fData,
-    });
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-      window.location.href = "/signin";
-      return;
-    }
+  getUsers: async (q: string) => {
+    const json = await apiFetchGet("/users", { q });
 
     return json;
   },
