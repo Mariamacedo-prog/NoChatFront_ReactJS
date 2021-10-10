@@ -177,6 +177,7 @@ export const SearchArea = styled.div`
   background-color: #19181a;
   border: 1px dashed #ff4d00;
   overflow-y: scroll;
+  z-index: 99;
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -194,14 +195,6 @@ export const SearchArea = styled.div`
     cursor: pointer;
     text-decoration: none;
 
-    :hover {
-      background-color: #ff4d00;
-
-      p {
-        color: #19181a;
-        font-weight: bolder;
-      }
-    }
     img {
       width: 50px;
       height: 50px;
@@ -214,6 +207,15 @@ export const SearchArea = styled.div`
     small {
       font-size: small;
       color: #ccc;
+    }
+
+    :hover {
+      background-color: #ff4d00;
+
+      p {
+        color: #19181a;
+        font-weight: bolder;
+      }
     }
   }
 `;

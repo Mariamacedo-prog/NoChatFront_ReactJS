@@ -25,6 +25,11 @@ export const DescriptionArea = styled.div`
 export const PostInfo = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  div {
+    display: flex;
+    align-items: center;
+  }
   img {
     width: 30px;
     height: 30px;
@@ -35,5 +40,9 @@ export const PostInfo = styled.div`
     font-size: 14px;
     text-decoration: none;
     color: #fff;
+  }
+
+  small {
+    font-size: x-small;
   }
 `;

@@ -29,6 +29,20 @@ const Publication: React.FC<PublicationProps> = (props) => {
     }
   };
 
+  const handleDate = (date: string) => {
+    const newDate = new Date(date);
+    const day = `${newDate.getDate()}/${
+      newDate.getMonth() + 1
+    }/${newDate.getFullYear()}`;
+    const minutes =
+      newDate.getMinutes() < 10
+        ? `0${newDate.getMinutes()}`
+        : newDate.getMinutes();
+    const time = `${newDate.getHours()}:${minutes}`;
+    console.log(newDate.getDay(), day);
+    return `${day}  ${time}`;
+  };
+
   return (
     <>
       {errors !== "" && <Error error={errors} />}
@@ -36,24 +50,32 @@ const Publication: React.FC<PublicationProps> = (props) => {
       {available && (
         <>
           <PostInfo>
-            {props.item.userId === props._id && (
-              <AiFillDelete onClick={() => deletePublication(props.item._id)} />
+            <div>
+              {props.item.userId === props._id && (
+                <AiFillDelete
+                  onClick={() => deletePublication(props.item._id)}
+                />
+              )}
+              {props.item.avatar ? (
+                <img
+                  src={props.item.avatar}
+                  alt={`foto de perfil de ${props.item.username}`}
+                />
+              ) : (
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  alt="Avatar"
+                />
+              )}
+              <Link to={`/user/${props.item.username}`}>
+                {props.item.username}
+              </Link>
+            </div>
+            {props.item.createdAt && (
+              <small>{handleDate(props.item.createdAt)}</small>
             )}
-            {props.item.avatar ? (
-              <img
-                src={props.item.avatar}
-                alt={`foto de perfil de ${props.item.username}`}
-              />
-            ) : (
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                alt="Avatar"
-              />
-            )}
-            <Link to={`/user/${props.item.username}`}>
-              {props.item.username}
-            </Link>
           </PostInfo>
+
           <DescriptionArea>{props.item.description}</DescriptionArea>
           {props.item.image && (
             <Container>

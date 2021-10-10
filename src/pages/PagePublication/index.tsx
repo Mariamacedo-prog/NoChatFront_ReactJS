@@ -66,13 +66,15 @@ const PagePublication = (props: PropsData) => {
 
   const handleDate = (date: string) => {
     const newDate = new Date(date);
-    const day = `${newDate.getDay()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
+    const day = `${newDate.getDate()}/${
+      newDate.getMonth() + 1
+    }/${newDate.getFullYear()}`;
     const minutes =
       newDate.getMinutes() < 10
         ? `0${newDate.getMinutes()}`
         : newDate.getMinutes();
     const time = `${newDate.getHours()}:${minutes}`;
-
+    console.log(newDate.getDay(), day);
     return `${day}  ${time}`;
   };
 

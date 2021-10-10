@@ -51,6 +51,10 @@ const Header = (props: any) => {
     typingTimer = setTimeout(getUsers, interval);
   };
 
+  const closingSearchArea = () => {
+    setTimeout(() => setOpen(false), 500);
+  };
+
   return (
     <Container>
       <Link to="/">
@@ -62,7 +66,7 @@ const Header = (props: any) => {
           type="text"
           placeholder="Pesquisar..."
           onFocus={() => setOpen(true)}
-          onBlur={() => setOpen(false)}
+          onBlur={closingSearchArea}
           onKeyUp={userWrote}
           onKeyDown={userIsWriting}
           value={q}
@@ -73,25 +77,27 @@ const Header = (props: any) => {
             {errors !== "" && <Error error={errors} />}
             {users &&
               users.map((item: any) => (
-                <div key={item._id}>
-                  <Link to={`/`} className="seachItem">
-                    {item.avatar ? (
-                      <img
-                        src={item.avatar}
-                        alt={`foto de perfil de ${item.name}`}
-                      />
-                    ) : (
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                        alt="Avatar"
-                      />
-                    )}
-                    <p>
-                      {item.name} <br />
-                      <small>{item.email}</small>
-                    </p>
-                  </Link>
-                </div>
+                <Link
+                  to={`/user/${item.name}`}
+                  className="seachItem"
+                  key={item._id}
+                >
+                  {item.avatar ? (
+                    <img
+                      src={item.avatar}
+                      alt={`foto de perfil de ${item.name}`}
+                    />
+                  ) : (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                      alt="Avatar"
+                    />
+                  )}
+                  <p>
+                    {item.name} <br />
+                    <small>{item.email}</small>
+                  </p>
+                </Link>
               ))}
           </SearchArea>
         )}

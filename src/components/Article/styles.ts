@@ -26,6 +26,7 @@ export const PostInfo = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  justify-content: space-between;
   .userImage {
     width: 30px;
     height: 30px;
@@ -36,6 +37,13 @@ export const PostInfo = styled.div`
     font-size: 14px;
     text-decoration: none;
     color: #fff;
+  }
+  div {
+    display: flex;
+    align-items: center;
+  }
+  small {
+    font-size: x-small;
   }
 `;
 export const ArticleArea = styled.div`

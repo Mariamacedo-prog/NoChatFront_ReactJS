@@ -27,6 +27,7 @@ export interface PublicationsType {
   image?: string;
   username: string;
   avatar?: string;
+  createdAt?: string | undefined;
 }
 
 export interface StateUser {
