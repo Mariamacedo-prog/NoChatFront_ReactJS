@@ -8,6 +8,7 @@ import Article from "../../components/Article";
 import Button from "../../components/Button";
 import useApi from "../../helpers/Api";
 import Error from "../../components/Error";
+import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
 import {
   AiOutlineHeart,
   AiOutlineComment,
@@ -23,6 +24,7 @@ import {
   UserFeed,
   PostItem,
   ButtonsArea,
+  FollowUnfollowButton,
 } from "./styles";
 
 const PageUser = (props: any) => {
@@ -32,9 +34,9 @@ const PageUser = (props: any) => {
   const [publications, setPublications] = useState([]);
   const [user, setUser] = useState({} as any);
   const [like, setLike] = useState(false);
-  console.log(user);
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(true);
+  const [follow, setFollow] = useState("");
 
   useEffect(() => {
     setErrors("");
@@ -51,7 +53,7 @@ const PageUser = (props: any) => {
       }
     };
     getUser();
-  }, [api, category, like, name]);
+  }, [api, category, like, name, follow]);
 
   const handleLike = async (id: string) => {
     setErrors("");
@@ -66,6 +68,32 @@ const PageUser = (props: any) => {
         setLike(!json.liked);
         setLike(json.liked);
       }
+    }
+  };
+
+  const unfollowUser = async () => {
+    setErrors("");
+    let id: string = user._id;
+    const json = await api.unfollowUser(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      setFollow("");
+      setFollow("unfollow");
+    }
+  };
+
+  const followUser = async () => {
+    setErrors("");
+    let id: string = user._id;
+    const json = await api.followUser(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      setFollow("");
+      setFollow("follow");
     }
   };
 
@@ -106,6 +134,19 @@ const PageUser = (props: any) => {
                 </div>
               )}
             </ul>
+            {user._id !== props._id &&
+              user.followers &&
+              (user.followers.some((item: string) => item === props._id) ? (
+                <FollowUnfollowButton onClick={unfollowUser}>
+                  <RiUserUnfollowFill />
+                  Unfollow
+                </FollowUnfollowButton>
+              ) : (
+                <FollowUnfollowButton onClick={followUser}>
+                  <RiUserFollowFill />
+                  Follow
+                </FollowUnfollowButton>
+              ))}
           </ProfileConfig>
         </HeaderProfile>
         <PostButtons>

@@ -214,6 +214,16 @@ const NoChatAPi = {
 
     return json;
   },
+  followUser: async (id: string) => {
+    const json = await apiFetchPut(`/follow/${id}`, { id });
+
+    return json;
+  },
+  unfollowUser: async (id: string) => {
+    const json = await apiFetchPut(`/unfollow/${id}`, { id });
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;

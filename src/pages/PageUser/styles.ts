@@ -138,3 +138,10 @@ export const ButtonsArea = styled.div`
   border-radius: 10px;
   border: 1px solid #ff4d00;
 `;
+export const FollowUnfollowButton = styled.div`
+  background-color: #ffffff;
+  color: #ff4d00;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 3px;
+`;
