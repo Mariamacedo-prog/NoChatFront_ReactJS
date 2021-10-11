@@ -10,17 +10,8 @@ export const DescriptionArea = styled.div`
   padding: 20px 10px;
   font-family: "Courier New", Courier, monospace;
   overflow: hidden;
-  position: relative;
   max-height: 40px;
   text-align: justify;
-  :before {
-    color: #ff4d00;
-    background-color: #19181a;
-    content: "...Ver artigo";
-    position: absolute;
-    bottom: -0px;
-    right: 0;
-  }
 `;
 export const PostInfo = styled.div`
   display: flex;
@@ -53,6 +44,12 @@ export const ArticleArea = styled.div`
   a {
     color: #fff;
     text-decoration: none;
+  }
+  small {
+    background-color: #19181a;
+    margin-left: -10px;
+    align-self: flex-end;
+    color: #ff4d00;
   }
 `;
 export const Title = styled.h2`

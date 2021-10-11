@@ -2,7 +2,7 @@ export interface ChatUser {
   chatId: string;
   avatar: string;
   lastMessage: string;
-  lastMessageDate: Date;
+  lastMessageDate: string;
   title: string;
   with: string;
   id: string;
@@ -40,6 +40,8 @@ export interface StateUser {
   followings: string[];
   publications: PublicationsType[];
   description?: string;
+  isChatOpen?: boolean;
+  chatSelected?: string;
 }
 
 interface ActionsString {
@@ -62,6 +64,8 @@ const initialState = {
   chats: [],
   followers: [],
   followings: [],
+  isChatOpen: false,
+  chatSelected: "",
 };
 
 type Actions = ActionsString | ActionsArray;
@@ -84,6 +88,10 @@ const UserReducer = (state: StateUser = initialState, action: Actions) => {
       return { ...state, followings: action.payload };
     case "SET_CHATS":
       return { ...state, chats: action.payload };
+    case "OPEN_CHAT":
+      return { ...state, isChatOpen: action.payload };
+    case "SET_CHAT_SELECTED":
+      return { ...state, chatSelected: action.payload };
     case "SET_PUBLICATIONS":
       return {
         ...state,

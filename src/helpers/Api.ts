@@ -224,6 +224,11 @@ const NoChatAPi = {
 
     return json;
   },
+  newChat: async (userId: string) => {
+    const json = await apiFetchPost("/direct/newchat", { userId });
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;

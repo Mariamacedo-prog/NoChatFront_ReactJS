@@ -53,34 +53,47 @@ export const Menu = styled.nav`
   }
 
   li {
-    width: 20%;
+    width: 25%;
+    align-items: center;
+    color: #19181a;
+    justify-content: center;
+
+    display: flex;
+    flex-direction: column;
     a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       color: #19181a;
-      justify-content: center;
       text-decoration: none;
-      svg {
-        height: 30px;
-        width: 30px;
-        transition: 0.5s;
-      }
-      p {
-        margin: 0;
-        padding: 0;
-        color: #19181a;
-        font-size: 16px;
-        font-weight: bolder;
-      }
-      img {
-        border-radius: 50%;
-        height: 30px;
-        width: 30px;
-      }
     }
-    a:hover {
-      color: #fff;
+    svg {
+      height: 30px;
+      width: 30px;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+      color: #19181a;
+      font-size: 16px;
+      font-weight: bolder;
+    }
+    img {
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+    }
+  }
+  svg:hover {
+    color: #fff;
+  }
+  #chatMenuButton {
+    display: none;
+  }
+
+  @media (max-width: 650px) {
+    #chatMenuButton {
+      display: block;
     }
   }
 `;
@@ -185,12 +198,17 @@ export const SearchArea = styled.div`
     background-color: #ff4d00;
   }
 
+  div {
+    display: flex;
+    border-bottom: 1px solid #ff4d00;
+  }
+
   .seachItem {
     display: flex;
     height: 80px;
     width: 345px;
     align-items: center;
-    border-bottom: 1px solid #ff4d00;
+
     transition: all ease 1s;
     cursor: pointer;
     text-decoration: none;
@@ -202,7 +220,7 @@ export const SearchArea = styled.div`
       margin: 0 5px;
     }
     p {
-      font-size: large;
+      font-size: medium;
     }
     small {
       font-size: small;
@@ -216,5 +234,15 @@ export const SearchArea = styled.div`
         font-weight: bolder;
       }
     }
+  }
+
+  .buttonNewChat {
+    margin-top: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all ease 1s;
+  }
+  .buttonNewChat:hover {
+    margin-top: 10px;
   }
 `;

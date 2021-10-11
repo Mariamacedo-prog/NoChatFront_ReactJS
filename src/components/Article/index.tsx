@@ -95,6 +95,7 @@ const Article: React.FC<ArticleProps> = (props) => {
                 <DescriptionArea>{props.item.description}</DescriptionArea>
               </Link>
             </div>
+            <small>...</small>
           </ArticleArea>
         </>
       )}
