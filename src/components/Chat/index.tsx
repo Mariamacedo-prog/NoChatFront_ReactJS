@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { ChatUser, StateUser } from "../../reducers/UserReducer";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import Error from "../Error";
+import { AiOutlineArrowLeft, AiFillDelete } from "react-icons/ai";
 import {
   Container,
   ChatConversarion,
@@ -40,10 +41,11 @@ interface ChatData {
 
 const Chat: React.FC = (props: any) => {
   const api = useApi();
-  const [userOpenedChatId, setUserOpenedChatId] = useState("");
   const [currentUser, setCurrentUser] = useState({} as StateUser);
   const [errors, setErrors] = useState("");
   const [chat, setChat] = useState({} as ChatData);
+  const [msg, setMsg] = useState("");
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     const newChat = async () => {
@@ -58,17 +60,7 @@ const Chat: React.FC = (props: any) => {
       }
     };
     newChat();
-  }, [api, props.chatSelected]);
-
-  const handleHour = (date: string) => {
-    const newDate = new Date(date);
-    const minutes =
-      newDate.getMinutes() < 10
-        ? `0${newDate.getMinutes()}`
-        : newDate.getMinutes();
-    const time = `${newDate.getHours()}:${minutes}`;
-    return `${time}`;
-  };
+  }, [api, props.chatSelected, message]);
 
   useEffect(() => {
     const getUserInformation = async () => {
@@ -82,12 +74,63 @@ const Chat: React.FC = (props: any) => {
     getUserInformation();
   }, [api]);
 
+  //Para verificar onde esta a barra de rolagem e descer para o final da conversa.
+  useEffect(() => {
+    let body = document.getElementById("scrollConversarion");
+    if (body) {
+      if (body.scrollHeight > body.offsetHeight) {
+        body.scrollTop = body.scrollHeight - body.offsetHeight;
+      }
+    }
+  }, [chat]);
+
+  const handleHour = (date: string) => {
+    const newDate = new Date(date);
+    const minutes =
+      newDate.getMinutes() < 10
+        ? `0${newDate.getMinutes()}`
+        : newDate.getMinutes();
+    const time = `${newDate.getHours()}:${minutes}`;
+    return `${time}`;
+  };
+
+  const newChat = async (id: string) => {
+    props.setChatOpen(true);
+    props.setSelectedChat(id);
+  };
+
+  const handleMessage = async (id: string) => {
+    setErrors("");
+    const json = await api.sendMessage(msg, id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      setMsg("");
+      message === true ? setMessage(false) : setMessage(true);
+      return json;
+    }
+  };
+
+  const deleteMessage = async (id: string) => {
+    setErrors("");
+    const json = await api.deleteMessage(id);
+
+    if (json.error) {
+      setErrors(json.error);
+    } else {
+      message === true ? setMessage(false) : setMessage(true);
+      return json;
+    }
+  };
+
   return (
     <Container>
+      {errors && <Error error={errors} />}
       <ListChatContainer>
         {currentUser.chats &&
           currentUser.chats.map((item: ChatUser) => (
-            <ListChatItem key={item.id}>
+            <ListChatItem key={item.id} onClick={() => newChat(item.with)}>
               {item.avatar === "noChat.jpg" ? (
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLuox6vatPBS6w8edvrLbqXzHimyKXOVejMQ&usqp=CAU"
@@ -128,7 +171,7 @@ const Chat: React.FC = (props: any) => {
                   {chat.userInfo.username}
                 </Link>
               </UserInfo>
-              <MessagesContainter>
+              <MessagesContainter id="scrollConversarion">
                 {chat.chat.messages &&
                   chat.chat.messages.map((message: MessageData) => (
                     <MessageItem
@@ -139,12 +182,36 @@ const Chat: React.FC = (props: any) => {
                           : "anotherUserMessage"
                       }
                     >
+                      {message.author === props._id &&
+                        message.type === "text" && (
+                          <AiFillDelete
+                            onClick={() => deleteMessage(message.id)}
+                          />
+                        )}
                       <p className={message.type}>{message.msg}</p>
                       <small>{handleHour(message.date)}</small>
                     </MessageItem>
                   ))}
               </MessagesContainter>
-              <InputMessageArea>input</InputMessageArea>
+              <InputMessageArea>
+                <input
+                  type="text"
+                  name="msg"
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  placeholder="Digite sua mensagem..."
+                />
+
+                <button
+                  onClick={() =>
+                    handleMessage(
+                      chat.chat.users.filter((item) => item !== props._id)[0]
+                    )
+                  }
+                >
+                  Enviar
+                </button>
+              </InputMessageArea>
             </ChatContainter>
           )}
         </ChatConversarion>

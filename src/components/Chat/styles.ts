@@ -173,7 +173,16 @@ export const MessageItem = styled.li`
   display: flex;
   border-radius: 7px;
   margin: 5px 10px;
+  .deleted {
+    color: red;
+    font-weight: bolder;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+  }
   p {
+    margin-left: 10px;
     word-wrap: break-word;
     max-width: 240px;
     font-weight: bolder;
@@ -182,7 +191,41 @@ export const MessageItem = styled.li`
     color: #ddd;
     align-self: flex-end;
   }
+  svg {
+    cursor: pointer;
+  }
 `;
 export const InputMessageArea = styled.div`
-  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  margin-top: 10px;
+  background-color: #000;
+  border-top: 1px solid #ff4d00;
+
+  input {
+    flex: 1;
+    border: none;
+    padding-left: 20px;
+    color: #fff;
+    margin: 3px 0;
+    outline: none;
+    background-color: #000;
+  }
+
+  button {
+    height: 60px;
+    background-color: #ff4d00;
+    color: #fff;
+    border: none;
+    margin: 3px;
+    border-radius: 2px;
+    padding: 3px;
+    cursor: pointer;
+    transition: 1s;
+    :hover {
+      background-color: #a62a00;
+    }
+  }
 `;

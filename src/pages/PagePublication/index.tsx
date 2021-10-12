@@ -183,7 +183,7 @@ const PagePublication = (props: PropsData) => {
             </Button>
             <input
               type="text"
-              name="password"
+              name="comment"
               placeholder="Comente..."
               value={msg}
               onChange={(e) => setMsg(e.target.value)}

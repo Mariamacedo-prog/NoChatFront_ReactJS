@@ -229,6 +229,20 @@ const NoChatAPi = {
 
     return json;
   },
+  sendMessage: async (msg: string, id: string, type?: string) => {
+    const json = await apiFetchPut("/direct/chat", {
+      msg,
+      userId: id,
+      type: "text",
+    });
+
+    return json;
+  },
+  deleteMessage: async (id: string) => {
+    const json = await apiFetchPut(`/direct/${id}`, {});
+
+    return json;
+  },
 };
 
 export default () => NoChatAPi;
