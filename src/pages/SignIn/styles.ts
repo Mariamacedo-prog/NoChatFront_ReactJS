@@ -16,6 +16,7 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   background-color: #19181a;
+  width: 100%;
 `;
 
 export const FormSide = styled.div`
@@ -113,6 +114,7 @@ export const FormSide = styled.div`
 `;
 
 export const Background = styled.div`
+  width: 45%;
   animation: ${appear} 2s;
   flex: 1;
   padding: 20px;
