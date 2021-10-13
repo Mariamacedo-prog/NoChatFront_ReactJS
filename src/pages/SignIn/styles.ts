@@ -16,7 +16,6 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   background-color: #19181a;
-  margin: -8px;
 `;
 
 export const FormSide = styled.div`
@@ -101,14 +100,15 @@ export const FormSide = styled.div`
 
     a {
       font-weight: bolder;
-      margin: 0;
-      padding: 0;
       color: #fff;
       transition: 0.5s;
     }
     a:hover {
       color: #a62a00;
     }
+  }
+  @media (max-width: 650px) {
+    width: 100%;
   }
 `;
 
@@ -118,4 +118,7 @@ export const Background = styled.div`
   padding: 20px;
   background: url(${NoChat}) no-repeat center;
   background-size: cover;
+  @media (max-width: 650px) {
+    display: none;
+  }
 `;

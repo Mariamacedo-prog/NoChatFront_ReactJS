@@ -67,7 +67,7 @@ const Profile = (props: any) => {
       }
     };
     getUserPublications();
-  }, [api, category, like]);
+  }, [api, category, like, props._id]);
 
   const handleLike = async (id: string) => {
     setErrors("");

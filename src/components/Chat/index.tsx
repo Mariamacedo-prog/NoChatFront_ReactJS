@@ -55,7 +55,6 @@ const Chat: React.FC = (props: any) => {
           setErrors(json.error);
         } else {
           setChat(json);
-          props.setChatOpen(true);
         }
       }
     };
@@ -72,7 +71,7 @@ const Chat: React.FC = (props: any) => {
       }
     };
     getUserInformation();
-  }, [api]);
+  }, [api, message]);
 
   //Para verificar onde esta a barra de rolagem e descer para o final da conversa.
   useEffect(() => {
@@ -126,8 +125,8 @@ const Chat: React.FC = (props: any) => {
 
   return (
     <Container>
-      {errors && <Error error={errors} />}
       <ListChatContainer>
+        {errors && <Error error={errors} />}
         {currentUser.chats &&
           currentUser.chats.map((item: ChatUser) => (
             <ListChatItem key={item.id} onClick={() => newChat(item.with)}>

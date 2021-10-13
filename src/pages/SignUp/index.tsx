@@ -33,7 +33,7 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <Background />
+      <Background id="backgroundSide" />
       <FormSide>
         <h2>Preencha os dados</h2>
         {errors !== "" && <Error error={errors} />}

@@ -14,12 +14,19 @@ export const Container = styled.div`
     width: 100%;
     border-radius: 15px;
   }
+  @media (max-width: 650px) {
+    height: 300px;
+    width: 300px;
+  }
 `;
 
 export const DescriptionArea = styled.div`
   width: 350px;
   font-size: small;
   margin: 10px;
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 
 export const PostInfo = styled.div`
@@ -44,5 +51,8 @@ export const PostInfo = styled.div`
 
   small {
     font-size: x-small;
+  }
+  @media (max-width: 650px) {
+    width: 300px;
   }
 `;

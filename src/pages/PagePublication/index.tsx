@@ -46,7 +46,7 @@ const PagePublication = (props: PropsData) => {
       setLoading(false);
     };
     getItem();
-  }, [api, id, comment, like]);
+  }, [api, id, comment, like, history]);
 
   const handleLike = async (id: string) => {
     setErrors("");

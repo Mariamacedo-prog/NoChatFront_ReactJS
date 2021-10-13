@@ -4,9 +4,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: #19181a;
-  margin: 60px -8px -8px 525px;
-  height: 100%;
-  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
+  margin-top: 60px;
+  width: 100%;
   color: #fff;
 `;
 export const Form = styled.form`
@@ -24,6 +24,7 @@ export const Form = styled.form`
   }
   .LabelFile {
     width: 190px;
+    margin-bottom: 10px;
   }
   select {
     background-color: #d83600;
@@ -62,11 +63,15 @@ export const Description = styled.textarea`
     border: 3px solid #19181a;
     outline: 0;
   }
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 export const Title = styled.h1`
   color: #fff;
   font-size: larger;
   font-weight: bolder;
+  padding: 2px;
 `;
 export const CreateButton = styled.button`
   color: #19181a;

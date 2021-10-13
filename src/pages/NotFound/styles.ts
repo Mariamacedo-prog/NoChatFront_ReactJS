@@ -3,6 +3,7 @@ import Image404 from "../../assets/404.png";
 
 export const Container = styled.div`
   height: 100vh;
+  width: 100%;
   justify-content: flex-end;
   display: flex;
   margin: -8px;
@@ -11,7 +12,4 @@ export const Container = styled.div`
   background-position: right;
   background-size: contain;
   background-repeat: no-repeat;
-  img {
-    margin-right: 80px;
-  }
 `;

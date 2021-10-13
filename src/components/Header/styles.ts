@@ -5,19 +5,25 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   background-color: #ff4d00;
-  margin: -8px;
   position: fixed;
-  top: 8px;
+  top: 0;
   width: 100%;
   z-index: 99;
+
+  p {
+    color: #fff;
+  }
 
   img {
     height: 50px;
     width: 50px;
     margin-left: 15px;
   }
-  p {
-    color: #fff;
+  @media (max-width: 650px) {
+    img {
+      height: 40px;
+      width: 40px;
+    }
   }
 `;
 
@@ -29,6 +35,7 @@ export const Search = styled.div`
   align-items: center;
   margin: 0 10px;
   flex: 1;
+  max-width: 500px;
   svg {
     margin-right: 10px;
     color: #ff4d00;
@@ -41,10 +48,19 @@ export const Search = styled.div`
     outline: 0;
     color: #ff4d00;
   }
+  @media (max-width: 650px) {
+    flex: 0;
+    #searchSvg {
+      display: none;
+    }
+    input {
+      width: 60px;
+    }
+  }
 `;
 
 export const Menu = styled.nav`
-  width: 40%;
+  flex: 2;
   ul {
     display: flex;
     align-items: center;
@@ -92,92 +108,55 @@ export const Menu = styled.nav`
   }
 
   @media (max-width: 650px) {
-    #chatMenuButton {
-      display: block;
+    flex: 1;
+    li {
+      width: 30%;
+      p {
+        display: none;
+      }
+    }
+    #homeMenuButton {
+      display: none;
     }
   }
 `;
 
 export const Button = styled.button`
   height: 60px;
-  width: 20%;
+  width: 300px;
   border: none;
   background-color: transparent;
   cursor: pointer;
   font-size: 25px;
   font-weight: bolder;
   text-align: center;
-  transition: 0.5s;
-  color: #19181a;
 
-  :hover {
+  p {
+    padding: 0;
+    margin: 0;
+    color: #19181a;
+
+    transition: 0.5s;
+  }
+
+  p:hover {
     color: #fff;
   }
   svg {
     height: 20px;
     width: 20px;
   }
-`;
 
-export const Form = styled.form`
-  width: 580px;
-  height: 460px;
-  background-color: #ff4d00;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Input = styled.input`
-  background-color: #19181a;
-  border: 1px solid #19181a;
-  height: 30px;
-  margin-bottom: 10px;
-  width: 220px;
-  border-radius: 5px;
-  transition: 0.5s;
-  color: #fff;
-  border: 3px solid #19181a;
-
-  ::placeholder {
-    color: #fff;
+  @media (max-width: 650px) {
+    width: 100px;
+    p {
+      font-size: medium;
+    }
+    svg {
+      height: 15px;
+      width: 15px;
+    }
   }
-  :focus {
-    border: 3px solid #d83600;
-    outline: 0;
-  }
-`;
-
-export const Description = styled.textarea`
-  background-color: #19181a;
-  border: 1px solid #19181a;
-  height: 100px;
-  margin-bottom: 10px;
-  width: 450px;
-  border-radius: 5px;
-  transition: 0.5s;
-  color: #fff;
-  border: 3px solid #19181a;
-
-  ::placeholder {
-    color: #fff;
-  }
-  :focus {
-    border: 3px solid #d83600;
-    outline: 0;
-  }
-`;
-export const Title = styled.h1`
-  color: #19181a;
-  font-size: larger;
-  font-weight: bolder;
-`;
-
-export const ButtonEdit = styled.button`
-  color: #ff4d00;
-  font-size: larger;
-  font-weight: bolder;
-  background-color: #fff;
 `;
 
 export const SearchArea = styled.div`
@@ -244,5 +223,11 @@ export const SearchArea = styled.div`
   }
   .buttonNewChat:hover {
     margin-top: 10px;
+  }
+
+  @media (max-width: 650px) {
+    width: 250px;
+    height: 250px;
+    left: 0;
   }
 `;

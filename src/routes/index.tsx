@@ -35,7 +35,6 @@ const Routes: React.FC = (props: any) => {
       props.setAvatar(info.avatar);
     }
   }
-  console.log(props.chats);
 
   useEffect(() => {
     if (logged) {

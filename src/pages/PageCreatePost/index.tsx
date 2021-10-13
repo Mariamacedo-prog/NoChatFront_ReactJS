@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { PublicationsType } from "../../reducers/UserReducer";
 import Error from "../../components/Error";
 import useApi from "../../helpers/Api";
 import { AiFillPicture } from "react-icons/ai";

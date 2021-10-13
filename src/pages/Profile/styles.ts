@@ -4,10 +4,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #19181a;
-  margin: 60px -8px -8px 525px;
+  margin: 60px -8px -8px 0;
   height: 100%;
   min-height: calc(100vh - 60px);
   color: #fff;
+  width: 100%;
 `;
 export const HeaderProfile = styled.div`
   background-color: #000;
@@ -16,6 +17,9 @@ export const HeaderProfile = styled.div`
   justify-content: space-around;
   margin: 0 10px;
   height: 150px;
+  @media (max-width: 650px) {
+    align-items: flex-start;
+  }
 `;
 export const ProfileImage = styled.div`
   img {
@@ -24,16 +28,18 @@ export const ProfileImage = styled.div`
     width: 100px;
     border-radius: 50%;
   }
+  @media (max-width: 650px) {
+    img {
+      height: 60px;
+      width: 60px;
+    }
+  }
 `;
 export const ProfileInfo = styled.div`
   flex: 1;
-  display: flex;
-  flex-direction: column;
   margin-left: 10px;
   h1 {
     font-size: larger;
-    padding: 0;
-    margin: 0;
     outline: none;
     -webkit-touch-callout: none; /* iPhone OS, Safari */
     -webkit-user-select: none; /* Chrome, Safari 3 */
@@ -43,8 +49,6 @@ export const ProfileInfo = styled.div`
     user-select: none;
   }
   small {
-    padding: 0;
-    margin: 0;
     -webkit-touch-callout: none; /* iPhone OS, Safari */
     -webkit-user-select: none; /* Chrome, Safari 3 */
     -khtml-user-select: none; /* Safari 2 */
@@ -53,11 +57,29 @@ export const ProfileInfo = styled.div`
     user-select: none;
   }
   div {
-    margin-top: 10px;
     height: 80px;
     width: 200px;
+
     p {
       font-size: 12px;
+    }
+  }
+
+  @media (max-width: 650px) {
+    h1,
+    small {
+      font-size: smaller;
+    }
+    img {
+      height: 60px;
+      width: 60px;
+    }
+    div {
+      height: 100px;
+      width: 100px;
+      p {
+        font-size: 10px;
+      }
     }
   }
 `;
@@ -110,6 +132,9 @@ export const PostButtons = styled.div`
     background-color: #19181a;
     color: #ff4d00;
   }
+  @media (max-width: 650px) {
+    font-size: larger;
+  }
 `;
 export const UserFeed = styled.div`
   display: flex;
@@ -153,8 +178,13 @@ export const EditForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
+  @media (max-width: 650px) {
+    width: 280px;
+    height: 410px;
+    margin-left: -60px;
+  }
+`;
 export const InputEdiction = styled.input`
   background-color: #19181a;
   border: 1px solid #19181a;
@@ -173,8 +203,11 @@ export const InputEdiction = styled.input`
     border: 3px solid #d83600;
     outline: 0;
   }
+  @media (max-width: 650px) {
+    width: 140px;
+    margin-bottom: 5px;
+  }
 `;
-
 export const DescriptionEdit = styled.textarea`
   background-color: #19181a;
   border: 1px solid #19181a;
@@ -193,16 +226,21 @@ export const DescriptionEdit = styled.textarea`
     border: 3px solid #d83600;
     outline: 0;
   }
+  @media (max-width: 650px) {
+    width: 220px;
+    height: 70px;
+  }
 `;
 export const EditTitle = styled.h1`
   color: #19181a;
   font-size: larger;
   font-weight: bolder;
 `;
-
 export const ButtonEdit = styled.button`
   color: #ff4d00;
   font-size: larger;
   font-weight: bolder;
   background-color: #fff;
+  border: none;
+  border-radius: 3px;
 `;

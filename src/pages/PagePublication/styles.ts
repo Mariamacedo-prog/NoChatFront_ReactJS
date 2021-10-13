@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContentArea = styled.div`
   display: flex;
   background-color: #19181a;
-  margin: 60px -8px -8px 525px;
+  margin-top: 60px;
   height: calc(100vh - 60px);
   color: #fff;
   justify-content: center;
@@ -20,28 +20,36 @@ export const ContentArea = styled.div`
       color: #ff4d00;
     }
   }
+  @media (max-width: 650px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 export const Leftside = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+  @media (max-width: 650px) {
+    width: auto;
+  }
 `;
 export const PublicationImage = styled.img`
   border-radius: 10px;
   border: 1px solid #ff4d00;
 `;
-
 export const Rightside = styled.div`
   display: flex;
-  width: 40%;
+  width: 30%;
   flex-direction: column;
+  @media (max-width: 650px) {
+    width: auto;
+  }
 `;
 export const CommentList = styled.ul`
   display: flex;
   flex: 1;
   flex-direction: column;
-
   margin: 0;
   padding: 0;
   overflow-y: scroll;
@@ -50,6 +58,10 @@ export const CommentList = styled.ul`
   }
   ::-webkit-scrollbar-thumb {
     background-color: #ff4d00;
+  }
+  @media (max-width: 650px) {
+    flex: 0;
+    max-height: 200px;
   }
 `;
 export const CommentItem = styled.li`
@@ -89,7 +101,7 @@ export const CommentItem = styled.li`
 export const DescriptionArea = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin-bottom: 10px;
   p {
     font-size: larger;
     font-weight: none;
@@ -133,6 +145,11 @@ export const ButtonsArea = styled.div`
     margin: 3px;
     border-radius: 2px;
     padding: 3px;
+  }
+  @media (max-width: 1050px) {
+    input {
+      width: 100%;
+    }
   }
 `;
 export const TitleArea = styled.h1`

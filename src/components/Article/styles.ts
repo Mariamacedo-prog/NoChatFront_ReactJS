@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 export const DescriptionArea = styled.div`
   width: 350px;
@@ -12,6 +15,9 @@ export const DescriptionArea = styled.div`
   overflow: hidden;
   max-height: 40px;
   text-align: justify;
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 export const PostInfo = styled.div`
   display: flex;
@@ -36,6 +42,9 @@ export const PostInfo = styled.div`
   small {
     font-size: x-small;
   }
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 export const ArticleArea = styled.div`
   display: flex;
@@ -51,6 +60,9 @@ export const ArticleArea = styled.div`
     align-self: flex-end;
     color: #ff4d00;
   }
+  @media (max-width: 650px) {
+    width: 300px;
+  }
 `;
 export const Title = styled.h2`
   padding: 0;
@@ -61,4 +73,7 @@ export const Title = styled.h2`
   font-size: larger;
   font-weight: bolder;
   font-family: "Courier New", Courier, monospace;
+  @media (max-width: 650px) {
+    max-width: 300px;
+  }
 `;

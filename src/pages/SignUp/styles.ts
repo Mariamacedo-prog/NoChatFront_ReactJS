@@ -16,7 +16,12 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   background-color: #19181a;
-  margin: -8px;
+
+  @media (max-width: 650px) {
+    #backgroundSide {
+      display: none;
+    }
+  }
 `;
 
 export const FormSide = styled.div`
@@ -108,6 +113,13 @@ export const FormSide = styled.div`
     }
     a:hover {
       color: #a62a00;
+    }
+  }
+  @media (max-width: 650px) {
+    width: 100%;
+    padding: 0;
+    h2 {
+      font-size: x-large;
     }
   }
 `;

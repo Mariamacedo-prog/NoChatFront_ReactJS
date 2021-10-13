@@ -2,17 +2,19 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
   background-color: #19181a;
-  margin: 60px -8px -8px 525px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  margin: 60px 0 0 0;
   height: 100%;
-  min-height: calc(100vh - 60px);
+  width: 100%;
   color: #fff;
 `;
 
 export const UserFeed = styled.div`
   display: flex;
-  align-items: center;
+
   flex-direction: column;
   padding: 5px;
   p {
@@ -23,6 +25,8 @@ export const UserFeed = styled.div`
 `;
 
 export const PostItem = styled.div`
+  display: flex;
+  flex-direction: column;
   border: 5px double #000;
   border-radius: 10px;
   padding: 10px;

@@ -4,10 +4,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #19181a;
-  margin: 60px -8px -8px 525px;
+  margin-top: 60px;
   height: 100%;
   min-height: calc(100vh - 60px);
   color: #fff;
+  width: 100%;
 `;
 export const HeaderProfile = styled.div`
   background-color: #000;
@@ -16,6 +17,9 @@ export const HeaderProfile = styled.div`
   justify-content: space-around;
   margin: 0 10px;
   height: 150px;
+  @media (max-width: 650px) {
+    align-items: flex-start;
+  }
 `;
 export const ProfileImage = styled.div`
   img {
@@ -23,6 +27,12 @@ export const ProfileImage = styled.div`
     height: 100px;
     width: 100px;
     border-radius: 50%;
+  }
+  @media (max-width: 650px) {
+    img {
+      height: 60px;
+      width: 60px;
+    }
   }
 `;
 export const ProfileInfo = styled.div`
@@ -32,8 +42,6 @@ export const ProfileInfo = styled.div`
   margin-left: 10px;
   h1 {
     font-size: larger;
-    padding: 0;
-    margin: 0;
     outline: none;
     -webkit-touch-callout: none; /* iPhone OS, Safari */
     -webkit-user-select: none; /* Chrome, Safari 3 */
@@ -43,8 +51,6 @@ export const ProfileInfo = styled.div`
     user-select: none;
   }
   small {
-    padding: 0;
-    margin: 0;
     -webkit-touch-callout: none; /* iPhone OS, Safari */
     -webkit-user-select: none; /* Chrome, Safari 3 */
     -khtml-user-select: none; /* Safari 2 */
@@ -58,6 +64,24 @@ export const ProfileInfo = styled.div`
     width: 200px;
     p {
       font-size: 12px;
+    }
+  }
+
+  @media (max-width: 650px) {
+    h1,
+    small {
+      font-size: smaller;
+    }
+    img {
+      height: 60px;
+      width: 60px;
+    }
+    div {
+      height: 100px;
+      width: 100px;
+      p {
+        font-size: 10px;
+      }
     }
   }
 `;
@@ -102,6 +126,9 @@ export const PostButtons = styled.div`
   .selected {
     background-color: #19181a;
     color: #ff4d00;
+  }
+  @media (max-width: 650px) {
+    font-size: larger;
   }
 `;
 export const UserFeed = styled.div`

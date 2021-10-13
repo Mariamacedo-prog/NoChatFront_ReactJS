@@ -1,35 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 530px;
-  height: calc(100% - 60px);
-  position: fixed;
-  top: 68px;
-  display: flex;
+  width: 50%;
+  height: calc(100vh - 60px);
   background-color: #19181a;
-  margin: -8px;
   border-right: 4px solid #ff4d00;
-
+  border-bottom: 4px solid #ff4d00;
+  margin-top: 60px;
   .opend {
     margin-left: 0px;
   }
 
   .closed {
-    margin-left: -530px;
+    margin-left: -800px;
   }
-
-  @media (max-width: 1050px) {
-    width: 330px;
-  }
-
   @media (max-width: 650px) {
-    width: 330px;
+    width: 100%;
   }
 `;
 export const ListChatItem = styled.li`
   display: flex;
-  width: 495px;
-  margin-left: -20px;
+
   height: 60px;
   background-color: #161617;
   margin-bottom: 10px;
@@ -87,8 +78,17 @@ export const ListChatItem = styled.li`
       color: #fff;
     }
   }
+  @media (max-width: 650px) {
+    div {
+      p {
+        max-width: 180px;
+      }
+    }
+  }
 `;
 export const ListChatContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
   list-style: none;
   ::-webkit-scrollbar {
@@ -97,16 +97,22 @@ export const ListChatContainer = styled.ul`
   ::-webkit-scrollbar-thumb {
     background-color: #ff4d00;
   }
+  @media (max-width: 650px) {
+    height: calc(100% - 60px);
+  }
 `;
 export const ChatConversarion = styled.div`
-  width: 530px;
+  width: auto;
   height: calc(100% - 60px);
   position: fixed;
   margin: 0px;
-  top: 55px;
+  top: 60px;
   display: flex;
   background-color: #19181a;
   transition: all ease 1s;
+  @media (max-width: 650px) {
+    width: 100%;
+  }
 `;
 export const BackButton = styled.button`
   color: #ff4d00;
@@ -120,11 +126,17 @@ export const BackButton = styled.button`
     color: #000;
     background-color: #ff4d00;
   }
+  @media (max-width: 650px) {
+    height: calc(100vh - 60px);
+  }
 `;
-
 export const ChatContainter = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 650px) {
+    height: calc(100vh - 60px);
+    width: 100%;
+  }
 `;
 export const UserInfo = styled.div`
   display: flex;
@@ -146,8 +158,6 @@ export const UserInfo = styled.div`
 export const MessagesContainter = styled.ul`
   display: flex;
   flex: 1;
-  padding: 0;
-  margin: 0;
   flex-direction: column;
   width: 500px;
   align-items: flex-start;
@@ -168,11 +178,15 @@ export const MessagesContainter = styled.ul`
     color: #ff4d00;
     background-color: #000;
   }
+  @media (max-width: 650px) {
+    width: auto;
+  }
 `;
 export const MessageItem = styled.li`
   display: flex;
   border-radius: 7px;
   margin: 5px 10px;
+  padding: 10px;
   .deleted {
     color: red;
     font-weight: bolder;
@@ -193,6 +207,11 @@ export const MessageItem = styled.li`
   }
   svg {
     cursor: pointer;
+  }
+  @media (max-width: 650px) {
+    p {
+      max-width: 200px;
+    }
   }
 `;
 export const InputMessageArea = styled.div`

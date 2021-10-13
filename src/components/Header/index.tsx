@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AiOutlineSearch,
@@ -7,7 +7,7 @@ import {
   AiFillFileAdd,
   AiFillWechat,
 } from "react-icons/ai";
-import { IoMdNotifications, IoMdChatboxes } from "react-icons/io";
+import { IoMdChatboxes } from "react-icons/io";
 import { doLogout } from "../../helpers/Auth";
 import NoChat from "../../assets/nochat-logo.png";
 import Error from "../Error";
@@ -20,12 +20,10 @@ import { Container, Search, Menu, Button, SearchArea } from "./styles";
 
 const Header = (props: any) => {
   const [open, setOpen] = useState(false);
-  const [openChat, setOpenChat] = useState(true);
   const [errors, setErrors] = useState("");
   const [users, setUsers] = useState([] as any);
   const [q, setQ] = useState("");
   const api = useApi();
-  const [newChatUserId, setNewChatUserId] = useState("");
   const hadleLogout = () => {
     doLogout();
     window.location.href = "/signin";
@@ -45,7 +43,6 @@ const Header = (props: any) => {
       setErrors(json.error);
     } else {
       setUsers(json.users);
-      console.log(json);
     }
   };
 
@@ -59,16 +56,17 @@ const Header = (props: any) => {
   };
 
   const openingChatArea = () => {
-    if (openChat === true) {
-      setOpenChat(false);
+    if (props.openChat === true) {
+      props.setOpenChat(false);
     } else {
-      setOpenChat(true);
+      props.setOpenChat(true);
     }
   };
 
   const newChat = async (id: string) => {
     props.setChatOpen(true);
     props.setSelectedChat(id);
+    props.setOpenChat(true);
   };
 
   return (
@@ -78,7 +76,7 @@ const Header = (props: any) => {
           <img src={NoChat} alt="NoChat logo" />
         </Link>
         <Search>
-          <AiOutlineSearch />
+          <AiOutlineSearch id="searchSvg"/>
           <input
             type="text"
             placeholder="Pesquisar..."
@@ -125,7 +123,7 @@ const Header = (props: any) => {
         </Search>
         <Menu>
           <ul>
-            <li>
+            <li id="homeMenuButton">
               <Link to="/">
                 <AiOutlineHome />
               </Link>
@@ -137,15 +135,9 @@ const Header = (props: any) => {
               </Link>
               <p>Publicar</p>
             </li>
-            <li id="chatMenuButton">
+            <li>
               <IoMdChatboxes onClick={openingChatArea} />
               <p>Chat</p>
-            </li>
-            <li>
-              <Link to="/">
-                <IoMdNotifications />
-              </Link>
-              <p>Notificações</p>
             </li>
             <li>
               <Link to="/profile">
@@ -166,10 +158,12 @@ const Header = (props: any) => {
           </ul>
         </Menu>
         <Button onClick={hadleLogout}>
-          <AiOutlineLogout /> SAIR
+          <p>
+            <AiOutlineLogout />
+            SAIR
+          </p>
         </Button>
       </Container>
-      {openChat && <Chat />}
     </>
   );
 };
