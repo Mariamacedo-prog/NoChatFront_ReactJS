@@ -9,14 +9,21 @@ export const Container = styled.div`
   margin: 10px;
   color: #fff;
   border-radius: 15px;
-
+  align-items: center;
+  justify-content: center;
   img {
-    width: 100%;
+    max-height: 350px;
+    max-width: 350px;
     border-radius: 15px;
   }
   @media (max-width: 650px) {
     height: 300px;
     width: 300px;
+
+    img {
+      max-height: 300px;
+      max-width: 300px;
+    }
   }
 `;
 
