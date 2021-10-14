@@ -242,12 +242,19 @@ const Profile = (props: any) => {
           </ProfileImage>
 
           <ProfileInfo>
-            <h1 className={props.name.length > 18 ? "bigName" : undefined}>
-              {props.name}
-            </h1>
-            <small className={props.email.length > 30 ? "bigEmail" : undefined}>
-              {props.email}
-            </small>
+            {props.name && (
+              <h1 className={props.name.length > 18 ? "bigName" : undefined}>
+                {props.name}
+              </h1>
+            )}
+            {props.email && (
+              <small
+                className={props.email.length > 30 ? "bigEmail" : undefined}
+              >
+                {props.email}
+              </small>
+            )}
+
             <div>{props.description !== "" && <p>{props.description}</p>}</div>
           </ProfileInfo>
         </HeaderProfile>

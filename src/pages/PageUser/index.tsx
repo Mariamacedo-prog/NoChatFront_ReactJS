@@ -144,12 +144,19 @@ const PageUser = (props: any) => {
             </ProfileConfig>
           </ProfileImage>
           <ProfileInfo>
-            <h1 className={user.name.length > 20 ? "bigName" : undefined}>
-              {user.name}
-            </h1>
-            <small className={user.email.length > 30 ? "bigEmail" : undefined}>
-              {user.email}
-            </small>
+            {user.name && (
+              <h1 className={user.name.length > 20 ? "bigName" : undefined}>
+                {user.name}
+              </h1>
+            )}
+            {user.email && (
+              <small
+                className={user.email.length > 30 ? "bigEmail" : undefined}
+              >
+                {user.email}
+              </small>
+            )}
+
             <div>{user.description && <p>{user.description}</p>}</div>
           </ProfileInfo>
         </HeaderProfile>

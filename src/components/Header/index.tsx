@@ -106,21 +106,25 @@ const Header = (props: any) => {
                         />
                       )}
                       <p>
-                        <h5
-                          className={
-                            user.name.length > 20 ? "bigName" : undefined
-                          }
-                        >
-                          {user.name}
-                        </h5>
+                        {user.name && (
+                          <h5
+                            className={
+                              user.name.length > 20 ? "bigName" : undefined
+                            }
+                          >
+                            {user.name}
+                          </h5>
+                        )}
                         <br />
-                        <small
-                          className={
-                            user.email.length > 30 ? "bigEmail" : undefined
-                          }
-                        >
-                          {user.email}
-                        </small>
+                        {user.email && (
+                          <small
+                            className={
+                              user.email.length > 30 ? "bigEmail" : undefined
+                            }
+                          >
+                            {user.email}
+                          </small>
+                        )}
                       </p>
                     </Link>
                     {user._id !== props._id && (
