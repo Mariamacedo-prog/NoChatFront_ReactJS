@@ -1,8 +1,8 @@
 import Cookie from "js-cookie";
 import qs from "qs";
 
-//const BASEAPI = "https://nochat-api.herokuapp.com";
-const BASEAPI = "http://localhost";
+const BASEAPI = "https://nochat-api.herokuapp.com";
+//const BASEAPI = "http://localhost";
 
 type PublicationFilter = {
   author?: string;
