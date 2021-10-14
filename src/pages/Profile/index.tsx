@@ -152,93 +152,104 @@ const Profile = (props: any) => {
                 alt="Avatar"
               />
             )}
+            <ProfileConfig>
+              <ul>
+                <div>
+                  <li>{props.followings.length}</li>
+                  <li>Seguindo</li>
+                </div>
+
+                <div>
+                  <li>{props.followers.length}</li>
+                  <li>Seguidores</li>
+                </div>
+              </ul>
+              <GrConfigure
+                className="svgConfig"
+                onClick={() => setOpen(true)}
+              />
+
+              <Modal open={open} onClose={() => setOpen(false)}>
+                <EditForm onSubmit={handleSubmit}>
+                  <img
+                    src="https://img.icons8.com/color/48/000000/close-window.png"
+                    alt="botão de fechar modal"
+                    onClick={() => setOpen(false)}
+                  />
+                  {errors !== "" && <Error error={errors} />}
+                  <EditTitle>Opções de edição:</EditTitle>
+                  <label>
+                    <InputEdiction
+                      type="text"
+                      placeholder="E-mail:"
+                      maxLength={70}
+                      disabled={disabled}
+                      value={email === "" ? props.email : email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <InputEdiction
+                      type="text"
+                      placeholder="UserName:"
+                      maxLength={30}
+                      disabled={disabled}
+                      value={name === "" ? props.name : name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <InputEdiction
+                      type="password"
+                      placeholder="Senha:"
+                      disabled={disabled}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <InputEdiction
+                      type="password"
+                      placeholder="Confirme a senha:"
+                      disabled={disabled}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <DescriptionEdit
+                      placeholder={`Escreva aqui sua descrição...`}
+                      disabled={disabled}
+                      maxLength={100}
+                      value={
+                        description === "" ? props.description : description
+                      }
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <InputEdiction
+                      type="file"
+                      disabled={disabled}
+                      ref={refFile}
+                    />
+                  </label>
+
+                  <ButtonEdit type="submit" disabled={disabled}>
+                    Atualizar perfil
+                  </ButtonEdit>
+                </EditForm>
+              </Modal>
+            </ProfileConfig>
           </ProfileImage>
+
           <ProfileInfo>
-            <h1> {props.name}</h1>
-            <small>{props.email}</small>
+            <h1 className={props.name.length > 18 ? "bigName" : undefined}>
+              {props.name}
+            </h1>
+            <small className={props.email.length > 30 ? "bigEmail" : undefined}>
+              {props.email}
+            </small>
             <div>{props.description !== "" && <p>{props.description}</p>}</div>
           </ProfileInfo>
-          <ProfileConfig>
-            <ul>
-              <div>
-                <li>{props.followings.length}</li>
-                <li>Seguindo</li>
-              </div>
-
-              <div>
-                <li>{props.followers.length}</li>
-                <li>Seguidores</li>
-              </div>
-            </ul>
-            <GrConfigure className="svgConfig" onClick={() => setOpen(true)} />
-            <Modal open={open} onClose={() => setOpen(false)}>
-              <EditForm onSubmit={handleSubmit}>
-                <img
-                  src="https://img.icons8.com/color/48/000000/close-window.png"
-                  alt="botão de fechar modal"
-                  onClick={() => setOpen(false)}
-                />
-                {errors !== "" && <Error error={errors} />}
-                <EditTitle>Opções de edição:</EditTitle>
-                <label>
-                  <InputEdiction
-                    type="text"
-                    placeholder="E-mail:"
-                    maxLength={70}
-                    disabled={disabled}
-                    value={email === "" ? props.email : email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </label>
-                <label>
-                  <InputEdiction
-                    type="text"
-                    placeholder="UserName:"
-                    maxLength={30}
-                    disabled={disabled}
-                    value={name === "" ? props.name : name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </label>
-                <label>
-                  <InputEdiction
-                    type="password"
-                    placeholder="Senha:"
-                    disabled={disabled}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <InputEdiction
-                    type="password"
-                    placeholder="Confirme a senha:"
-                    disabled={disabled}
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </label>
-                <label>
-                  <DescriptionEdit
-                    placeholder={`Escreva aqui sua descrição...`}
-                    disabled={disabled}
-                    maxLength={100}
-                    value={description === "" ? props.description : description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </label>
-                <label>
-                  <InputEdiction
-                    type="file"
-                    disabled={disabled}
-                    ref={refFile}
-                  />
-                </label>
-
-                <ButtonEdit type="submit" disabled={disabled}>
-                  Atualizar perfil
-                </ButtonEdit>
-              </EditForm>
-            </Modal>
-          </ProfileConfig>
         </HeaderProfile>
         <PostButtons>
           <div

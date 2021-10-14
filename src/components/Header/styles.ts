@@ -165,9 +165,9 @@ export const SearchArea = styled.div`
   width: 350px;
   height: 350px;
   background-color: #fff;
-  top: 59px;
+  top: 60px;
   background-color: #19181a;
-  border: 1px dashed #ff4d00;
+  border: 1px solid #161617;
   overflow-y: scroll;
   z-index: 99;
   ::-webkit-scrollbar {
@@ -199,11 +199,17 @@ export const SearchArea = styled.div`
       margin: 0 5px;
     }
     p {
-      font-size: medium;
-    }
-    small {
-      font-size: small;
-      color: #ccc;
+      h5 {
+        font-size: medium;
+      }
+      small {
+        display: flex;
+        font-size: small;
+        color: #ccc;
+        overflow: hidden;
+        max-width: 200px;
+        word-wrap: break-word;
+      }
     }
 
     :hover {
@@ -226,8 +232,29 @@ export const SearchArea = styled.div`
   }
 
   @media (max-width: 650px) {
-    width: 250px;
+    width: 300px;
     height: 250px;
     left: 0;
+
+    .seachItem {
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      p {
+        h5 {
+          font-size: medium;
+        }
+        .bigName {
+          font-size: smaller;
+        }
+        small {
+          max-width: 180px;
+        }
+        .bigEmail {
+          font-size: x-small;
+        }
+      }
+    }
   }
 `;

@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #19181a;
-  margin-top: 60px;
+  margin: 60px -8px -8px -8px;
   height: 100%;
   min-height: calc(100vh - 60px);
   color: #fff;
@@ -13,32 +13,35 @@ export const Container = styled.div`
 export const HeaderProfile = styled.div`
   background-color: #000;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: stretch;
   margin: 0 10px;
-  height: 150px;
+  height: 200px;
   @media (max-width: 650px) {
-    align-items: flex-start;
+    height: 150px;
   }
 `;
 export const ProfileImage = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   img {
     padding: 10px;
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
+    margin-left: 10px;
   }
   @media (max-width: 650px) {
     img {
-      height: 60px;
-      width: 60px;
+      height: 40px;
+      width: 40px;
+      padding: 0;
     }
   }
 `;
 export const ProfileInfo = styled.div`
   flex: 1;
-  display: flex;
-  flex-direction: column;
   margin-left: 10px;
   h1 {
     font-size: larger;
@@ -59,26 +62,38 @@ export const ProfileInfo = styled.div`
     user-select: none;
   }
   div {
-    margin-top: 10px;
     height: 80px;
-    width: 200px;
+    width: 300px;
+
     p {
       font-size: 12px;
     }
   }
+  .bigEmail {
+    font-size: xx-small;
+  }
 
   @media (max-width: 650px) {
-    h1,
-    small {
-      font-size: smaller;
+    padding: 3px;
+    margin-top: -10px;
+    h1 {
+      font-size: medium;
     }
-    img {
-      height: 60px;
-      width: 60px;
+    .bigName {
+      font-size: small;
+    }
+    small {
+      font-size: small;
+      word-wrap: break-word;
+      width: 100px;
+    }
+    .bigEmail {
+      font-size: 9px;
     }
     div {
       height: 100px;
-      width: 100px;
+      width: 200px;
+
       p {
         font-size: 10px;
       }
@@ -99,6 +114,18 @@ export const ProfileConfig = styled.div`
 
   li {
     padding: 5px;
+  }
+
+  .svgConfig {
+    background-color: #ff4d00;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  @media (max-width: 650px) {
+    li {
+      font-size: xx-small;
+    }
   }
 `;
 export const PostButtons = styled.div`
@@ -165,6 +192,7 @@ export const ButtonsArea = styled.div`
   border-radius: 10px;
   border: 1px solid #ff4d00;
 `;
+
 export const FollowUnfollowButton = styled.div`
   background-color: #ffffff;
   color: #ff4d00;

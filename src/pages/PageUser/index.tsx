@@ -113,41 +113,45 @@ const PageUser = (props: any) => {
                 alt="Avatar"
               />
             )}
+            <ProfileConfig>
+              <ul>
+                {user.followings && (
+                  <div>
+                    <li>{user.followings.length}</li>
+                    <li>Seguindo</li>
+                  </div>
+                )}
+                {user.followers && (
+                  <div>
+                    <li>{user.followers.length}</li>
+                    <li>Seguidores</li>
+                  </div>
+                )}
+              </ul>
+              {user._id !== props._id &&
+                user.followers &&
+                (user.followers.some((item: string) => item === props._id) ? (
+                  <FollowUnfollowButton onClick={unfollowUser}>
+                    <RiUserUnfollowFill />
+                    Unfollow
+                  </FollowUnfollowButton>
+                ) : (
+                  <FollowUnfollowButton onClick={followUser}>
+                    <RiUserFollowFill />
+                    Follow
+                  </FollowUnfollowButton>
+                ))}
+            </ProfileConfig>
           </ProfileImage>
           <ProfileInfo>
-            <h1> {user.name}</h1>
-            <small>{user.email}</small>
+            <h1 className={user.name.length > 20 ? "bigName" : undefined}>
+              {user.name}
+            </h1>
+            <small className={user.email.length > 30 ? "bigEmail" : undefined}>
+              {user.email}
+            </small>
             <div>{user.description && <p>{user.description}</p>}</div>
           </ProfileInfo>
-          <ProfileConfig>
-            <ul>
-              {user.followings && (
-                <div>
-                  <li>{user.followings.length}</li>
-                  <li>Seguindo</li>
-                </div>
-              )}
-              {user.followers && (
-                <div>
-                  <li>{user.followers.length}</li>
-                  <li>Seguidores</li>
-                </div>
-              )}
-            </ul>
-            {user._id !== props._id &&
-              user.followers &&
-              (user.followers.some((item: string) => item === props._id) ? (
-                <FollowUnfollowButton onClick={unfollowUser}>
-                  <RiUserUnfollowFill />
-                  Unfollow
-                </FollowUnfollowButton>
-              ) : (
-                <FollowUnfollowButton onClick={followUser}>
-                  <RiUserFollowFill />
-                  Follow
-                </FollowUnfollowButton>
-              ))}
-          </ProfileConfig>
         </HeaderProfile>
         <PostButtons>
           <div

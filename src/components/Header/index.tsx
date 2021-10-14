@@ -76,7 +76,7 @@ const Header = (props: any) => {
           <img src={NoChat} alt="NoChat logo" />
         </Link>
         <Search>
-          <AiOutlineSearch id="searchSvg"/>
+          <AiOutlineSearch id="searchSvg" />
           <input
             type="text"
             placeholder="Pesquisar..."
@@ -106,8 +106,21 @@ const Header = (props: any) => {
                         />
                       )}
                       <p>
-                        {user.name} <br />
-                        <small>{user.email}</small>
+                        <h5
+                          className={
+                            user.name.length > 20 ? "bigName" : undefined
+                          }
+                        >
+                          {user.name}
+                        </h5>
+                        <br />
+                        <small
+                          className={
+                            user.email.length > 30 ? "bigEmail" : undefined
+                          }
+                        >
+                          {user.email}
+                        </small>
                       </p>
                     </Link>
                     {user._id !== props._id && (

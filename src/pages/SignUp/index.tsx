@@ -47,6 +47,7 @@ const SignUp: React.FC = () => {
               onChange={(e) => setName(e.target.value)}
               placeholder="Username: "
               disabled={disabled}
+              maxLength={30}
               required
             />
           </label>
@@ -58,6 +59,7 @@ const SignUp: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="E-mail: "
+              maxLength={70}
               disabled={disabled}
               required
             />
