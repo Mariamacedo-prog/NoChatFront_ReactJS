@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: #ff4d00;
+  background-color: #161617;
   position: fixed;
   top: 0;
   width: 100%;
@@ -71,13 +71,13 @@ export const Menu = styled.nav`
   li {
     width: 25%;
     align-items: center;
-    color: #19181a;
+    color: #ff4d00;
     justify-content: center;
 
     display: flex;
     flex-direction: column;
     a {
-      color: #19181a;
+      color: #ff4d00;
       text-decoration: none;
     }
     svg {
@@ -88,9 +88,7 @@ export const Menu = styled.nav`
     }
 
     p {
-      margin: 0;
-      padding: 0;
-      color: #19181a;
+      color: #ff4d00;
       font-size: 16px;
       font-weight: bolder;
     }
@@ -107,6 +105,12 @@ export const Menu = styled.nav`
     display: none;
   }
 
+  @media (max-width: 1050px) {
+    p {
+      display: none;
+    }
+  }
+
   @media (max-width: 650px) {
     flex: 1;
     li {
@@ -117,6 +121,9 @@ export const Menu = styled.nav`
     }
     #homeMenuButton {
       display: none;
+    }
+    svg:hover {
+      color: #ff4d00;
     }
   }
 `;
@@ -134,7 +141,7 @@ export const Button = styled.button`
   p {
     padding: 0;
     margin: 0;
-    color: #19181a;
+    color: #ff4d00;
 
     transition: 0.5s;
   }

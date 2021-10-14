@@ -112,6 +112,7 @@ export const ChatConversarion = styled.div`
   transition: all ease 1s;
   @media (max-width: 650px) {
     width: 100%;
+    height: calc(100% - 120px);
   }
 `;
 export const BackButton = styled.button`
@@ -134,7 +135,7 @@ export const ChatContainter = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 650px) {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 120px);
     width: 100%;
   }
 `;
