@@ -119,7 +119,6 @@ export const Menu = styled.nav`
   @media (max-width: 650px) {
     flex: 1;
     li {
-      width: 30%;
       p {
         display: none;
       }
@@ -130,9 +129,6 @@ export const Menu = styled.nav`
       svg:hover {
         color: #d95f2a;
       }
-    }
-    #homeMenuButton {
-      display: none;
     }
   }
 `;

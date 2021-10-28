@@ -6,7 +6,8 @@ import { PublicationsType } from "../../reducers/UserReducer";
 import Publication from "../../components/Publication";
 import Article from "../../components/Article";
 import Button from "../../components/Button";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useApi from "../../helpers/Api";
 import {
   AiOutlineHeart,
@@ -59,6 +60,20 @@ const Home = (props: any) => {
   };
 
   useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
+
+  useEffect(() => {
     const intersectionObserver = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
         setLimit((value) => value + 10);
@@ -77,7 +92,20 @@ const Home = (props: any) => {
       <C.Container>
         <C.UserFeed>
           {loading && <p>Loading...</p>}
-          {errors !== "" && <Error error={errors} />}
+          {errors !== "" && (
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme={"dark"}
+            />
+          )}
           {publications &&
             publications.map((item: PublicationsType) => (
               <C.PostItem key={item._id}>

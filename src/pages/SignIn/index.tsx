@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMail, AiOutlineCaretRight } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { doLogin } from "../../helpers/Auth";
 import * as C from "./styles";
 
@@ -15,6 +16,20 @@ const SignIn: React.FC = () => {
 
   const api = useApi();
 
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisabled(true);
@@ -25,16 +40,30 @@ const SignIn: React.FC = () => {
       setErrors(json.error);
     } else {
       doLogin(json.token);
-      window.location.href = "/";
     }
+    window.location.href = "/";
+
     setDisabled(false);
   };
 
   return (
     <C.Container>
+      {errors !== "" && (
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={"dark"}
+        />
+      )}
       <C.FormSide>
         <h2>NoChat</h2>
-        {errors !== "" && <Error error={errors} />}
         <form onSubmit={handleSubmit}>
           <label>
             <AiOutlineMail />

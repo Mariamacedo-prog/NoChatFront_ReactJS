@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Error from "../../components/Error";
 import { AiOutlineMail, AiOutlineCaretLeft } from "react-icons/ai";
 import { RiLockPasswordLine, RiAtLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
 import { doLogin } from "../../helpers/Auth";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as C from "./styles";
 
 const SignUp: React.FC = () => {
@@ -28,15 +30,44 @@ const SignUp: React.FC = () => {
       doLogin(json.token);
       window.location.href = "/";
     }
+
     setDisabled(false);
   };
+
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
 
   return (
     <C.Container>
       <C.Background id="backgroundSide" />
+      {errors !== "" && (
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={"dark"}
+        />
+      )}
       <C.FormSide>
         <h2>Preencha os dados</h2>
-        {errors !== "" && <Error error={errors} />}
+
         <form onSubmit={handleSubmit}>
           <label>
             <input

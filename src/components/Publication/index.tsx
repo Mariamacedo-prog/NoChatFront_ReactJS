@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { PublicationsType } from "../../reducers/UserReducer";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useApi from "../../helpers/Api";
 import * as C from "./styles";
 
@@ -17,6 +18,20 @@ const Publication: React.FC<PublicationProps> = (props) => {
   const api = useApi();
   const [errors, setErrors] = React.useState("");
   const [available, setAvailable] = React.useState(true);
+
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
 
   const deletePublication = async (id: string) => {
     setErrors("");
@@ -45,7 +60,20 @@ const Publication: React.FC<PublicationProps> = (props) => {
 
   return (
     <>
-      {errors !== "" && <Error error={errors} />}
+      {errors !== "" && (
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={"dark"}
+        />
+      )}
       {!available && <C.DescriptionArea>POST DELETADO</C.DescriptionArea>}
       {available && (
         <>

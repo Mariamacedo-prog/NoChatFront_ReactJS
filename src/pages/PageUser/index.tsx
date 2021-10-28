@@ -7,7 +7,8 @@ import Publication from "../../components/Publication";
 import Article from "../../components/Article";
 import Button from "../../components/Button";
 import useApi from "../../helpers/Api";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
 import {
   AiOutlineHeart,
@@ -85,6 +86,20 @@ const PageUser = (props: any) => {
       setFollow("follow");
     }
   };
+
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
 
   return (
     <>
@@ -171,7 +186,20 @@ const PageUser = (props: any) => {
         </C.PostButtons>
 
         <C.UserFeed>
-          {errors !== "" && <Error error={errors} />}
+          {errors !== "" && (
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme={"dark"}
+            />
+          )}
           {loading && <p>Loading...</p>}
           {publications &&
             publications.map(

@@ -4,9 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #272727;
-  margin: 60px -8px -8px -8px;
+  margin: 60px 0 0 0;
   height: 100%;
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 80px);
   color: #fff;
   width: 100%;
 `;
@@ -14,8 +14,8 @@ export const HeaderProfile = styled.div`
   background-color: #000;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   margin: 0 10px;
+  align-items: stretch;
   height: 200px;
   @media (max-width: 650px) {
     height: 150px;

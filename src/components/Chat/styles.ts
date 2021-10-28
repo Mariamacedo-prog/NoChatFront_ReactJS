@@ -16,6 +16,8 @@ export const Container = styled.div`
   }
   @media (max-width: 650px) {
     width: 100%;
+    margin-top: 92px;
+    height: calc(100vh - 92px);
   }
 `;
 export const ListChatItem = styled.li`
@@ -112,7 +114,8 @@ export const ChatConversation = styled.div`
   transition: all ease 1s;
   @media (max-width: 650px) {
     width: 100%;
-    height: calc(100% - 120px);
+    height: calc(100% - 152px);
+    top: 92px;
   }
 `;
 export const BackButton = styled.button`

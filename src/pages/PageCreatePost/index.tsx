@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useApi from "../../helpers/Api";
 import { AiFillPicture } from "react-icons/ai";
 import * as C from "./styles";
@@ -14,6 +15,20 @@ const PageCreatePost = (props: any) => {
   const [title, setTitle] = useState("");
   const api = useApi();
   const refFile = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -73,7 +88,20 @@ const PageCreatePost = (props: any) => {
   return (
     <>
       <C.Container>
-        {errors !== "" && <Error error={errors} />}
+        {errors !== "" && (
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme={"dark"}
+          />
+        )}
         <C.Form onSubmit={handleSubmit}>
           <label>
             <C.Title>Categoria: </C.Title>

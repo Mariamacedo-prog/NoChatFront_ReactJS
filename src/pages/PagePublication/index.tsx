@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import useApi from "../../helpers/Api";
 import Button from "../../components/Button";
-import Error from "../../components/Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { PublicationsType } from "../../reducers/UserReducer";
 import * as C from "./styles";
 
@@ -23,6 +24,19 @@ const PagePublication = (props: PropsData) => {
   const [errors, setErrors] = useState("");
   const [msg, setMsg] = useState("");
   const [comment, setComment] = useState(false);
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
 
   useEffect(() => {
     const getItem = async () => {
@@ -102,7 +116,20 @@ const PagePublication = (props: PropsData) => {
       {loading && <p>Loading...</p>}
 
       <C.RightSide className={!publication.image ? "noImage" : undefined}>
-        {errors !== "" && <Error error={errors} />}
+        {errors !== "" && (
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme={"dark"}
+          />
+        )}
         {publication.description && (
           <C.DescriptionArea>
             <C.PostInfo>

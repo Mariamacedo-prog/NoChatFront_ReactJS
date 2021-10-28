@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AiOutlineSearch,
@@ -9,7 +9,8 @@ import {
 import { BsFilePpt, BsChatLeft } from "react-icons/bs";
 import { doLogout } from "../../helpers/Auth";
 import NoChat from "../../assets/nochat-logo.png";
-import Error from "../Error";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import useApi from "../../helpers/Api";
 import { connect } from "react-redux";
@@ -22,6 +23,21 @@ const Header = (props: any) => {
   const [users, setUsers] = useState([] as any);
   const [q, setQ] = useState("");
   const api = useApi();
+
+  useEffect(() => {
+    if (errors !== "") {
+      toast.error(errors, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
+
   const handleLogout = () => {
     doLogout();
     window.location.href = "/signin";
@@ -88,7 +104,20 @@ const Header = (props: any) => {
             />
             {open && (
               <C.SearchArea>
-                {errors !== "" && <Error error={errors} />}
+                {errors !== "" && (
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme={"dark"}
+                  />
+                )}
                 {users &&
                   users.map((user: any) => (
                     <div key={user._id}>
