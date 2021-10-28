@@ -44,7 +44,7 @@ const Chat: React.FC = (props: any) => {
   const socket: any = useRef();
 
   useEffect(() => {
-    socket.current = io("http://localhost");
+    socket.current = io("https://nochat-api.herokuapp.com");
   }, [chat, props._id, message]);
 
   useEffect(() => {
