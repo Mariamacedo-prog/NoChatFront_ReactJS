@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Position } from "./styles";
+import * as C from "./styles";
 
 type ModalType = {
   open: boolean;
@@ -12,8 +12,8 @@ const Modal = (props: ModalType) => {
 
   return (
     <>
-      <Position onClick={props.onClose} />
-      <Container>{props.children}</Container>
+      <C.Position onClick={props.onClose} />
+      <C.Container>{props.children}</C.Container>
     </>
   );
 };

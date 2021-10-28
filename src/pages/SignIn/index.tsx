@@ -5,7 +5,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
 import Error from "../../components/Error";
 import { doLogin } from "../../helpers/Auth";
-import { Container, Background, FormSide } from "./styles";
+import * as C from "./styles";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -31,8 +31,8 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <Container>
-      <FormSide>
+    <C.Container>
+      <C.FormSide>
         <h2>NoChat</h2>
         {errors !== "" && <Error error={errors} />}
         <form onSubmit={handleSubmit}>
@@ -69,9 +69,9 @@ const SignIn: React.FC = () => {
           <p>Não possui uma conta?</p>
           <Link to="/signup">Crie sua conta!</Link>
         </div>
-      </FormSide>
-      <Background />
-    </Container>
+      </C.FormSide>
+      <C.Background />
+    </C.Container>
   );
 };
 export default SignIn;

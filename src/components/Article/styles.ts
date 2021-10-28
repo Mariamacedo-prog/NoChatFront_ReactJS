@@ -13,6 +13,7 @@ export const DescriptionArea = styled.div`
   padding: 20px 10px;
   font-family: "Courier New", Courier, monospace;
   overflow: hidden;
+  white-space: pre-wrap;
   max-height: 40px;
   text-align: justify;
   @media (max-width: 650px) {
@@ -55,10 +56,10 @@ export const ArticleArea = styled.div`
     text-decoration: none;
   }
   small {
-    background-color: #19181a;
+    background-color: #272727;
     margin-left: -10px;
     align-self: flex-end;
-    color: #ff4d00;
+    color: #d95f2a;
   }
   @media (max-width: 650px) {
     width: 300px;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Error from "../../components/Error";
-import { AiOutlineMail, AiOutlineCaretRight } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineCaretLeft } from "react-icons/ai";
 import { RiLockPasswordLine, RiAtLine } from "react-icons/ri";
 import useApi from "../../helpers/Api";
 import { doLogin } from "../../helpers/Auth";
-import { Container, Background, FormSide } from "./styles";
+import * as C from "./styles";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -32,14 +32,13 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Background id="backgroundSide" />
-      <FormSide>
+    <C.Container>
+      <C.Background id="backgroundSide" />
+      <C.FormSide>
         <h2>Preencha os dados</h2>
         {errors !== "" && <Error error={errors} />}
         <form onSubmit={handleSubmit}>
           <label>
-            <RiAtLine />
             <input
               type="text"
               name="name"
@@ -50,9 +49,9 @@ const SignUp: React.FC = () => {
               maxLength={30}
               required
             />
+            <RiAtLine />
           </label>
           <label>
-            <AiOutlineMail />
             <input
               type="email"
               name="email"
@@ -63,10 +62,10 @@ const SignUp: React.FC = () => {
               disabled={disabled}
               required
             />
+            <AiOutlineMail />
           </label>
 
           <label>
-            <RiLockPasswordLine />
             <input
               type="password"
               name="password"
@@ -76,19 +75,20 @@ const SignUp: React.FC = () => {
               disabled={disabled}
               required
             />
+            <RiLockPasswordLine />
           </label>
           <label>
-            <AiOutlineCaretRight />
             <button type="submit" disabled={disabled}>
               Cadastrar
             </button>
+            <AiOutlineCaretLeft />
           </label>
         </form>
         <div>
           <Link to="/signin">Voltar para o Login!</Link>
         </div>
-      </FormSide>
-    </Container>
+      </C.FormSide>
+    </C.Container>
   );
 };
 export default SignUp;

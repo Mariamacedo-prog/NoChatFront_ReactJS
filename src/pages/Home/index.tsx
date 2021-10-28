@@ -13,7 +13,7 @@ import {
   AiOutlineComment,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import { Container, UserFeed, PostItem, ButtonsArea } from "./styles";
+import * as C from "./styles";
 
 const Home = (props: any) => {
   const api = useApi();
@@ -74,17 +74,17 @@ const Home = (props: any) => {
 
   return (
     <>
-      <Container>
-        <UserFeed>
+      <C.Container>
+        <C.UserFeed>
           {loading && <p>Loading...</p>}
           {errors !== "" && <Error error={errors} />}
           {publications &&
             publications.map((item: PublicationsType) => (
-              <PostItem key={item._id}>
+              <C.PostItem key={item._id}>
                 {item.category === "publication" && (
                   <>
                     <Publication item={item} />
-                    <ButtonsArea>
+                    <C.ButtonsArea>
                       <Button
                         classes={
                           item.like.some((item) => item === props._id)
@@ -104,13 +104,13 @@ const Home = (props: any) => {
                       <Button>
                         <AiOutlineShareAlt />
                       </Button>
-                    </ButtonsArea>
+                    </C.ButtonsArea>
                   </>
                 )}
                 {item.category === "article" && (
                   <>
                     <Article item={item} />
-                    <ButtonsArea>
+                    <C.ButtonsArea>
                       <Button
                         classes={
                           item.like.some((item) => item === props._id)
@@ -130,14 +130,14 @@ const Home = (props: any) => {
                       <Button>
                         <AiOutlineShareAlt />
                       </Button>
-                    </ButtonsArea>
+                    </C.ButtonsArea>
                   </>
                 )}
 
                 {item.category === "picture" && (
                   <>
                     <Publication item={item} />
-                    <ButtonsArea className="picture">
+                    <C.ButtonsArea className="picture">
                       <Button
                         classes={
                           item.like.some((item) => item === props._id)
@@ -154,15 +154,15 @@ const Home = (props: any) => {
                           <AiOutlineComment />
                         </Link>
                       </Button>
-                    </ButtonsArea>
+                    </C.ButtonsArea>
                   </>
                 )}
-              </PostItem>
+              </C.PostItem>
             ))}
 
-          <PostItem id="more"></PostItem>
-        </UserFeed>
-      </Container>
+          <C.PostItem id="more"></C.PostItem>
+        </C.UserFeed>
+      </C.Container>
     </>
   );
 };
@@ -179,8 +179,8 @@ const mapStateToProps = (state: any) => {
     followings: state.user.followings,
   };
 };
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

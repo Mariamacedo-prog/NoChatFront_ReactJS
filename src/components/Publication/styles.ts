@@ -26,16 +26,15 @@ export const Container = styled.div`
     }
   }
 `;
-
 export const DescriptionArea = styled.div`
   width: 350px;
   font-size: small;
+  white-space: pre-wrap;
   margin: 10px;
   @media (max-width: 650px) {
     width: 300px;
   }
 `;
-
 export const PostInfo = styled.div`
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonArea, Container } from "./styles";
+import * as C from "./styles";
 
 interface ButtonData {
   handleButton?: () => void;
@@ -10,12 +10,12 @@ interface ButtonData {
 
 const Button = (props: ButtonData) => {
   return (
-    <Container>
-      <ButtonArea onClick={props.handleButton} className={props.classes}>
+    <C.Container>
+      <C.ButtonArea onClick={props.handleButton} className={props.classes}>
         {props.children}
         {props.length}
-      </ButtonArea>
-    </Container>
+      </C.ButtonArea>
+    </C.Container>
   );
 };
 

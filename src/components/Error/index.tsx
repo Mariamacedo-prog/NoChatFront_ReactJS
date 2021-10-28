@@ -1,6 +1,6 @@
 import React from "react";
 import { BiErrorAlt } from "react-icons/bi";
-import { ErrorArea } from "./styles";
+import * as C from "./styles";
 
 interface PropsData {
   error: string;
@@ -8,10 +8,10 @@ interface PropsData {
 
 const Error = (props: PropsData) => {
   return (
-    <ErrorArea>
+    <C.ErrorArea>
       <BiErrorAlt className="svgError" />
       {props.error}
-    </ErrorArea>
+    </C.ErrorArea>
   );
 };
 

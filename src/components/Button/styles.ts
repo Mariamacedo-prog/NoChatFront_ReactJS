@@ -17,6 +17,6 @@ export const ButtonArea = styled.div`
 `;
 export const Container = styled.div`
   .liked {
-    color: #ff4d00;
+    color: #d95f2a;
   }
 `;

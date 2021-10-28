@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useApi from "../../helpers/Api";
 import { Link } from "react-router-dom";
 import { ChatUser, StateUser } from "../../reducers/UserReducer";
@@ -6,27 +6,21 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import Error from "../Error";
 import { AiOutlineArrowLeft, AiFillDelete } from "react-icons/ai";
-import {
-  Container,
-  ChatConversarion,
-  ListChatItem,
-  ListChatContainer,
-  BackButton,
-  ChatContainter,
-  UserInfo,
-  MessagesContainter,
-  InputMessageArea,
-  MessageItem,
-} from "./styles";
+import io from "socket.io-client";
+import * as C from "./styles";
 
+type socketUsers = {
+  userId: string;
+  socketId: string;
+};
 interface MessageData {
   author: string;
   date: string;
   id: string;
   msg: string;
   type: string;
+  to: string;
 }
-
 interface ChatData {
   userInfo: {
     username: string;
@@ -46,6 +40,16 @@ const Chat: React.FC = (props: any) => {
   const [chat, setChat] = useState({} as ChatData);
   const [msg, setMsg] = useState("");
   const [message, setMessage] = useState(false);
+  const [chatMessages, setChatMessages] = useState([] as MessageData[]);
+  const socket: any = useRef();
+
+  useEffect(() => {
+    socket.current = io("http://localhost");
+  }, [chat, props._id, message]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", props._id);
+  }, [props._id, message]);
 
   useEffect(() => {
     const newChat = async () => {
@@ -55,6 +59,7 @@ const Chat: React.FC = (props: any) => {
           setErrors(json.error);
         } else {
           setChat(json);
+          setChatMessages(json.chat.messages);
         }
       }
     };
@@ -71,17 +76,17 @@ const Chat: React.FC = (props: any) => {
       }
     };
     getUserInformation();
-  }, [api, message]);
+  }, [api]);
 
   //Para verificar onde esta a barra de rolagem e descer para o final da conversa.
   useEffect(() => {
-    let body = document.getElementById("scrollConversarion");
+    let body = document.getElementById("scrollConversation");
     if (body) {
       if (body.scrollHeight > body.offsetHeight) {
         body.scrollTop = body.scrollHeight - body.offsetHeight;
       }
     }
-  }, [chat]);
+  }, [chatMessages]);
 
   const handleHour = (date: string) => {
     const newDate = new Date(date);
@@ -92,10 +97,16 @@ const Chat: React.FC = (props: any) => {
     const time = `${newDate.getHours()}:${minutes}`;
     return `${time}`;
   };
-
   const newChat = async (id: string) => {
     props.setChatOpen(true);
     props.setSelectedChat(id);
+  };
+
+  const handleInputKeyUp = (e: any) => {
+    if (e.keyCode === 13) {
+      handleMessage(chat.chat.users.filter((item) => item !== props._id)[0]);
+      setMsg("");
+    }
   };
 
   const handleMessage = async (id: string) => {
@@ -107,6 +118,15 @@ const Chat: React.FC = (props: any) => {
     } else {
       setMsg("");
       message === true ? setMessage(false) : setMessage(true);
+
+      socket.current.on("getMessage", (newMessage: MessageData) => {
+        if (id) {
+          if (newMessage.author === id) {
+            message === true ? setMessage(false) : setMessage(true);
+          }
+        }
+      });
+
       return json;
     }
   };
@@ -124,12 +144,12 @@ const Chat: React.FC = (props: any) => {
   };
 
   return (
-    <Container>
-      <ListChatContainer>
+    <C.Container>
+      <C.ListChatContainer>
         {errors && <Error error={errors} />}
         {currentUser.chats &&
           currentUser.chats.map((item: ChatUser) => (
-            <ListChatItem key={item.id} onClick={() => newChat(item.with)}>
+            <C.ListChatItem key={item.id} onClick={() => newChat(item.with)}>
               {item.avatar === "noChat.jpg" ? (
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLuox6vatPBS6w8edvrLbqXzHimyKXOVejMQ&usqp=CAU"
@@ -143,18 +163,18 @@ const Chat: React.FC = (props: any) => {
                 <p>{item.lastMessage}</p>
               </div>
               <small>{handleHour(item.lastMessageDate)}</small>
-            </ListChatItem>
+            </C.ListChatItem>
           ))}
-      </ListChatContainer>
+      </C.ListChatContainer>
 
       {chat && (
-        <ChatConversarion className={props.isChatOpen ? "opened" : "closed"}>
-          <BackButton onClick={() => props.setChatOpen(false)}>
+        <C.ChatConversation className={props.isChatOpen ? "opened" : "closed"}>
+          <C.BackButton onClick={() => props.setChatOpen(false)}>
             <AiOutlineArrowLeft />
-          </BackButton>
+          </C.BackButton>
           {chat.chat && chat.userInfo && (
-            <ChatContainter>
-              <UserInfo>
+            <C.ChatContainer>
+              <C.UserInfo>
                 {chat.userInfo.avatar ? (
                   <img
                     src={chat.userInfo.avatar}
@@ -169,11 +189,11 @@ const Chat: React.FC = (props: any) => {
                 <Link to={`/user/${chat.userInfo.username}`}>
                   {chat.userInfo.username}
                 </Link>
-              </UserInfo>
-              <MessagesContainter id="scrollConversarion">
-                {chat.chat.messages &&
-                  chat.chat.messages.map((message: MessageData) => (
-                    <MessageItem
+              </C.UserInfo>
+              <C.MessagesContainer id="scrollConversation">
+                {chatMessages &&
+                  chatMessages.map((message: MessageData) => (
+                    <C.MessageItem
                       key={message.id}
                       className={
                         message.author === props._id
@@ -189,16 +209,17 @@ const Chat: React.FC = (props: any) => {
                         )}
                       <p className={message.type}>{message.msg}</p>
                       <small>{handleHour(message.date)}</small>
-                    </MessageItem>
+                    </C.MessageItem>
                   ))}
-              </MessagesContainter>
-              <InputMessageArea>
+              </C.MessagesContainer>
+              <C.InputMessageArea>
                 <input
                   type="text"
                   name="msg"
                   value={msg}
                   onChange={(e) => setMsg(e.target.value)}
                   placeholder="Digite sua mensagem..."
+                  onKeyUp={handleInputKeyUp}
                 />
 
                 <button
@@ -210,12 +231,12 @@ const Chat: React.FC = (props: any) => {
                 >
                   Enviar
                 </button>
-              </InputMessageArea>
-            </ChatContainter>
+              </C.InputMessageArea>
+            </C.ChatContainer>
           )}
-        </ChatConversarion>
+        </C.ChatConversation>
       )}
-    </Container>
+    </C.Container>
   );
 };
 
@@ -229,7 +250,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setChatOpen: (status: boolean) =>
       dispatch({
@@ -243,4 +264,4 @@ const mapDispachToProps = (dispatch: Dispatch) => {
       }),
   };
 };
-export default connect(mapStateToProps, mapDispachToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

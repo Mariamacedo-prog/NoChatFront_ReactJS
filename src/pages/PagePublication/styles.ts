@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContentArea = styled.div`
   display: flex;
-  background-color: #19181a;
+  background-color: #272727;
   margin-top: 60px;
   height: calc(100vh - 60px);
   color: #fff;
@@ -17,7 +17,7 @@ export const ContentArea = styled.div`
   }
   .deleted {
     p {
-      color: #ff4d00;
+      color: #d95f2a;
     }
   }
   @media (max-width: 650px) {
@@ -25,8 +25,7 @@ export const ContentArea = styled.div`
     height: auto;
   }
 `;
-
-export const Leftside = styled.div`
+export const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -36,9 +35,9 @@ export const Leftside = styled.div`
 `;
 export const PublicationImage = styled.img`
   border-radius: 10px;
-  border: 1px solid #ff4d00;
+  border: 1px solid #d95f2a;
 `;
-export const Rightside = styled.div`
+export const RightSide = styled.div`
   display: flex;
   width: 30%;
   flex-direction: column;
@@ -57,7 +56,7 @@ export const CommentList = styled.ul`
     width: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
   }
   @media (max-width: 650px) {
     flex: 0;
@@ -105,6 +104,7 @@ export const DescriptionArea = styled.div`
   p {
     font-size: larger;
     font-weight: none;
+    white-space: pre-wrap;
   }
 
   padding: 10px 10px 0 10px;
@@ -115,7 +115,7 @@ export const DescriptionArea = styled.div`
     width: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
   }
 `;
 export const ButtonsArea = styled.div`
@@ -126,7 +126,7 @@ export const ButtonsArea = styled.div`
   margin-top: 10px;
   background-color: #000;
   border-radius: 10px;
-  border: 1px solid #ff4d00;
+  border: 1px solid #d95f2a;
 
   input {
     flex: 1;
@@ -139,7 +139,7 @@ export const ButtonsArea = styled.div`
   }
 
   button {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
     color: #fff;
     border: none;
     margin: 3px;
@@ -154,7 +154,7 @@ export const ButtonsArea = styled.div`
 `;
 export const TitleArea = styled.h1`
   font-family: "Courier New", Courier, monospace;
-  color: #ff4d00;
+  color: #d95f2a;
   margin: 3px 0;
 `;
 export const PostInfo = styled.div`

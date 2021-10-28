@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 50%;
   height: calc(100vh - 60px);
-  background-color: #19181a;
-  border-right: 4px solid #ff4d00;
-  border-bottom: 4px solid #ff4d00;
+  background-color: #272727;
+  border-right: 4px solid #d95f2a;
+  border-bottom: 4px solid #d95f2a;
   margin-top: 60px;
   .opend {
     margin-left: 0px;
@@ -67,7 +67,7 @@ export const ListChatItem = styled.li`
   &&:hover {
     height: 70px;
     h2 {
-      color: #ff4d00;
+      color: #d95f2a;
     }
     img {
       width: 60px;
@@ -95,20 +95,20 @@ export const ListChatContainer = styled.ul`
     width: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
   }
   @media (max-width: 650px) {
     height: calc(100% - 60px);
   }
 `;
-export const ChatConversarion = styled.div`
+export const ChatConversation = styled.div`
   width: auto;
   height: calc(100% - 60px);
   position: fixed;
   margin: 0px;
   top: 60px;
   display: flex;
-  background-color: #19181a;
+  background-color: #272727;
   transition: all ease 1s;
   @media (max-width: 650px) {
     width: 100%;
@@ -116,7 +116,7 @@ export const ChatConversarion = styled.div`
   }
 `;
 export const BackButton = styled.button`
-  color: #ff4d00;
+  color: #d95f2a;
   background-color: #000;
   border: none;
   padding: 8px;
@@ -125,13 +125,13 @@ export const BackButton = styled.button`
 
   :hover {
     color: #000;
-    background-color: #ff4d00;
+    background-color: #d95f2a;
   }
   @media (max-width: 650px) {
     height: calc(100vh - 60px);
   }
 `;
-export const ChatContainter = styled.div`
+export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 650px) {
@@ -142,7 +142,7 @@ export const ChatContainter = styled.div`
 export const UserInfo = styled.div`
   display: flex;
   padding: 20px;
-  border-bottom: 1px solid #ff4d00;
+  border-bottom: 1px solid #d95f2a;
   img {
     width: 55px;
     height: 55px;
@@ -156,7 +156,7 @@ export const UserInfo = styled.div`
     font-weight: bolder;
   }
 `;
-export const MessagesContainter = styled.ul`
+export const MessagesContainer = styled.ul`
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -167,16 +167,16 @@ export const MessagesContainter = styled.ul`
     width: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
   }
 
   .myMessage {
     color: #000;
-    background-color: #ff4d00;
+    background-color: #d95f2a;
     align-self: flex-end;
   }
   .anotherUserMessage {
-    color: #ff4d00;
+    color: #d95f2a;
     background-color: #000;
   }
   @media (max-width: 650px) {
@@ -222,7 +222,7 @@ export const InputMessageArea = styled.div`
   height: 60px;
   margin-top: 10px;
   background-color: #000;
-  border-top: 1px solid #ff4d00;
+  border-top: 1px solid #d95f2a;
 
   input {
     flex: 1;
@@ -236,7 +236,7 @@ export const InputMessageArea = styled.div`
 
   button {
     height: 60px;
-    background-color: #ff4d00;
+    background-color: #d95f2a;
     color: #fff;
     border: none;
     margin: 3px;

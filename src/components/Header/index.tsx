@@ -4,19 +4,17 @@ import {
   AiOutlineSearch,
   AiOutlineHome,
   AiOutlineLogout,
-  AiFillFileAdd,
   AiFillWechat,
 } from "react-icons/ai";
-import { IoMdChatboxes } from "react-icons/io";
+import { BsFilePpt, BsChatLeft } from "react-icons/bs";
 import { doLogout } from "../../helpers/Auth";
 import NoChat from "../../assets/nochat-logo.png";
 import Error from "../Error";
 
 import useApi from "../../helpers/Api";
-import Chat from "../Chat";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Container, Search, Menu, Button, SearchArea } from "./styles";
+import * as C from "./styles";
 
 const Header = (props: any) => {
   const [open, setOpen] = useState(false);
@@ -24,7 +22,7 @@ const Header = (props: any) => {
   const [users, setUsers] = useState([] as any);
   const [q, setQ] = useState("");
   const api = useApi();
-  const hadleLogout = () => {
+  const handleLogout = () => {
     doLogout();
     window.location.href = "/signin";
   };
@@ -71,116 +69,121 @@ const Header = (props: any) => {
 
   return (
     <>
-      <Container>
-        <Link to="/">
-          <img src={NoChat} alt="NoChat logo" />
-        </Link>
-        <Search>
-          <AiOutlineSearch id="searchSvg" />
-          <input
-            type="text"
-            placeholder="Pesquisar..."
-            onFocus={() => setOpen(true)}
-            onBlur={closingSearchArea}
-            onKeyUp={userWrote}
-            onKeyDown={userIsWriting}
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-          {open && (
-            <SearchArea>
-              {errors !== "" && <Error error={errors} />}
-              {users &&
-                users.map((user: any) => (
-                  <div key={user._id}>
-                    <Link to={`/user/${user.name}`} className="seachItem">
-                      {user.avatar ? (
-                        <img
-                          src={user.avatar}
-                          alt={`foto de perfil de ${user.name}`}
-                        />
-                      ) : (
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                          alt="Avatar"
+      <C.Container>
+        <div>
+          <Link to="/">
+            <img src={NoChat} alt="NoChat logo" />
+          </Link>
+          <C.Search>
+            <AiOutlineSearch id="searchSvg" />
+            <input
+              type="text"
+              placeholder="Pesquisar..."
+              onFocus={() => setOpen(true)}
+              onBlur={closingSearchArea}
+              onKeyUp={userWrote}
+              onKeyDown={userIsWriting}
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+            {open && (
+              <C.SearchArea>
+                {errors !== "" && <Error error={errors} />}
+                {users &&
+                  users.map((user: any) => (
+                    <div key={user._id}>
+                      <Link to={`/user/${user.name}`} className="searchItem">
+                        {user.avatar ? (
+                          <img
+                            src={user.avatar}
+                            alt={`foto de perfil de ${user.name}`}
+                          />
+                        ) : (
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                            alt="Avatar"
+                          />
+                        )}
+                        <p>
+                          {user.name && (
+                            <h5
+                              className={
+                                user.name.length > 20 ? "bigName" : undefined
+                              }
+                            >
+                              {user.name}
+                            </h5>
+                          )}
+                          <br />
+                          {user.email && (
+                            <small
+                              className={
+                                user.email.length > 30 ? "bigEmail" : undefined
+                              }
+                            >
+                              {user.email}
+                            </small>
+                          )}
+                        </p>
+                      </Link>
+                      {user._id !== props._id && (
+                        <AiFillWechat
+                          className="buttonNewChat"
+                          onClick={() => newChat(user._id)}
                         />
                       )}
-                      <p>
-                        {user.name && (
-                          <h5
-                            className={
-                              user.name.length > 20 ? "bigName" : undefined
-                            }
-                          >
-                            {user.name}
-                          </h5>
-                        )}
-                        <br />
-                        {user.email && (
-                          <small
-                            className={
-                              user.email.length > 30 ? "bigEmail" : undefined
-                            }
-                          >
-                            {user.email}
-                          </small>
-                        )}
-                      </p>
-                    </Link>
-                    {user._id !== props._id && (
-                      <AiFillWechat
-                        className="buttonNewChat"
-                        onClick={() => newChat(user._id)}
-                      />
-                    )}
-                  </div>
-                ))}
-            </SearchArea>
-          )}
-        </Search>
-        <Menu>
-          <ul>
-            <li id="homeMenuButton">
-              <Link to="/">
-                <AiOutlineHome />
-              </Link>
-              <p>Home</p>
-            </li>
-            <li>
-              <Link to="/addpost">
-                <AiFillFileAdd />
-              </Link>
-              <p>Publicar</p>
-            </li>
-            <li>
-              <IoMdChatboxes onClick={openingChatArea} />
-              <p>Chat</p>
-            </li>
-            <li>
-              <Link to="/profile">
-                {props.avatar !== "" ? (
-                  <img
-                    src={`${props.avatar}`}
-                    alt={`foto de perfil de ${props.name}`}
-                  />
-                ) : (
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                    alt="Avatar"
-                  />
-                )}
-                <p>Meu perfil</p>
-              </Link>
-            </li>
-          </ul>
-        </Menu>
-        <Button onClick={hadleLogout}>
-          <p>
-            <AiOutlineLogout />
-            SAIR
-          </p>
-        </Button>
-      </Container>
+                    </div>
+                  ))}
+              </C.SearchArea>
+            )}
+          </C.Search>
+        </div>
+        <C.MenuArea>
+          <div className="separateArea"></div>
+          <C.Menu>
+            <ul>
+              <li id="homeMenuButton">
+                <Link to="/">
+                  <AiOutlineHome />
+                </Link>
+                <p>Home</p>
+              </li>
+              <li>
+                <Link to="/addpost">
+                  <BsFilePpt />
+                </Link>
+                <p>Publicar</p>
+              </li>
+              <li>
+                <BsChatLeft onClick={openingChatArea} />
+                <p>Chat</p>
+              </li>
+              <li>
+                <Link to="/profile">
+                  {props.avatar !== "" ? (
+                    <img
+                      src={`${props.avatar}`}
+                      alt={`foto de perfil de ${props.name}`}
+                    />
+                  ) : (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                      alt="Avatar"
+                    />
+                  )}
+                  <p>Meu perfil</p>
+                </Link>
+              </li>
+            </ul>
+          </C.Menu>
+          <C.Button onClick={handleLogout}>
+            <p>
+              <AiOutlineLogout />
+              SAIR
+            </p>
+          </C.Button>
+        </C.MenuArea>
+      </C.Container>
     </>
   );
 };
@@ -195,7 +198,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setChatOpen: (status: boolean) =>
       dispatch({
@@ -209,4 +212,4 @@ const mapDispachToProps = (dispatch: Dispatch) => {
       }),
   };
 };
-export default connect(mapStateToProps, mapDispachToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #19181a;
+  background-color: #272727;
   margin: 60px -8px -8px -8px;
   height: 100%;
   min-height: calc(100vh - 60px);
@@ -117,7 +117,7 @@ export const ProfileConfig = styled.div`
   }
 
   .svgConfig {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -130,10 +130,10 @@ export const ProfileConfig = styled.div`
 `;
 export const PostButtons = styled.div`
   height: 30px;
-  background-color: #ff4d00;
+  background-color: #d95f2a;
   margin: 0 10px;
   display: flex;
-  color: #19181a;
+  color: #272727;
   justify-content: space-around;
   font-size: x-large;
   text-align: center;
@@ -151,8 +151,8 @@ export const PostButtons = styled.div`
     transition: all ease 0.5s;
   }
   .selected {
-    background-color: #19181a;
-    color: #ff4d00;
+    background-color: #272727;
+    color: #d95f2a;
   }
   @media (max-width: 650px) {
     font-size: larger;
@@ -190,13 +190,13 @@ export const ButtonsArea = styled.div`
   margin: 10px;
   background-color: #000;
   border-radius: 10px;
-  border: 1px solid #ff4d00;
+  border: 1px solid #d95f2a;
 `;
 
 export const EditForm = styled.form`
   width: 580px;
   height: 460px;
-  background-color: #ff4d00;
+  background-color: #d95f2a;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,16 +207,16 @@ export const EditForm = styled.form`
     margin-left: -60px;
   }
 `;
-export const InputEdiction = styled.input`
-  background-color: #19181a;
-  border: 1px solid #19181a;
+export const InputEdition = styled.input`
+  background-color: #272727;
+  border: 1px solid #272727;
   height: 30px;
   margin-bottom: 10px;
   width: 220px;
   border-radius: 5px;
   transition: 0.5s;
   color: #fff;
-  border: 3px solid #19181a;
+  border: 3px solid #272727;
 
   ::placeholder {
     color: #fff;
@@ -231,15 +231,15 @@ export const InputEdiction = styled.input`
   }
 `;
 export const DescriptionEdit = styled.textarea`
-  background-color: #19181a;
-  border: 1px solid #19181a;
+  background-color: #272727;
+  border: 1px solid #272727;
   height: 100px;
   margin-bottom: 10px;
   width: 450px;
   border-radius: 5px;
   transition: 0.5s;
   color: #fff;
-  border: 3px solid #19181a;
+  border: 3px solid #272727;
 
   ::placeholder {
     color: #fff;
@@ -254,12 +254,12 @@ export const DescriptionEdit = styled.textarea`
   }
 `;
 export const EditTitle = styled.h1`
-  color: #19181a;
+  color: #272727;
   font-size: larger;
   font-weight: bolder;
 `;
 export const ButtonEdit = styled.button`
-  color: #ff4d00;
+  color: #d95f2a;
   font-size: larger;
   font-weight: bolder;
   background-color: #fff;

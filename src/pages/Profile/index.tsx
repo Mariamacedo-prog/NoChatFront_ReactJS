@@ -10,27 +10,12 @@ import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import useApi from "../../helpers/Api";
 import Error from "../../components/Error";
+import * as C from "./styles";
 import {
-  AiOutlineHeart,
   AiOutlineComment,
+  AiOutlineHeart,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import {
-  Container,
-  HeaderProfile,
-  ProfileImage,
-  ProfileConfig,
-  ProfileInfo,
-  PostButtons,
-  UserFeed,
-  PostItem,
-  ButtonsArea,
-  EditForm,
-  InputEdiction,
-  EditTitle,
-  DescriptionEdit,
-  ButtonEdit,
-} from "./styles";
 
 const Profile = (props: any) => {
   const api = useApi();
@@ -138,9 +123,9 @@ const Profile = (props: any) => {
 
   return (
     <>
-      <Container>
-        <HeaderProfile>
-          <ProfileImage>
+      <C.Container>
+        <C.HeaderProfile>
+          <C.ProfileImage>
             {props.avatar !== "" ? (
               <img
                 src={`${props.avatar}`}
@@ -152,7 +137,7 @@ const Profile = (props: any) => {
                 alt="Avatar"
               />
             )}
-            <ProfileConfig>
+            <C.ProfileConfig>
               <ul>
                 <div>
                   <li>{props.followings.length}</li>
@@ -170,16 +155,16 @@ const Profile = (props: any) => {
               />
 
               <Modal open={open} onClose={() => setOpen(false)}>
-                <EditForm onSubmit={handleSubmit}>
+                <C.EditForm onSubmit={handleSubmit}>
                   <img
                     src="https://img.icons8.com/color/48/000000/close-window.png"
                     alt="botão de fechar modal"
                     onClick={() => setOpen(false)}
                   />
                   {errors !== "" && <Error error={errors} />}
-                  <EditTitle>Opções de edição:</EditTitle>
+                  <C.EditTitle>Opções de edição:</C.EditTitle>
                   <label>
-                    <InputEdiction
+                    <C.InputEdition
                       type="text"
                       placeholder="E-mail:"
                       maxLength={70}
@@ -189,7 +174,7 @@ const Profile = (props: any) => {
                     />
                   </label>
                   <label>
-                    <InputEdiction
+                    <C.InputEdition
                       type="text"
                       placeholder="UserName:"
                       maxLength={30}
@@ -199,14 +184,14 @@ const Profile = (props: any) => {
                     />
                   </label>
                   <label>
-                    <InputEdiction
+                    <C.InputEdition
                       type="password"
                       placeholder="Senha:"
                       disabled={disabled}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <InputEdiction
+                    <C.InputEdition
                       type="password"
                       placeholder="Confirme a senha:"
                       disabled={disabled}
@@ -215,7 +200,7 @@ const Profile = (props: any) => {
                     />
                   </label>
                   <label>
-                    <DescriptionEdit
+                    <C.DescriptionEdit
                       placeholder={`Escreva aqui sua descrição...`}
                       disabled={disabled}
                       maxLength={100}
@@ -226,22 +211,22 @@ const Profile = (props: any) => {
                     />
                   </label>
                   <label>
-                    <InputEdiction
+                    <C.InputEdition
                       type="file"
                       disabled={disabled}
                       ref={refFile}
                     />
                   </label>
 
-                  <ButtonEdit type="submit" disabled={disabled}>
+                  <C.ButtonEdit type="submit" disabled={disabled}>
                     Atualizar perfil
-                  </ButtonEdit>
-                </EditForm>
+                  </C.ButtonEdit>
+                </C.EditForm>
               </Modal>
-            </ProfileConfig>
-          </ProfileImage>
+            </C.ProfileConfig>
+          </C.ProfileImage>
 
-          <ProfileInfo>
+          <C.ProfileInfo>
             {props.name && (
               <h1 className={props.name.length > 18 ? "bigName" : undefined}>
                 {props.name}
@@ -256,9 +241,9 @@ const Profile = (props: any) => {
             )}
 
             <div>{props.description !== "" && <p>{props.description}</p>}</div>
-          </ProfileInfo>
-        </HeaderProfile>
-        <PostButtons>
+          </C.ProfileInfo>
+        </C.HeaderProfile>
+        <C.PostButtons>
           <div
             onClick={() => setCategory("publication")}
             className={category === "publication" ? "selected" : undefined}
@@ -277,20 +262,20 @@ const Profile = (props: any) => {
           >
             Artigos
           </div>
-        </PostButtons>
+        </C.PostButtons>
 
-        <UserFeed>
+        <C.UserFeed>
           {errors !== "" && <Error error={errors} />}
           {loading && <p>Loading...</p>}
           {publications &&
             publications.map(
               (item: PublicationsType) =>
                 item.category === category && (
-                  <PostItem key={item._id}>
+                  <C.PostItem key={item._id}>
                     {item.category === "publication" && (
                       <>
                         <Publication item={item} />
-                        <ButtonsArea>
+                        <C.ButtonsArea>
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -310,13 +295,13 @@ const Profile = (props: any) => {
                           <Button>
                             <AiOutlineShareAlt />
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
                     {item.category === "article" && (
                       <>
                         <Article item={item} />
-                        <ButtonsArea>
+                        <C.ButtonsArea>
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -336,14 +321,14 @@ const Profile = (props: any) => {
                           <Button>
                             <AiOutlineShareAlt />
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
 
                     {item.category === "picture" && (
                       <>
                         <Publication item={item} />
-                        <ButtonsArea className="picture">
+                        <C.ButtonsArea className="picture">
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -360,14 +345,14 @@ const Profile = (props: any) => {
                               <AiOutlineComment />
                             </Link>
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
-                  </PostItem>
+                  </C.PostItem>
                 )
             )}
-        </UserFeed>
-      </Container>
+        </C.UserFeed>
+      </C.Container>
     </>
   );
 };
@@ -385,7 +370,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setNameRedux: (name: string) =>
       dispatch({
@@ -410,4 +395,4 @@ const mapDispachToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

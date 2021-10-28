@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #19181a;
+  background-color: #272727;
   margin: 60px -8px -8px -8px;
   height: 100%;
   min-height: calc(100vh - 60px);
@@ -117,7 +117,7 @@ export const ProfileConfig = styled.div`
   }
 
   .svgConfig {
-    background-color: #ff4d00;
+    background-color: #d95f2a;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -130,10 +130,10 @@ export const ProfileConfig = styled.div`
 `;
 export const PostButtons = styled.div`
   height: 30px;
-  background-color: #ff4d00;
+  background-color: #d95f2a;
   margin: 0 10px;
   display: flex;
-  color: #19181a;
+  color: #272727;
   justify-content: space-around;
   font-size: x-large;
   text-align: center;
@@ -151,8 +151,8 @@ export const PostButtons = styled.div`
     transition: all ease 0.5s;
   }
   .selected {
-    background-color: #19181a;
-    color: #ff4d00;
+    background-color: #272727;
+    color: #d95f2a;
   }
   @media (max-width: 650px) {
     font-size: larger;
@@ -190,12 +190,12 @@ export const ButtonsArea = styled.div`
   margin: 10px;
   background-color: #000;
   border-radius: 10px;
-  border: 1px solid #ff4d00;
+  border: 1px solid #d95f2a;
 `;
 
 export const FollowUnfollowButton = styled.div`
   background-color: #ffffff;
-  color: #ff4d00;
+  color: #d95f2a;
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 3px;

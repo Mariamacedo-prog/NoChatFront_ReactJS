@@ -11,11 +11,24 @@ const appear = keyframes`
   }
 `;
 
+const focusAnimation = keyframes`
+    0% {
+      border: 3px solid #d95f2a;
+    }
+    50% {
+      border: 6px solid #d95f2a;
+      background: #272727;
+    }
+    100% {
+      border: 3px solid #d95f2a;
+    }
+`;
+
 export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
-  background-color: #19181a;
+  background-color: #272727;
   width: 100%;
 
   @media (max-width: 650px) {
@@ -28,7 +41,7 @@ export const Container = styled.div`
 export const FormSide = styled.div`
   width: 55%;
   padding: 20px 0;
-  background-color: #ff4d00;
+  background: linear-gradient(to right, #000 3%, #272727 20%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +49,7 @@ export const FormSide = styled.div`
 
   h2 {
     font-size: 50px;
+    color: #d95f2a;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -49,50 +63,47 @@ export const FormSide = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     animation: ${appear} 3s;
 
     input {
-      background-color: #19181a;
-      border: 1px solid #19181a;
-      height: 30px;
+      background-color: #000;
+      padding-left: 15px;
+      height: 40px;
       margin-bottom: 10px;
       width: 290px;
-      border-radius: 5px;
+      border-radius: 7px 7px 7px 24px;
       transition: 0.5s;
       color: #fff;
-      border: 3px solid #19181a;
+      border: 3px solid #272727;
     }
     svg {
-      margin-right: 10px;
-      color: #fff;
-    }
-    input::placeholder {
-      color: #fff;
+      margin-left: 10px;
+      color: #d95f2a;
     }
 
     input:focus {
-      border: 3px solid #d83600;
+      border: 3px solid #d95f2a;
       outline: 0;
+      animation: ${focusAnimation} 1s;
     }
 
     button {
-      height: 30px;
-      width: 300px;
+      height: 40px;
+      width: 284px;
       background-color: #d83600;
       color: #fff;
       border: none;
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: 7px 7px 7px 24px;
       transition: 0.5s;
     }
     button:disabled {
-      background-color: #a62a00;
+      filter: brightness(0.7);
       cursor: wait;
     }
 
     button:hover {
-      background-color: #a62a00;
+      filter: brightness(0.7);
     }
   }
 
@@ -119,6 +130,7 @@ export const FormSide = styled.div`
   @media (max-width: 650px) {
     width: 100%;
     padding: 0;
+    background: linear-gradient(to left, #272727 10%, #000 99%);
     h2 {
       font-size: x-large;
     }
@@ -127,7 +139,6 @@ export const FormSide = styled.div`
 
 export const Background = styled.div`
   width: 45%;
-  animation: ${appear} 2s;
   flex: 1;
   padding: 20px;
   background: url(${NoChat}) no-repeat center;

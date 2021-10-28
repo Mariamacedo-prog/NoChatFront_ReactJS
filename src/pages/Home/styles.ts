@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  background-color: #19181a;
+  background-color: #272727;
   justify-content: center;
   align-items: center;
   margin-top: 60px;
@@ -45,5 +45,5 @@ export const ButtonsArea = styled.div`
   margin: 10px;
   background-color: #000;
   border-radius: 10px;
-  border: 1px solid #ff4d00;
+  border: 1px solid #d95f2a;
 `;

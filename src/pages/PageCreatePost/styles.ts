@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  background-color: #19181a;
+  background-color: #272727;
   height: calc(100vh - 60px);
   margin-top: 60px;
   width: 100%;
@@ -16,7 +16,7 @@ export const Form = styled.form`
   svg {
     width: 40px;
     height: 40px;
-    background-color: #19181a;
+    background-color: #272727;
     color: #d83600;
     position: absolute;
     cursor: pointer;
@@ -38,7 +38,7 @@ export const Form = styled.form`
       color: #fff;
     }
     :focus {
-      border: 3px solid #19181a;
+      border: 3px solid #272727;
       outline: 0;
     }
   }
@@ -60,7 +60,7 @@ export const Description = styled.textarea`
     color: #fff;
   }
   :focus {
-    border: 3px solid #19181a;
+    border: 3px solid #272727;
     outline: 0;
   }
   @media (max-width: 650px) {
@@ -74,7 +74,7 @@ export const Title = styled.h1`
   padding: 2px;
 `;
 export const CreateButton = styled.button`
-  color: #19181a;
+  color: #272727;
   font-size: larger;
   font-weight: bolder;
   background-color: #fff;
@@ -112,7 +112,7 @@ export const Input = styled.input`
     color: #fff;
   }
   :focus {
-    border: 3px solid #19181a;
+    border: 3px solid #272727;
     outline: 0;
   }
 `;

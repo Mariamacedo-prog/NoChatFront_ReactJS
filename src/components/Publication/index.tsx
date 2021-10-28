@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import Error from "../../components/Error";
 import useApi from "../../helpers/Api";
-import { Container, DescriptionArea, PostInfo } from "./styles";
+import * as C from "./styles";
 
 interface PublicationProps {
   item: PublicationsType;
@@ -46,10 +46,10 @@ const Publication: React.FC<PublicationProps> = (props) => {
   return (
     <>
       {errors !== "" && <Error error={errors} />}
-      {!available && <DescriptionArea>POST DELETADO</DescriptionArea>}
+      {!available && <C.DescriptionArea>POST DELETADO</C.DescriptionArea>}
       {available && (
         <>
-          <PostInfo>
+          <C.PostInfo>
             <div>
               {props.item.userId === props._id && (
                 <AiFillDelete
@@ -78,15 +78,15 @@ const Publication: React.FC<PublicationProps> = (props) => {
             {props.item.createdAt && (
               <small>{handleDate(props.item.createdAt)}</small>
             )}
-          </PostInfo>
+          </C.PostInfo>
 
-          <DescriptionArea>{props.item.description}</DescriptionArea>
+          <C.DescriptionArea>{props.item.description}</C.DescriptionArea>
           {props.item.image && (
-            <Container>
+            <C.Container>
               <Link to={`/post/${props.item._id}`}>
                 <img src={props.item.image} alt="imagem" />
               </Link>
-            </Container>
+            </C.Container>
           )}
         </>
       )}
@@ -100,8 +100,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Publication);
+export default connect(mapStateToProps, mapDispatchToProps)(Publication);

@@ -4,15 +4,7 @@ import { Dispatch } from "redux";
 import Error from "../../components/Error";
 import useApi from "../../helpers/Api";
 import { AiFillPicture } from "react-icons/ai";
-import {
-  Container,
-  Title,
-  Form,
-  CreateButton,
-  Description,
-  InputFile,
-  Input,
-} from "./styles";
+import * as C from "./styles";
 
 const PageCreatePost = (props: any) => {
   const [errors, setErrors] = useState("");
@@ -80,11 +72,11 @@ const PageCreatePost = (props: any) => {
   };
   return (
     <>
-      <Container>
+      <C.Container>
         {errors !== "" && <Error error={errors} />}
-        <Form onSubmit={handleSubmit}>
+        <C.Form onSubmit={handleSubmit}>
           <label>
-            <Title>Categoria: </Title>
+            <C.Title>Categoria: </C.Title>
             <select onChange={(e) => setCategory(e.target.value)}>
               <option value="publication">Publicação</option>
               <option value="picture">Foto</option>
@@ -102,9 +94,9 @@ const PageCreatePost = (props: any) => {
           )}
           {category !== "article" && (
             <label className="LabelFile">
-              <Title>Escolha uma imagem: </Title>
+              <C.Title>Escolha uma imagem: </C.Title>
               <AiFillPicture />
-              <InputFile
+              <C.InputFile
                 type="file"
                 disabled={disabled}
                 required={category === "picture" ? true : undefined}
@@ -114,8 +106,8 @@ const PageCreatePost = (props: any) => {
           )}
           {category === "article" && (
             <label>
-              <Title>Título: </Title>
-              <Input
+              <C.Title>Título: </C.Title>
+              <C.Input
                 type="text"
                 placeholder="Digite o título do artigo:"
                 maxLength={70}
@@ -128,8 +120,8 @@ const PageCreatePost = (props: any) => {
           )}
 
           <label>
-            <Title>Descrição: </Title>
-            <Description
+            <C.Title>Descrição: </C.Title>
+            <C.Description
               placeholder={`Escreva aqui sua descrição...`}
               disabled={disabled}
               maxLength={category !== "article" ? 400 : undefined}
@@ -138,11 +130,11 @@ const PageCreatePost = (props: any) => {
               required
             />
           </label>
-          <CreateButton type="submit" disabled={disabled}>
+          <C.CreateButton type="submit" disabled={disabled}>
             POSTAR
-          </CreateButton>
-        </Form>
-      </Container>
+          </C.CreateButton>
+        </C.Form>
+      </C.Container>
     </>
   );
 };
@@ -154,8 +146,8 @@ const mapStateToProps = (state: any) => {
     _id: state.user._id,
   };
 };
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(PageCreatePost);
+export default connect(mapStateToProps, mapDispatchToProps)(PageCreatePost);

@@ -6,13 +6,7 @@ import { Dispatch } from "redux";
 import Error from "../../components/Error";
 import useApi from "../../helpers/Api";
 import { AiFillDelete } from "react-icons/ai";
-import {
-  Container,
-  DescriptionArea,
-  PostInfo,
-  ArticleArea,
-  Title,
-} from "./styles";
+import * as C from "./styles";
 
 interface ArticleProps {
   item: PublicationsType;
@@ -50,12 +44,12 @@ const Article: React.FC<ArticleProps> = (props) => {
     return `${day}  ${time}`;
   };
   return (
-    <Container>
+    <C.Container>
       {errors !== "" && <Error error={errors} />}
-      {!available && <DescriptionArea>ARTIGO DELETADO</DescriptionArea>}
+      {!available && <C.DescriptionArea>ARTIGO DELETADO</C.DescriptionArea>}
       {available && (
         <>
-          <PostInfo>
+          <C.PostInfo>
             <div>
               {props.item.userId === props._id && (
                 <AiFillDelete
@@ -86,20 +80,20 @@ const Article: React.FC<ArticleProps> = (props) => {
             {props.item.createdAt && (
               <small>{handleDate(props.item.createdAt)}</small>
             )}
-          </PostInfo>
+          </C.PostInfo>
 
-          <ArticleArea>
+          <C.ArticleArea>
             <div>
-              <Title>{props.item.title}</Title>
+              <C.Title>{props.item.title}</C.Title>
               <Link to={`/post/${props.item._id}`}>
-                <DescriptionArea>{props.item.description}</DescriptionArea>
+                <C.DescriptionArea>{props.item.description}</C.DescriptionArea>
               </Link>
             </div>
             <small>...</small>
-          </ArticleArea>
+          </C.ArticleArea>
         </>
       )}
-    </Container>
+    </C.Container>
   );
 };
 
@@ -109,8 +103,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Article);
+export default connect(mapStateToProps, mapDispatchToProps)(Article);

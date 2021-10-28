@@ -14,18 +14,7 @@ import {
   AiOutlineComment,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import {
-  Container,
-  HeaderProfile,
-  ProfileImage,
-  ProfileConfig,
-  ProfileInfo,
-  PostButtons,
-  UserFeed,
-  PostItem,
-  ButtonsArea,
-  FollowUnfollowButton,
-} from "./styles";
+import * as C from "./styles";
 
 const PageUser = (props: any) => {
   const api = useApi();
@@ -99,9 +88,9 @@ const PageUser = (props: any) => {
 
   return (
     <>
-      <Container>
-        <HeaderProfile>
-          <ProfileImage>
+      <C.Container>
+        <C.HeaderProfile>
+          <C.ProfileImage>
             {user.avatar ? (
               <img
                 src={`${user.avatar}`}
@@ -113,7 +102,7 @@ const PageUser = (props: any) => {
                 alt="Avatar"
               />
             )}
-            <ProfileConfig>
+            <C.ProfileConfig>
               <ul>
                 {user.followings && (
                   <div>
@@ -131,19 +120,19 @@ const PageUser = (props: any) => {
               {user._id !== props._id &&
                 user.followers &&
                 (user.followers.some((item: string) => item === props._id) ? (
-                  <FollowUnfollowButton onClick={unfollowUser}>
+                  <C.FollowUnfollowButton onClick={unfollowUser}>
                     <RiUserUnfollowFill />
                     Unfollow
-                  </FollowUnfollowButton>
+                  </C.FollowUnfollowButton>
                 ) : (
-                  <FollowUnfollowButton onClick={followUser}>
+                  <C.FollowUnfollowButton onClick={followUser}>
                     <RiUserFollowFill />
                     Follow
-                  </FollowUnfollowButton>
+                  </C.FollowUnfollowButton>
                 ))}
-            </ProfileConfig>
-          </ProfileImage>
-          <ProfileInfo>
+            </C.ProfileConfig>
+          </C.ProfileImage>
+          <C.ProfileInfo>
             {user.name && (
               <h1 className={user.name.length > 20 ? "bigName" : undefined}>
                 {user.name}
@@ -158,9 +147,9 @@ const PageUser = (props: any) => {
             )}
 
             <div>{user.description && <p>{user.description}</p>}</div>
-          </ProfileInfo>
-        </HeaderProfile>
-        <PostButtons>
+          </C.ProfileInfo>
+        </C.HeaderProfile>
+        <C.PostButtons>
           <div
             onClick={() => setCategory("publication")}
             className={category === "publication" ? "selected" : undefined}
@@ -179,20 +168,20 @@ const PageUser = (props: any) => {
           >
             Artigos
           </div>
-        </PostButtons>
+        </C.PostButtons>
 
-        <UserFeed>
+        <C.UserFeed>
           {errors !== "" && <Error error={errors} />}
           {loading && <p>Loading...</p>}
           {publications &&
             publications.map(
               (item: PublicationsType) =>
                 item.category === category && (
-                  <PostItem key={item._id}>
+                  <C.PostItem key={item._id}>
                     {item.category === "publication" && (
                       <>
                         <Publication item={item} />
-                        <ButtonsArea>
+                        <C.ButtonsArea>
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -212,13 +201,13 @@ const PageUser = (props: any) => {
                           <Button>
                             <AiOutlineShareAlt />
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
                     {item.category === "article" && (
                       <>
                         <Article item={item} />
-                        <ButtonsArea>
+                        <C.ButtonsArea>
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -238,14 +227,14 @@ const PageUser = (props: any) => {
                           <Button>
                             <AiOutlineShareAlt />
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
 
                     {item.category === "picture" && (
                       <>
                         <Publication item={item} />
-                        <ButtonsArea className="picture">
+                        <C.ButtonsArea className="picture">
                           <Button
                             classes={
                               item.like.some((item) => item === props._id)
@@ -262,14 +251,14 @@ const PageUser = (props: any) => {
                               <AiOutlineComment />
                             </Link>
                           </Button>
-                        </ButtonsArea>
+                        </C.ButtonsArea>
                       </>
                     )}
-                  </PostItem>
+                  </C.PostItem>
                 )
             )}
-        </UserFeed>
-      </Container>
+        </C.UserFeed>
+      </C.Container>
     </>
   );
 };
@@ -287,8 +276,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(PageUser);
+export default connect(mapStateToProps, mapDispatchToProps)(PageUser);

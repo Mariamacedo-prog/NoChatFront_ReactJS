@@ -90,7 +90,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setName: (name: string) =>
       dispatch({
@@ -135,4 +135,4 @@ const mapDispachToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Routes);
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);

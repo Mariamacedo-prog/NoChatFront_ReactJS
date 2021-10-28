@@ -7,18 +7,7 @@ import useApi from "../../helpers/Api";
 import Button from "../../components/Button";
 import Error from "../../components/Error";
 import { PublicationsType } from "../../reducers/UserReducer";
-import {
-  ButtonsArea,
-  PublicationImage,
-  Leftside,
-  Rightside,
-  CommentList,
-  CommentItem,
-  DescriptionArea,
-  ContentArea,
-  TitleArea,
-  PostInfo,
-} from "./styles";
+import * as C from "./styles";
 
 interface PropsData {
   _id: string;
@@ -63,7 +52,6 @@ const PagePublication = (props: PropsData) => {
       }
     }
   };
-
   const handleDate = (date: string) => {
     const newDate = new Date(date);
     const day = `${newDate.getDate()}/${
@@ -76,7 +64,6 @@ const PagePublication = (props: PropsData) => {
     const time = `${newDate.getHours()}:${minutes}`;
     return `${day}  ${time}`;
   };
-
   const handleComment = async (id: string) => {
     setErrors("");
     const json = await api.createComment(msg, id);
@@ -102,23 +89,23 @@ const PagePublication = (props: PropsData) => {
   };
 
   return (
-    <ContentArea>
+    <C.ContentArea>
       {publication.image && publication.category !== "article" && (
-        <Leftside>
-          <PublicationImage
+        <C.LeftSide>
+          <C.PublicationImage
             src={publication.image}
             alt={`publicação de ${publication.username}`}
           />
-        </Leftside>
+        </C.LeftSide>
       )}
 
       {loading && <p>Loading...</p>}
 
-      <Rightside className={!publication.image ? "noImage" : undefined}>
+      <C.RightSide className={!publication.image ? "noImage" : undefined}>
         {errors !== "" && <Error error={errors} />}
         {publication.description && (
-          <DescriptionArea>
-            <PostInfo>
+          <C.DescriptionArea>
+            <C.PostInfo>
               {publication.avatar ? (
                 <img
                   src={publication.avatar}
@@ -133,16 +120,18 @@ const PagePublication = (props: PropsData) => {
               <Link to={`/user/${publication.username}`}>
                 {publication.username}
               </Link>
-            </PostInfo>
-            {publication.title && <TitleArea>{publication.title}</TitleArea>}
+            </C.PostInfo>
+            {publication.title && (
+              <C.TitleArea>{publication.title}</C.TitleArea>
+            )}
             <p>{publication.description}</p>
-          </DescriptionArea>
+          </C.DescriptionArea>
         )}
 
-        <CommentList>
+        <C.CommentList>
           {publication.comment &&
             publication.comment.map((comment) => (
-              <CommentItem key={comment.id} className={comment.type}>
+              <C.CommentItem key={comment.id} className={comment.type}>
                 <div>
                   {comment.author === props._id && comment.type === "text" && (
                     <AiFillDelete onClick={() => deleteComment(comment.id)} />
@@ -165,11 +154,11 @@ const PagePublication = (props: PropsData) => {
                 </div>
 
                 <p>{comment.msg}</p>
-              </CommentItem>
+              </C.CommentItem>
             ))}
-        </CommentList>
+        </C.CommentList>
         {!loading && publication && (
-          <ButtonsArea>
+          <C.ButtonsArea>
             <Button
               classes={
                 publication.like.some((item) => item === props._id)
@@ -191,10 +180,10 @@ const PagePublication = (props: PropsData) => {
             <button onClick={() => handleComment(publication._id)}>
               Enviar
             </button>
-          </ButtonsArea>
+          </C.ButtonsArea>
         )}
-      </Rightside>
-    </ContentArea>
+      </C.RightSide>
+    </C.ContentArea>
   );
 };
 
@@ -211,8 +200,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispachToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(PagePublication);
+export default connect(mapStateToProps, mapDispatchToProps)(PagePublication);

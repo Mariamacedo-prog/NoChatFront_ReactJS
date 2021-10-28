@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: flex-end;
   display: flex;
   margin: -8px;
-  background-color: #19181a;
+  background-color: #272727;
   background-image: url(${Image404});
   background-position: right;
   background-size: contain;
