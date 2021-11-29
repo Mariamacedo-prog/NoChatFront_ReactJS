@@ -49,7 +49,7 @@ export const ListChatItem = styled.li`
       color: #60574a;
       overflow: hidden;
       position: relative;
-      max-width: 350px;
+      max-width: 300px;
       height: 20px;
     }
     p::before {
@@ -92,6 +92,7 @@ export const ListChatContainer = styled.ul`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  height: 100%;
   list-style: none;
   ::-webkit-scrollbar {
     width: 5px;
@@ -207,10 +208,14 @@ export const MessageItem = styled.li`
   }
   small {
     color: #ddd;
+    font-size: 10px;
+    padding-top: 18px;
+    padding-left: 5px;
     align-self: flex-end;
   }
   svg {
     cursor: pointer;
+    width: 12px;
   }
   @media (max-width: 650px) {
     p {
@@ -237,18 +242,9 @@ export const InputMessageArea = styled.div`
     background-color: #000;
   }
 
-  button {
-    height: 60px;
-    background-color: #d95f2a;
+  .sendMessage {
     color: #fff;
-    border: none;
-    margin: 3px;
-    border-radius: 2px;
-    padding: 3px;
+    margin: 10px;
     cursor: pointer;
-    transition: 1s;
-    :hover {
-      background-color: #a62a00;
-    }
   }
 `;

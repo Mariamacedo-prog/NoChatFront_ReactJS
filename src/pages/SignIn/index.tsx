@@ -38,6 +38,8 @@ const SignIn: React.FC = () => {
 
     if (json.error) {
       setErrors(json.error);
+      setDisabled(false);
+      return;
     } else {
       doLogin(json.token);
     }

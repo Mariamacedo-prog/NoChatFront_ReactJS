@@ -6,14 +6,13 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AiOutlineArrowLeft, AiFillDelete } from "react-icons/ai";
+import {
+  AiOutlineArrowLeft,
+  AiFillDelete,
+  AiOutlineSend,
+} from "react-icons/ai";
 import io from "socket.io-client";
 import * as C from "./styles";
-
-type socketUsers = {
-  userId: string;
-  socketId: string;
-};
 interface MessageData {
   author: string;
   date: string;
@@ -59,7 +58,8 @@ const Chat: React.FC = (props: any) => {
   }, [errors]);
 
   useEffect(() => {
-    socket.current = io("https://nochat-api.herokuapp.com");
+    //socket.current = io("https://nochat-api.herokuapp.com");
+    socket.current = io("http://localhost");
   }, [chat, props._id, message]);
 
   useEffect(() => {
@@ -250,15 +250,14 @@ const Chat: React.FC = (props: any) => {
                   onKeyUp={handleInputKeyUp}
                 />
 
-                <button
+                <AiOutlineSend
+                  className="sendMessage"
                   onClick={() =>
                     handleMessage(
                       chat.chat.users.filter((item) => item !== props._id)[0]
                     )
                   }
-                >
-                  Enviar
-                </button>
+                />
               </C.InputMessageArea>
             </C.ChatContainer>
           )}

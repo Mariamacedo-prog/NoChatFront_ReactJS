@@ -76,6 +76,7 @@ const PageCreatePost = (props: any) => {
 
       if (!json.error) {
         window.location.href = "/";
+
         return;
       } else {
         setErrors(json.error);

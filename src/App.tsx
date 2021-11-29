@@ -8,7 +8,7 @@ import "./App.css";
 
 const App = () => {
   let logged = isLogged();
-  const [openChat, setOpenChat] = React.useState(true);
+  const [openChat, setOpenChat] = React.useState(false);
 
   return (
     <Router>

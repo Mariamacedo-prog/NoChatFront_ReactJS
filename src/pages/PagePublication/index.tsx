@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { AiOutlineHeart, AiFillDelete } from "react-icons/ai";
+import { AiOutlineHeart, AiFillDelete, AiOutlineSend } from "react-icons/ai";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import useApi from "../../helpers/Api";
@@ -204,9 +204,10 @@ const PagePublication = (props: PropsData) => {
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
             />
-            <button onClick={() => handleComment(publication._id)}>
-              Enviar
-            </button>
+            <AiOutlineSend
+              className="sendButton"
+              onClick={() => handleComment(publication._id)}
+            />
           </C.ButtonsArea>
         )}
       </C.RightSide>

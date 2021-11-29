@@ -8,6 +8,7 @@ export const ContentArea = styled.div`
   color: #fff;
   justify-content: center;
   overflow-y: hidden;
+  width: 100%;
   .noImage {
     width: 100%;
   }
@@ -28,6 +29,7 @@ export const ContentArea = styled.div`
 export const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 60%;
   @media (max-width: 650px) {
     width: auto;
@@ -36,10 +38,12 @@ export const LeftSide = styled.div`
 export const PublicationImage = styled.img`
   border-radius: 10px;
   border: 1px solid #d95f2a;
+  max-width: 600px;
+  height: 100%;
 `;
 export const RightSide = styled.div`
   display: flex;
-  width: 30%;
+  width: 40%;
   flex-direction: column;
   @media (max-width: 650px) {
     width: auto;
@@ -138,13 +142,9 @@ export const ButtonsArea = styled.div`
     background-color: #000;
   }
 
-  button {
-    background-color: #d95f2a;
+  .sendButton {
     color: #fff;
-    border: none;
-    margin: 3px;
-    border-radius: 2px;
-    padding: 3px;
+    margin: 10px;
   }
   @media (max-width: 1050px) {
     input {
