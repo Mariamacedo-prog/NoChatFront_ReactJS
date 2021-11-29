@@ -1,3 +1,5 @@
+Entre para testar o projeto em andamento: https://nochat.netlify.app
+
 # Getting Started
 
 ### `npm install`
