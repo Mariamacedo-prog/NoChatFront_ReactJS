@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 import qs from "qs";
 
-const BASEAPI = "https://nochat-api.herokuapp.com";
+const BASEAPI = "https://no-chat-back-node-js.vercel.app";
 //const BASEAPI = "http://localhost";
 
 type PublicationFilter = {
