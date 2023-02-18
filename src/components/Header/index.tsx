@@ -4,8 +4,12 @@ import {
   AiOutlineSearch,
   AiOutlineHome,
   AiOutlineLogout,
-  AiFillWechat,
+  AiFillWechat
 } from "react-icons/ai";
+
+import {GiPhotoCamera} from "react-icons/gi";
+import {IoIosLogOut, IoIosChatboxes} from "react-icons/io";
+
 import { BsFilePpt, BsChatLeft } from "react-icons/bs";
 import { doLogout } from "../../helpers/Auth";
 import NoChat from "../../assets/nochat-logo.png";
@@ -179,12 +183,12 @@ const Header = (props: any) => {
               </li>
               <li>
                 <Link to="/addpost">
-                  <BsFilePpt />
+                  <GiPhotoCamera />
                 </Link>
                 <p>Publicar</p>
               </li>
               <li>
-                <BsChatLeft onClick={openingChatArea} />
+                <IoIosChatboxes onClick={openingChatArea} />
                 <p>Chat</p>
               </li>
               <li>
@@ -200,16 +204,13 @@ const Header = (props: any) => {
                       alt="Avatar"
                     />
                   )}
-                  <p>Meu perfil</p>
                 </Link>
+                <p>Perfil</p>
               </li>
             </ul>
           </C.Menu>
           <C.Button onClick={handleLogout}>
-            <p>
-              <AiOutlineLogout />
-              SAIR
-            </p>
+           <p> <IoIosLogOut  />  </p> 
           </C.Button>
         </C.MenuArea>
       </C.Container>

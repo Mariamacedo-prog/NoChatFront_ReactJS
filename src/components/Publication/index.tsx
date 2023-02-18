@@ -125,6 +125,8 @@ const Publication: React.FC<PublicationProps> = (props) => {
 const mapStateToProps = (state: any) => {
   return {
     _id: state.user._id,
+    avatar: state.user.avatar,
+    name: state.user.name,
   };
 };
 

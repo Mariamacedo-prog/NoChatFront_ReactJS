@@ -58,8 +58,8 @@ const Chat: React.FC = (props: any) => {
   }, [errors]);
 
   useEffect(() => {
-    //socket.current = io("https://nochat-api.herokuapp.com");
-    socket.current = io("http://localhost");
+   socket.current = io("https://no-chat-back-node-js.vercel.app");
+     //socket.current = io("http://localhost");
   }, [chat, props._id, message]);
 
   useEffect(() => {

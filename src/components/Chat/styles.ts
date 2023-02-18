@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 50%;
+  width: 30%;
+  position: fixed;
   height: calc(100vh - 60px);
   background-color: #272727;
   border-right: 4px solid #d95f2a;
@@ -30,7 +31,8 @@ export const ListChatItem = styled.li`
   transition: all ease 1s;
   padding: 5px;
   img {
-    padding: 0 10px;
+    margin: 0 10px;
+    padding: 0 ;
     width: 50px;
     height: 50px;
     border-radius: 50%;

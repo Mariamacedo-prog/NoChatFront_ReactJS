@@ -75,11 +75,11 @@ export const Menu = styled.nav`
   li {
     max-width: 25%;
     margin-left: 50px;
-    align-items: center;
     color: #d95f2a;
+    display: flex;
+    align-items: center;
     justify-content: center;
 
-    display: flex;
     flex-direction: column;
     a {
       color: #d95f2a;
@@ -95,9 +95,11 @@ export const Menu = styled.nav`
     p {
       color: #d95f2a;
       font-size: 16px;
-      font-weight: bolder;
+
     }
     img {
+      padding: 0;
+      margin:0 ;
       border-radius: 50%;
       height: 30px;
       width: 30px;
@@ -134,7 +136,7 @@ export const Menu = styled.nav`
 `;
 
 export const Button = styled.button`
-  height: 60px;
+  height: 80px;
   width: 300px;
   border: none;
   background-color: transparent;
@@ -155,8 +157,8 @@ export const Button = styled.button`
     color: #fff;
   }
   svg {
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
   }
 
   @media (max-width: 650px) {

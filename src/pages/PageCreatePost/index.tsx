@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useApi from "../../helpers/Api";
 import { AiFillPicture } from "react-icons/ai";
+import { MdPhotoLibrary } from "react-icons/md";
 import * as C from "./styles";
 
 const PageCreatePost = (props: any) => {
@@ -104,41 +105,36 @@ const PageCreatePost = (props: any) => {
           />
         )}
         <C.Form onSubmit={handleSubmit}>
-          <label>
-            <C.Title>Categoria: </C.Title>
-            <select onChange={(e) => setCategory(e.target.value)}>
-              <option value="publication">Publicação</option>
-              <option value="picture">Foto</option>
-              <option value="article">Artigo</option>
-            </select>
-          </label>
-          {category === "article" && (
-            <p> * Titulo e descrição são itens obrigatórios!</p>
-          )}
-          {category === "picture" && (
-            <p> * Foto e descrição são itens obrigatório!</p>
-          )}
-          {category === "publication" && (
-            <p> * Descrição é obrigatória! Foto é opcional...</p>
-          )}
-          {category !== "article" && (
-            <label className="LabelFile">
-              <C.Title>Escolha uma imagem: </C.Title>
-              <AiFillPicture />
-              <C.InputFile
-                type="file"
-                disabled={disabled}
-                required={category === "picture" ? true : undefined}
-                ref={refFile}
+          <C.UserDiv>
+          {props.avatar !== "" ? (
+              <img
+                src={`${props.avatar}`}
+                alt={`foto de perfil de ${props.name}`}
               />
-            </label>
-          )}
+            ) : (
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt="Avatar"
+              />
+            )}
+            <p>
+              {props.name}
+   
+                {/* <C.Title>Categoria: </C.Title> */}
+                <select className="inputCategory" onChange={(e) => setCategory(e.target.value)}>
+                  <option value="publication"> Publicação</option>
+                  <option value="picture">Foto</option>
+                  <option value="article">Artigo</option>
+                </select>
+         
+            </p>
+          </C.UserDiv>
+
           {category === "article" && (
             <label>
-              <C.Title>Título: </C.Title>
               <C.Input
                 type="text"
-                placeholder="Digite o título do artigo:"
+                placeholder="Título: "
                 maxLength={70}
                 disabled={disabled}
                 value={title}
@@ -147,9 +143,20 @@ const PageCreatePost = (props: any) => {
               />
             </label>
           )}
+          {category !== "article" && (
+            <label className="LabelFile">
+              <MdPhotoLibrary className="pictureSvg" />
+              <C.InputFile
+                type="file"
+                disabled={disabled}
+                required={category === "picture" ? true : undefined}
+                ref={refFile}
+              />
+            </label>
+          )}
+
 
           <label>
-            <C.Title>Descrição: </C.Title>
             <C.Description
               placeholder={`Escreva aqui sua descrição...`}
               disabled={disabled}
@@ -159,6 +166,16 @@ const PageCreatePost = (props: any) => {
               required
             />
           </label>
+
+          {category === "article" && (
+            <p> * Titulo e descrição são itens obrigatórios!</p>
+          )}
+          {category === "picture" && (
+            <p> * Foto e descrição são itens obrigatório!</p>
+          )}
+          {category === "publication" && (
+            <p> * Descrição é obrigatória! Foto é opcional...</p>
+          )}
           <C.CreateButton type="submit" disabled={disabled}>
             POSTAR
           </C.CreateButton>
@@ -171,6 +188,7 @@ const PageCreatePost = (props: any) => {
 const mapStateToProps = (state: any) => {
   return {
     name: state.user.name,
+    avatar: state.user.avatar,
     email: state.user.email,
     _id: state.user._id,
   };
