@@ -118,7 +118,7 @@ export const ChatConversation = styled.div`
   transition: all ease 1s;
   @media (max-width: 750px) {
     width: 100%;
-    height: calc(100% - 92px);
+    height: calc(100vh - 140px);
     top: 92px;
   }
 `;
@@ -142,7 +142,7 @@ export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 650px) {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 140px);
     width: 100%;
   }
 `;
