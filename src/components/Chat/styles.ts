@@ -142,7 +142,7 @@ export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 650px) {
-    height: calc(100vh - 92px);
+    height: calc(100vh - 120px);
     width: 100%;
   }
 `;
