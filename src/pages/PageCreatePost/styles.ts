@@ -8,6 +8,10 @@ export const Container = styled.div`
   margin-top: 60px;
   width: 100%;
   color: #fff;
+
+  @media (max-width: 750px) {
+    margin-top: 92px;
+  }
 `;
 
 export const Form = styled.form`
@@ -110,8 +114,8 @@ export const CreateButton = styled.button`
 `;
 
 export const InputFile = styled.input`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   color: transparent;
 `;
 

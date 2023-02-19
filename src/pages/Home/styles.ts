@@ -10,6 +10,10 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
   color: #fff;
+
+  @media (max-width: 750px) {
+    margin-top: 92px;
+  }
 `;
 
 export const UserFeed = styled.div`

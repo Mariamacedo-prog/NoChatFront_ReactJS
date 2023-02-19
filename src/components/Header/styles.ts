@@ -23,7 +23,7 @@ export const Container = styled.div`
     width: 50px;
     margin-left: 15px;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     height: 92px;
     flex-direction: column;
     align-items: stretch;
@@ -54,7 +54,7 @@ export const Search = styled.div`
     outline: 0;
     color: #d95f2a;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     width: 80vw;
     height: 35px;
     input {
@@ -118,7 +118,7 @@ export const Menu = styled.nav`
     }
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     flex: 1;
     li {
       p {
@@ -130,6 +130,12 @@ export const Menu = styled.nav`
       }
       svg:hover {
         color: #d95f2a;
+      }
+    }
+
+    #homeMenuButton {
+      a{
+        margin-left:10px ;
       }
     }
   }
@@ -161,7 +167,7 @@ export const Button = styled.button`
     width: 30px;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     width: 100px;
     p {
       font-size: medium;
@@ -245,7 +251,7 @@ export const SearchArea = styled.div`
     margin-top: 10px;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     width: 300px;
     height: 250px;
     left: auto;
@@ -280,4 +286,8 @@ export const MenuArea = styled.nav`
   flex: 1;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 750px) {
+    margin-top: -15px;
+  }
 `;

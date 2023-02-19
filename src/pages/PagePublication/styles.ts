@@ -21,7 +21,8 @@ export const ContentArea = styled.div`
       color: #d95f2a;
     }
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
+    margin-top: 92px;
     flex-direction: column;
     height: auto;
   }

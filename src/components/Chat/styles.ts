@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 30%;
+  z-index: 50;
   position: fixed;
   height: calc(100vh - 60px);
   background-color: #272727;
@@ -15,7 +16,7 @@ export const Container = styled.div`
   .closed {
     margin-left: -800px;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     width: 100%;
     margin-top: 92px;
     height: calc(100vh - 92px);

@@ -9,6 +9,9 @@ export const Container = styled.div`
   min-height: calc(100vh - 60px);
   color: #fff;
   width: 100%;
+  @media (max-width: 750px) {
+    margin-top: 92px;
+  }
 `;
 export const HeaderProfile = styled.div`
   background-color: #000;

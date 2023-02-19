@@ -73,6 +73,10 @@ const Header = (props: any) => {
     setTimeout(() => setOpen(false), 500);
   };
 
+  const closingChat = () => {
+    props.setOpenChat(false)
+  };
+
   const openingChatArea = () => {
     if (props.openChat === true) {
       props.setOpenChat(false);
@@ -176,13 +180,13 @@ const Header = (props: any) => {
           <C.Menu>
             <ul>
               <li id="homeMenuButton">
-                <Link to="/">
+                <Link to="/" onClick={closingChat}>
                   <AiOutlineHome />
                 </Link>
                 <p>Home</p>
               </li>
               <li>
-                <Link to="/addpost">
+                <Link to="/addpost" onClick={closingChat}>
                   <GiPhotoCamera />
                 </Link>
                 <p>Publicar</p>
@@ -192,7 +196,7 @@ const Header = (props: any) => {
                 <p>Chat</p>
               </li>
               <li>
-                <Link to="/profile">
+                <Link to="/profile" onClick={closingChat}>
                   {props.avatar !== "" ? (
                     <img
                       src={`${props.avatar}`}
